@@ -1,0 +1,14 @@
+---
+title: "Czech Vegetation Database"
+---
+
+This is a website for the study materials related to the courses on data analysis at the [Department of Botany and Zoology](https://botzool.sci.muni.cz), Faculty of Science, Masaryk University.
+
+
+Moreover, this website contains guidelines for the use of AI in ecology.
+
+### Website Navigation
+
+-   [About](index.qmd)
+-   [Data availability](DataAvailability/data_availability.qmd)
+-   [Data processing](DataProcessing/data_processing.qmd)

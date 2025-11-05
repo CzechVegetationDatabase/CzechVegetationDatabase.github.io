@@ -1,0 +1,59 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Czech Vegetation Database"
+
+  page-footer:
+    right: "This page is built with [Quarto](https://quarto.org/)."
+
+  sidebar:
+    pinned: true
+    align: center
+    style: "docked"
+    search: true
+    logo: ubz_logo_eng_2barvy.jpg
+    logo-height: 50px
+    logo-alt: "Botzool Logo"
+    collapse-level: 2
+    contents:
+
+      - section: "About"
+        href: index.qmd
+        contents:
+        - text: "Current state"
+          href: current_state.qmd
+        - text: "Turboveg for Windows"
+          href: turboveg_windows.qmd
+        - text: 'Acknowledgements'
+          href: acknowledgements.qmd
+
+      - section: "Data availability"
+        href: DataAvailability/data_availability.qmd
+        contents:
+          - text: "CzechVeg-Open"
+            href: DataAvailability/czech_veg_open.qmd
+          - text: "CzechVeg-Open-Strat"
+            href: DataAvailability/czech_veg_open_strat.qmd
+
+      - section: "Data processing"
+        href: DataProcessing/data_processing.qmd
+        contents:
+          - text: "Turboveg to R"
+            href: DataProcessing/turboveg_r.qmd
+          - text: "Basic data analyses"
+            href: DataProcessing/basic_analyses.qmd
+          - text: "Export to other formats"
+            href: DataProcessing/export.qmd
+          - text: 'Data stratification'
+            href: DataProcessing/data_stratification.qmd
+          - text: 'Export to GBIF'
+            href: DataProcessing/export_gbif.qmd
+
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+
