@@ -22,12 +22,14 @@ website:
       - section: "About"
         href: index.qmd
         contents:
+        - text: "Introduction"
+          href: About/introduction.qmd
         - text: "Current state"
-          href: current_state.qmd
+          href: About/current_state.qmd
         - text: "Turboveg for Windows"
-          href: turboveg_windows.qmd
+          href: About/turboveg_windows.qmd
         - text: 'Acknowledgements'
-          href: acknowledgements.qmd
+          href: About/acknowledgements.qmd
 
       - section: "Data availability"
         href: DataAvailability/data_availability.qmd
