@@ -1,5 +1,355 @@
 ---
-title: "acknowledgements"
+title: "Acknowledgements"
 format: html
 ---
+We thank all the contributors of the Czech National Phytosociological Database:
 
+:::::: {layout-ncol="3"}
+::: column
+-   Irena Axmanová (Veselá)
+
+-   Lucie Benediktová
+
+-   Eliška Blažejová (Horodyská)
+
+-   Denisa Blažková
+
+-   Karel Boublík
+
+-   Kateřina Bubíková
+
+-   Lucia Cachovanová
+
+-   Jaroslava Cieslarová
+
+-   David Cigánek
+
+-   Šárka Cimalová
+
+-   Jaroslav Čáp
+
+-   Alžběta Čejková
+
+-   Barbora Čepelová
+
+-   Martin Černý
+
+-   Tomáš Černý
+
+-   Pavel Daněk
+
+-   Jiří Danihelka
+
+-   Alice Dingová
+
+-   Daniel Dítě
+
+-   Jan Divíšek
+
+-   Ctibor Dolejší
+
+-   Jana Ďoubalová
+
+-   Jan Douda
+
+-   Pavel Dřevojan
+
+-   Lydie Dudová (Navrátilová)
+
+-   Martin Duchoslav
+
+-   Helena Dušková
+
+-   Jana Dvořáková
+
+-   Libor Ekrt
+
+-   Viktoria Eltsova
+
+-   Martina Fabšičová
+
+-   Karel Fajmon
+
+-   Zuzana Fajmonová (Rozbrojová)
+
+-   Petr Filippov
+
+-   Jarmila Filippovová
+
+-   Zuzana Fronková
+
+-   Jiří Galda
+
+-   Michal Gerža
+
+-   Marek Gonda
+
+-   Tomáš Grulich
+
+-   Michal Hájek
+
+-   Petra Hájková
+
+-   Jana Halúzová
+
+-   Petra Hanáková
+
+-   Handrij Härtel
+
+-   Helena Havránková
+
+-   Radim Hédl
+
+-   Monika Hejdová
+
+-   Aleš Hoffmann
+
+-   Dana Holubová (Michalcová)
+
+-   Viera Horáková
+
+-   Lucie Hradilová
+
+-   Richard Hrivnák
+
+-   Zdenka Hroudová
+
+-   Jaroslav Hruban
+
+-   Monika Hrubanová (Dršková)
+
+-   Jindřich Chlapek
+:::
+
+::: column
+-   Markéta Chudomelová
+
+-   Kryštof Chytrý
+
+-   Ivan Jindra
+
+-   Martin Jiroušek
+
+-   Jana Jiroušková (Božková)
+
+-   Blanka Jírů
+
+-   Tereza Juřenová (Koubková)
+
+-   Jan Juřica
+
+-   Michal Juříček
+
+-   Jiří Juřička
+
+-   Kamila Juřičková
+
+-   Veronika Kalníková
+
+-   Veronika Kalusová
+
+-   Zdeněk Kaplan
+
+-   Katrin Karimová
+
+-   Petr Karlík
+
+-   Alexandra Klaudisová
+
+-   Leoš Klimeš
+
+-   Ilona Knollová (Kuželová)
+
+-   Martin Kočí
+
+-   František Krahulec
+
+-   Lucie Kratochvílová
+
+-   Zdeněk Kropáč
+
+-   Pavel Křížek
+
+-   Tomáš Kučera
+
+-   Anna Kulíková
+
+-   Petr Kuneš
+
+-   Jana Kůrová
+
+-   Josef Kutlvašr
+
+-   Jitka Laburdová
+
+-   Flavia Landucci
+
+-   Deana Láníková (Simonová)
+
+-   Martin Lepší
+
+-   Jarmila Lorencová (Urbánková)
+
+-   Zdeňka Lososová
+
+-   Hana Lukšíková
+
+-   Pavel Lustyk
+
+-   Samuel Lvončík
+
+-   Martina Macků (Nejezchlebová)
+
+-   Michal Mazák
+
+-   Kristina Merunková
+
+-   Zuzana Myšková
+
+-   Tereza Náhlíková
+
+-   Jana Navrátilová
+
+-   Jiří Němec
+
+-   Zdenka Neuhäuslová
+
+-   Jana Nová
+
+-   Jan Novák
+
+-   Pavel Novák
+
+-   Ivan Ostrý
+
+-   Marcela Paloudová
+
+-   Petra Pavlíčková
+
+-   Sylvie Pecháčková
+
+-   Jan Pergl
+
+-   Tomáš Peterka
+
+-   Michaela Petrová
+
+-   Petr Petřík
+:::
+
+::: column
+-   Kateřina Pišťková
+
+-   Zuzana Plesková
+
+-   Marie Popelářová
+
+-   Jan Prančl
+
+-   Zdenka Preislerová (Otýpková)
+
+-   Helena Prokešová
+
+-   Petr Pyšek
+
+-   Marie Rafajová
+
+-   Frank Richter
+
+-   Ludmila Rivolová
+
+-   Jan Roleček
+
+-   Romana Roučková
+
+-   Jiří Rozehnal
+
+-   Eva Rozehnalová
+
+-   Marcela Řezníčková
+
+-   Jiří Sádlo
+
+-   Vojtěch Sedláček
+
+-   Hana Sekerková
+
+-   Martina Sojneková
+
+-   Zdeněk Soldán
+
+-   Zbyněk Sovík
+
+-   Lenka Sovíková
+
+-   Veronika Srnková
+
+-   Lenka Staňková
+
+-   Tomáš Svačina
+
+-   Milan Šenkýř
+
+-   Anna Šímová
+
+-   Petr Šmarda
+
+-   Eva Šmerdová (Hettenbergerová)
+
+-   Markéta Špelinová
+
+-   Petra Štěpánková
+
+-   Jitka Štěrbová (Effmertová)
+
+-   Kateřina Šumberová
+
+-   Markéta Táborská
+
+-   Přemysl Tajek
+
+-   Lubomír Tichý
+
+-   Jana Tkačíková
+
+-   Adam Trčka
+
+-   Martin Večeřa
+
+-   Adam Veleba
+
+-   Jiří Velebil
+
+-   Jiří Vicherek
+
+-   Ondřej Vild
+
+-   Karla Vincenecová
+
+-   Richard Višňák
+
+-   Michaela Vítková
+
+-   Pavla Vlčková
+
+-   Martin Vojík
+
+-   Jaroslav Vojta
+
+-   Alena Vydrová
+
+-   Tomáš Vymyslický
+
+-   Petr Vysloužil
+
+-   Tomáš Zedínek
+
+-   David Zelený
+
+-   Iva Zítková
+
+-   Dominik Zukal
+
+-   Kristýna Žáková
+:::
+::::::
