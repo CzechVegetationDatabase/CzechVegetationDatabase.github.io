@@ -208,8 +208,18 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#updates" id="toc-updates" class="nav-link" data-scroll-target="#updates">Updates</a></li>
+  <li><a href="#instructions" id="toc-instructions" class="nav-link" data-scroll-target="#instructions">Instructions</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References:</a></li>
+  <li><a href="#coordinators" id="toc-coordinators" class="nav-link" data-scroll-target="#coordinators">Coordinators</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -234,9 +244,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>The data are stored in the TURBOVEG 2 database management program developed by Stephan Hennekens (<a href="http://onlinelibrary.wiley.com/doi/10.2307/3237010/pdf">Hennekens &amp; Schaminée 2001</a>), which is a European standard software for vegetation-plot databases.</p>
-<p><strong>Installation</strong></p>
+<section id="installation" class="level3">
+<h3 class="anchored" data-anchor-id="installation">Installation</h3>
 <p>If you are interested in the Czech version of Turboveg, contact Ilona Knollová (📧 <a href="mailto:ikuzel@sci.muni.cz">ikuzel@sci.muni.cz</a>) or Milan Chytrý (📧 <a href="mailto:chytry@sci.muni.cz">chytry@sci.muni.cz</a>). International users have to contact coordinators in their countries or directly Stephan Hennnekens.</p>
-<p><strong>Updates</strong></p>
+</section>
+<section id="updates" class="level3">
+<h3 class="anchored" data-anchor-id="updates">Updates</h3>
 <p>We recommend to check out for updates of Turboveg (<a href="https://www.synbiosys.alterra.nl/turboveg/">here</a>, select „International, single user version“).</p>
 <p>Updates of common databases (for Czech Turboveg only):</p>
 <ul>
@@ -246,13 +259,16 @@ ul.task-list li input[type="checkbox"] {
 <p>Extract the file <em>species.zip</em> and add the folder <em>Czechia_Slovakia_2015</em> to the folder /TURBOWIN/species. In the Turboveg program, assign the species list using <em>modify database attributes</em> to the specific database. Extract the file <em>popup.zip</em> to the folder /TURBOWIN/popup (old files should be rewritten).</p>
 <p><strong>NEW</strong></p>
 <p>11.10.2022 New syntaxon list – The header data field „SYNTAXON“ newly follows syntaxon list according to monography <a href="https://botzool.cz/vegsci/vegetationCR">Vegetace České republiky</a> (Chytrý et al.&nbsp;2007–2013). Original syntaxon list (Moravec et al.&nbsp;1995) is now located in the header data field „Syntaxon MORAVEC“. The change of structure requires downloading new popup list (<a href="https://botzool.cz/vegsci/Prevod_Moravec_VegetaceCR.pdf">details here</a>).</p>
-<p><strong>Instructions</strong></p>
+</section>
+<section id="instructions" class="level3">
+<h3 class="anchored" data-anchor-id="instructions">Instructions</h3>
 <p>Each author may enter phytosociological relevés into the database only under specific numbers assigned by the regional coordinator. If the relevés are taken from published sources, bibliographic references entered should be from within the same numerical range. The list of assigned numbers is <a href="https://botzool.cz/vegsci/rozsahy.pdf">here</a>.</p>
 <p>The collaborators who were not assigned to a range of relevé numbers should code their relevés from No.&nbsp;1. Their relevés will be renumbered by the coordinator once they are sent to the central database.</p>
 <p>Turboveg manual for beginners (in Czech) is <a href="https://botzool.cz/vegsci/manualTv.pdf">here</a>. You can download empty database <a href="https://botzool.cz/vegsci/vzor.zip">here</a> with defined standard header data fields used in the Czech National Phytosociological Database. Restore the empty database to the folder /TURBOWIN/data and rename it.</p>
 <p>Nomenclature of vascular plant species in the Czech National Phytosociological Database follows an updated version of Liste der Gefäßpflanzen Mitteleuropas (Ehrendorfer 1973), prepared by Harald Niklfeld and Walter Gutermann, with additions of species included in Key to the flora of the Czech Republic (Kubát et al.&nbsp;2002). Names of bryophytes and lichens follow Frey et al.&nbsp;(1995) and Pišút et al.&nbsp;(1993). The species list used in the Czech National Phytosociological Database, called Czechia_Slovakia_2015, is identical with that used in the Central Database of Phytosociological Relevés in Slovakia. The list of syntaxa used in the Czech installation of TURBOVEG follows Moravec et al.&nbsp;(1995).</p>
-<p>References:<br>
-</p>
+</section>
+<section id="references" class="level3">
+<h3 class="anchored" data-anchor-id="references">References:</h3>
 <ul>
 <li><p>Chytrý M. (ed.) (2007): Vegetace České republiky 1. Travinná a keříčková vegetace. Vegetation of the Czech Republic 1. Grassland and heathland vegetation. Academia, Praha.</p></li>
 <li><p>Chytrý M. (ed.) (2009): Vegetace České republiky 2. Ruderální, plevelová, skalní a suťová vegetace. Vegetation of the Czech Republic 2. Ruderal, weed, rock and scree vegetation. Academia, Praha.</p></li>
@@ -265,7 +281,9 @@ ul.task-list li input[type="checkbox"] {
 <li><p>Moravec J., Balátová-Tuláčková E., Blažková D., Hadač E., Hejný S., Husák Š., Jeník J., Kolbek J., Krahulec F., Kropáč Z., Neuhäusl R., Rybníček K., Řehořek V. &amp; Vicherek J. (1995): Rostlinná společenstva České republiky a jejich ohrožení (Red list of plant communities of the Czech Republic and their endangerment). Ed. 2. Severočes. Přír., Suppl. 1995: 1–206.</p></li>
 <li><p>Pišút I., Lackovicová A. &amp; Lisická E. (1993): Súpis lišajníkov Slovenska. Biológia, 48, Suppl. 1: 53–98.</p></li>
 </ul>
-<p><strong>Coordinators</strong></p>
+</section>
+<section id="coordinators" class="level3">
+<h3 class="anchored" data-anchor-id="coordinators">Coordinators</h3>
 <ul>
 <li><p>Central coordinators: Ilona Knollová (📧 <a href="mailto:ikuzel@sci.muni.cz">ikuzel@sci.muni.cz</a>) and Milan Chytrý (📧 <a href="mailto:chytry@sci.muni.cz">chytry@sci.muni.cz</a>)</p></li>
 <li><p>Masaryk University and South Moravia: Ilona Knollová (📧 <a href="mailto:ikuzel@sci.muni.cz">ikuzel@sci.muni.cz</a>)</p></li>
@@ -274,6 +292,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

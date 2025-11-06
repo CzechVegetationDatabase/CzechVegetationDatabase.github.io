@@ -3,6 +3,8 @@ title: "Current state"
 format: html
 ---
 
+### Current state
+
 In July 2020 the central database contained more than 113 800 relevés from the territory of the Czech Republic. Most relevés belong to phytosociological classes of broad-leaved forests (*Querco-Fagetea*), meadows and mesic pastures (*Molinio-Arrhenatheretea*), marshes (*Phragmito-Magno-Caricetea*), dry grasslands (*Festuco-Brometea*) and disturbed vegetation of wet to mesic habitats (*Galio-Urticetea*). Phytosociological bibliography of the Czech Republic, with an indication which data sources have been digitized and included in the database, is available [here](http://www.sci.muni.cz/botany/tvref/).
 
 ![](images/clipboard-915050110.png)
@@ -16,6 +18,8 @@ Fig. 2. Number of relevés in the database through time.\
 ![](images/clipboard-4076764738.png)
 
 Fig. 3. Number of relevés in the database by phytosociological classes.\
+
+### Contacts
 
 **MUNI**
 

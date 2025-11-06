@@ -5,11 +5,11 @@ format: html
 
 The data are stored in the TURBOVEG 2 database management program developed by Stephan Hennekens ([Hennekens & Schaminée 2001](http://onlinelibrary.wiley.com/doi/10.2307/3237010/pdf)), which is a European standard software for vegetation-plot databases.
 
-**Installation**
+### Installation
 
 If you are interested in the Czech version of Turboveg, contact Ilona Knollová (📧 [ikuzel\@sci.muni.cz](mailto:ikuzel@sci.muni.cz)) or Milan Chytrý (📧 [chytry\@sci.muni.cz](mailto:chytry@sci.muni.cz)). International users have to contact coordinators in their countries or directly Stephan Hennnekens.
 
-**Updates**
+### Updates
 
 We recommend to check out for updates of Turboveg ([here](https://www.synbiosys.alterra.nl/turboveg/), select „International, single user version“).
 
@@ -25,7 +25,7 @@ Extract the file *species.zip* and add the folder *Czechia_Slovakia_2015* to the
 
 11.10.2022 New syntaxon list – The header data field „SYNTAXON“ newly follows syntaxon list according to monography [Vegetace České republiky](https://botzool.cz/vegsci/vegetationCR) (Chytrý et al. 2007–2013). Original syntaxon list (Moravec et al. 1995) is now located in the header data field „Syntaxon MORAVEC“. The change of structure requires downloading new popup list ([details here](https://botzool.cz/vegsci/Prevod_Moravec_VegetaceCR.pdf)).
 
-**Instructions**
+### Instructions
 
 Each author may enter phytosociological relevés into the database only under specific numbers assigned by the regional coordinator. If the relevés are taken from published sources, bibliographic references entered should be from within the same numerical range. The list of assigned numbers is [here](https://botzool.cz/vegsci/rozsahy.pdf).
 
@@ -35,7 +35,7 @@ Turboveg manual for beginners (in Czech) is [here](https://botzool.cz/vegsci/man
 
 Nomenclature of vascular plant species in the Czech National Phytosociological Database follows an updated version of Liste der Gefäßpflanzen Mitteleuropas (Ehrendorfer 1973), prepared by Harald Niklfeld and Walter Gutermann, with additions of species included in Key to the flora of the Czech Republic (Kubát et al. 2002). Names of bryophytes and lichens follow Frey et al. (1995) and Pišút et al. (1993). The species list used in the Czech National Phytosociological Database, called Czechia_Slovakia_2015, is identical with that used in the Central Database of Phytosociological Relevés in Slovakia. The list of syntaxa used in the Czech installation of TURBOVEG follows Moravec et al. (1995).
 
-References:\
+### References:
 
 -   Chytrý M. (ed.) (2007): Vegetace České republiky 1. Travinná a keříčková vegetace. Vegetation of the Czech Republic 1. Grassland and heathland vegetation. Academia, Praha.
 
@@ -57,7 +57,7 @@ References:\
 
 -   Pišút I., Lackovicová A. & Lisická E. (1993): Súpis lišajníkov Slovenska. Biológia, 48, Suppl. 1: 53–98.
 
-**Coordinators**
+### Coordinators
 
 -   Central coordinators: Ilona Knollová (📧 [ikuzel\@sci.muni.cz](mailto:ikuzel@sci.muni.cz)) and Milan Chytrý (📧 [chytry\@sci.muni.cz](mailto:chytry@sci.muni.cz))
 
