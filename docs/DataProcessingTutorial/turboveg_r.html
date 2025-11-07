@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -208,8 +243,16 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#turboveg-data-format" id="toc-turboveg-data-format" class="nav-link active" data-scroll-target="#turboveg-data-format">1.1 Turboveg data format</a></li>
+  <li><a href="#start-a-project-and-new-script" id="toc-start-a-project-and-new-script" class="nav-link" data-scroll-target="#start-a-project-and-new-script">1.2 Start a project and new script</a></li>
+  <li><a href="#import-env-file-headers" id="toc-import-env-file-headers" class="nav-link" data-scroll-target="#import-env-file-headers">1.3 Import env file = headers</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -233,8 +276,348 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Aim of this tutorial is to show you step by step how to import the data from Turboveg to R and prepare it for further analyses.</p>
+<section id="turboveg-data-format" class="level2">
+<h2 class="anchored" data-anchor-id="turboveg-data-format">1.1 Turboveg data format</h2>
+<p>Turboveg for Windows is a program designed for the storage, selection, and export of vegetation plot data (relevés).The information is divided among several files that are matched by either species ID or releve ID. Within the Turboveg interface, you do not see this structure directly, but you can find it if you look in the <em>Turbowin</em> folder, subfolder <em>data</em> and particular database (see example below).</p>
+<p><img src="images/clipboard-683841843.png" class="img-fluid"></p>
+<p>At some point you need to export the data and process them further. This can be done for example in a specialised software called JUICE, but also directly in R.</p>
+<p>To get Turboveg data to R, you first need to <strong>export the Turboveg database</strong> to a folder where you want to process the data. This step requires <strong>selection of all the plots</strong> you want to export. Alternatively you can access the files directly in the main file in Turbowin, but just to warn you, if you do something wrong here, you might completely loose your data.</p>
+<p><img src="images/clipboard-454329014.png" class="img-fluid"></p>
+</section>
+<section id="start-a-project-and-new-script" class="level2">
+<h2 class="anchored" data-anchor-id="start-a-project-and-new-script">1.2 Start a project and new script</h2>
+<p>In this tutorial we will use tidyverse approach and tidy data rules. If you are interested in more details, check our study materials <a href="https://botzooldataanalysis.github.io/DataManipulationVisualisation/1_introduction.html">here</a>.</p>
+<p>For data processing we recommend to use a <strong>project in R studio</strong>. Directly to the main folder add subfolder “data”, where we will store all the data files. The advantage of using projects, is that you can directly use the same structure and everything should work the same way, with exactly the same paths as below. If you want to train in the same way as is described below, download the zip file at the link here and save it to your computer. Below you can find instructions and individual parts of the code, that you can copy and insert them to your own script (<strong><em>use</em></strong> <strong><em>copy icon in the upper right corner to copy individual code chunks</em></strong>).</p>
+<p>Load libraries and if needed, first install those missing by function <code>install.packages("packagename")</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)   <span class="co">#for reading dbf files </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co">#for data handling, pipes and visualisation </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)    <span class="co">#for data import directly from Excel </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)   <span class="co">#for unified, easy-to-handle format of variable names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="import-env-file-headers" class="level2">
+<h2 class="anchored" data-anchor-id="import-env-file-headers">1.3 Import env file = headers</h2>
+<p><strong>One option</strong> is to check the exported database manually, open the file called <em>tvhabita.dbf</em> in Excel and save it as <em>tvhabita.xlsx</em> or <em>tvhabita.csv</em> (UTF 8 encoded) file into your <em>data</em> folder. Although it includes one more step outside R, it is still rather straightforward and it saves you troubles with different formats in Turboveg and in R (encoding issues).</p>
+<p>You can then import the file as Excel</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/tvhabita.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>or from csv file</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/tvhabita.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 137 Columns: 84
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (13): COUNTRY, COVERSCALE, AUTHOR, SYNTAXON, MOSS_IDENT, LICH_IDENT, REM...
+dbl (45): RELEVE_NR, DATE, SURF_AREA, ALTITUDE, EXPOSITION, INCLINATIO, COV_...
+lgl (26): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, UTM, RESURVEY, FOR_EVA, R...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>If you check the imported names, they are rather difficult to handle.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(env)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "RELEVE_NR"  "COUNTRY"    "REFERENCE"  "TABLE_NR"   "NR_IN_TAB" 
+ [6] "COVERSCALE" "PROJECT"    "AUTHOR"     "DATE"       "SYNTAXON"  
+[11] "SURF_AREA"  "UTM"        "ALTITUDE"   "EXPOSITION" "INCLINATIO"
+[16] "COV_TOTAL"  "COV_TREES"  "COV_SHRUBS" "COV_HERBS"  "COV_MOSSES"
+[21] "COV_LICHEN" "COV_ALGAE"  "COV_LITTER" "COV_WATER"  "COV_ROCK"  
+[26] "TREE_HIGH"  "TREE_LOW"   "SHRUB_HIGH" "SHRUB_LOW"  "HERB_HIGH" 
+[31] "HERB_LOW"   "HERB_MAX"   "CRYPT_HIGH" "MOSS_IDENT" "LICH_IDENT"
+[36] "REMARKS"    "COORD_CODE" "SYNTAX_OLD" "RESURVEY"   "FOR_EVA"   
+[41] "RS_PROJECT" "RS_SITE"    "RS_PLOT"    "RS_OBSERV"  "PLOT_SHAPE"
+[46] "MANIPULATE" "MANIPTYP"   "LOC_METHOD" "DATA_OWNER" "EVA_ACCESS"
+[51] "LONGITUDE"  "LATITUDE"   "PRECISION"  "LOCALITY"   "BIAS_MIN"  
+[56] "BIAS_GPS"   "CEBA_GRID"  "FIELD_NR"   "HABITAT"    "GEOLOGY"   
+[61] "SOIL"       "WATER_PH"   "S_PH_H2O"   "S_PH_KCL"   "S_PH_CACL2"
+[66] "SOIL_PH"    "CONDUCT"    "NR_ORIG"    "HLOUBK_CM"  "DNO"       
+[71] "CEL_PLO_M2" "ZAROST_PLO" "ESY_CODE"   "ESY_NAME"   "COV_WOOD"  
+[76] "SOIL_DPT"   "TRAMPLING"  "PLOT_TYPE"  "RS_CODE"    "RS_PROJTYP"
+[81] "RADIATION"  "HEAT"       "LES"        "NELES"     </code></pre>
+</div>
+</div>
+<p>Therefore we will directly change them to tidy names with the <code>clean_names</code> function from package <code>janitor</code>. Alternative is to rename one by one using e.g.&nbsp;<code>rename</code>, but here we want to save time and effort.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/tvhabita.csv"</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 137 Columns: 84
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (13): COUNTRY, COVERSCALE, AUTHOR, SYNTAXON, MOSS_IDENT, LICH_IDENT, REM...
+dbl (45): RELEVE_NR, DATE, SURF_AREA, ALTITUDE, EXPOSITION, INCLINATIO, COV_...
+lgl (26): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, UTM, RESURVEY, FOR_EVA, R...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 137
+Columns: 84
+$ releve_nr  &lt;dbl&gt; 183111, 183112, 183113, 183114, 183115, 183116, 183117, 183…
+$ country    &lt;chr&gt; "CZ", "CZ", "CZ", "CZ", "CZ", "CZ", "CZ", "CZ", "CZ", "CZ",…
+$ reference  &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ table_nr   &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ nr_in_tab  &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ coverscale &lt;chr&gt; "02", "02", "02", "02", "02", "02", "02", "02", "02", "02",…
+$ project    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ author     &lt;chr&gt; "0832", "0832", "0832", "0832", "0832", "0832", "0832", "08…
+$ date       &lt;dbl&gt; 20070702, 20070702, 20070702, 20070703, 20070703, 20070703,…
+$ syntaxon   &lt;chr&gt; "LDA01", "LDA01", "LDA", "LDA01", "LDA", "LD", "LBB", "LB",…
+$ surf_area  &lt;dbl&gt; 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,…
+$ utm        &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ altitude   &lt;dbl&gt; 458, 414, 379, 374, 380, 373, 390, 255, 340, 368, 356, 427,…
+$ exposition &lt;dbl&gt; 150, 150, 210, NA, 170, 65, NA, 80, 220, 95, 200, 170, 130,…
+$ inclinatio &lt;dbl&gt; 24, 13, 21, 0, 10, 6, 0, 38, 13, 29, 38, 27, 7, 22, 9, 21, …
+$ cov_total  &lt;dbl&gt; -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,…
+$ cov_trees  &lt;dbl&gt; 80, 80, 75, 70, 65, 65, 85, 80, 70, 85, 45, 70, 65, 70, 80,…
+$ cov_shrubs &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 20, 0, 15, 1, 0, 2, 1, 12, 0, 0, 0, 0,…
+$ cov_herbs  &lt;dbl&gt; 25, 25, 30, 35, 60, 70, 70, 15, 75, 8, 75, 40, 60, 40, 60, …
+$ cov_mosses &lt;dbl&gt; 10, 8, 10, 8, 3, 5, 5, 10, 3, 5, 20, 3, 5, 30, 1, 5, 1, 5, …
+$ cov_lichen &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ cov_algae  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ cov_litter &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ cov_water  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ cov_rock   &lt;dbl&gt; 0, 3, 10, 0, 0, 0, 0, 15, 1, 10, 20, 8, 0, 0, 0, 3, 1, 0, 0…
+$ tree_high  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ tree_low   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ shrub_high &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ shrub_low  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ herb_high  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ herb_low   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ herb_max   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ crypt_high &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ moss_ident &lt;chr&gt; "N", "N", "N", "N", "N", "N", "N", "N", "N", "N", "Y", "N",…
+$ lich_ident &lt;chr&gt; "N", "N", "N", "N", "N", "N", "N", "N", "N", "N", "Y", "N",…
+$ remarks    &lt;chr&gt; "snimkovali Irena Vesela + David Zeleny; Hieracium sabaud",…
+$ coord_code &lt;chr&gt; "01", "01", "01", "01", "01", "01", "01", "01", "01", "01",…
+$ syntax_old &lt;chr&gt; "33AA01", "33AA01", "33AA", "33AA01", "33AA", "32", "32AB",…
+$ resurvey   &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ for_eva    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ rs_project &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ rs_site    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ rs_plot    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ rs_observ  &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ plot_shape &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ manipulate &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ maniptyp   &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ loc_method &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ data_owner &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ eva_access &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ longitude  &lt;dbl&gt; 163420.0, 163345.8, 162913.4, 162137.8, 162128.3, 162117.2,…
+$ latitude   &lt;dbl&gt; 492015.3, 492128.9, 492126.4, 490210.2, 490203.1, 490158.5,…
+$ precision  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ locality   &lt;chr&gt; "Svinošice (Brno, Kuřim); 450 m SZ od středu obce", "Lažany…
+$ bias_min   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ bias_gps   &lt;dbl&gt; 5, 6, 10, 6, 5, 6, 14, 6, 4, 5, 5, 5, 6, 6, 5, 11, 8, 7, 4,…
+$ ceba_grid  &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ field_nr   &lt;chr&gt; "2/2007", "3/2007", "4/2007", "5/2007", "6/2007", "7/2007",…
+$ habitat    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ geology    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ soil       &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ water_ph   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ s_ph_h2o   &lt;dbl&gt; 4.22, 4.75, 4.63, 4.36, 4.62, 4.28, 4.48, 5.16, 4.92, 4.52,…
+$ s_ph_kcl   &lt;dbl&gt; 3.24, 4.01, 3.77, 3.50, 3.80, 3.48, 3.68, 4.24, 4.01, 3.83,…
+$ s_ph_cacl2 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ soil_ph    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ conduct    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ nr_orig    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ hloubk_cm  &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ dno        &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ cel_plo_m2 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ zarost_plo &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ esy_code   &lt;chr&gt; "?", "?", "LCC01", "?", "?", "?", "?", "?", "?", "?", "?", …
+$ esy_name   &lt;chr&gt; NA, NA, "Sorbo torminalis-Quercetum", NA, NA, NA, NA, NA, N…
+$ cov_wood   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ soil_dpt   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ trampling  &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ plot_type  &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ rs_code    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ rs_projtyp &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ radiation  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ heat       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ les        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ neles      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…</code></pre>
+</div>
+</div>
+<p>Note that the <strong>pipe</strong> <code>%&gt;%</code> allows the output of a previous command to be used as input to another command instead of using nested functions. It means, pipe binds individual steps into a sequence and it reads from left to right. You can insert it into your code as <code>ctrl+shift+M</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(env)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "releve_nr"  "country"    "reference"  "table_nr"   "nr_in_tab" 
+ [6] "coverscale" "project"    "author"     "date"       "syntaxon"  
+[11] "surf_area"  "utm"        "altitude"   "exposition" "inclinatio"
+[16] "cov_total"  "cov_trees"  "cov_shrubs" "cov_herbs"  "cov_mosses"
+[21] "cov_lichen" "cov_algae"  "cov_litter" "cov_water"  "cov_rock"  
+[26] "tree_high"  "tree_low"   "shrub_high" "shrub_low"  "herb_high" 
+[31] "herb_low"   "herb_max"   "crypt_high" "moss_ident" "lich_ident"
+[36] "remarks"    "coord_code" "syntax_old" "resurvey"   "for_eva"   
+[41] "rs_project" "rs_site"    "rs_plot"    "rs_observ"  "plot_shape"
+[46] "manipulate" "maniptyp"   "loc_method" "data_owner" "eva_access"
+[51] "longitude"  "latitude"   "precision"  "locality"   "bias_min"  
+[56] "bias_gps"   "ceba_grid"  "field_nr"   "habitat"    "geology"   
+[61] "soil"       "water_ph"   "s_ph_h2o"   "s_ph_kcl"   "s_ph_cacl2"
+[66] "soil_ph"    "conduct"    "nr_orig"    "hloubk_cm"  "dno"       
+[71] "cel_plo_m2" "zarost_plo" "esy_code"   "esy_name"   "cov_wood"  
+[76] "soil_dpt"   "trampling"  "plot_type"  "rs_code"    "rs_projtyp"
+[81] "radiation"  "heat"       "les"        "neles"     </code></pre>
+</div>
+</div>
+<p>Pipe also enables me to try first what would be the output before saving the result. For example I want to select just few variables for checking, but not to overwrite the data, before I am happy with the selection. For example here I see, the habitat information is not filled (returns NAs), so I will not use it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, habitat, latitude, longitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 137 × 4
+   releve_nr habitat latitude longitude
+       &lt;dbl&gt; &lt;lgl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+ 1    183111 NA       492015.   163420 
+ 2    183112 NA       492129.   163346.
+ 3    183113 NA       492126.   162913.
+ 4    183114 NA       490210.   162138.
+ 5    183115 NA       490203.   162128.
+ 6    183116 NA       490158.   162117.
+ 7    183117 NA       490253.   162349.
+ 8    183118 NA       490730.   161735.
+ 9    183119 NA       490742.   161622.
+10    183120 NA       490814.   161507 
+# ℹ 127 more rows</code></pre>
+</div>
+</div>
+<p>When I am fine with the selection, I can rewrite the file</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> env <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, field_nr, country, author, date, syntaxon, </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>         altitude, exposition, inclinatio, </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>         cov_trees, cov_shrubs, cov_herbs, cov_mosses, </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>         latitude, longitude, precision, bias_min, bias_gps, locality )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Or I can add all the steps I did so far into one pipeline and check the resulting dataset</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/tvhabita.csv"</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, field_nr, country, author, date, syntaxon, </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>         altitude, exposition, inclinatio, </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>         cov_trees, cov_shrubs, cov_herbs, cov_mosses, </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>         latitude, longitude, precision, bias_min, bias_gps, locality ) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 137 Columns: 84
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (13): COUNTRY, COVERSCALE, AUTHOR, SYNTAXON, MOSS_IDENT, LICH_IDENT, REM...
+dbl (45): RELEVE_NR, DATE, SURF_AREA, ALTITUDE, EXPOSITION, INCLINATIO, COV_...
+lgl (26): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, UTM, RESURVEY, FOR_EVA, R...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 137
+Columns: 19
+$ releve_nr  &lt;dbl&gt; 183111, 183112, 183113, 183114, 183115, 183116, 183117, 183…
+$ field_nr   &lt;chr&gt; "2/2007", "3/2007", "4/2007", "5/2007", "6/2007", "7/2007",…
+$ country    &lt;chr&gt; "CZ", "CZ", "CZ", "CZ", "CZ", "CZ", "CZ", "CZ", "CZ", "CZ",…
+$ author     &lt;chr&gt; "0832", "0832", "0832", "0832", "0832", "0832", "0832", "08…
+$ date       &lt;dbl&gt; 20070702, 20070702, 20070702, 20070703, 20070703, 20070703,…
+$ syntaxon   &lt;chr&gt; "LDA01", "LDA01", "LDA", "LDA01", "LDA", "LD", "LBB", "LB",…
+$ altitude   &lt;dbl&gt; 458, 414, 379, 374, 380, 373, 390, 255, 340, 368, 356, 427,…
+$ exposition &lt;dbl&gt; 150, 150, 210, NA, 170, 65, NA, 80, 220, 95, 200, 170, 130,…
+$ inclinatio &lt;dbl&gt; 24, 13, 21, 0, 10, 6, 0, 38, 13, 29, 38, 27, 7, 22, 9, 21, …
+$ cov_trees  &lt;dbl&gt; 80, 80, 75, 70, 65, 65, 85, 80, 70, 85, 45, 70, 65, 70, 80,…
+$ cov_shrubs &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 20, 0, 15, 1, 0, 2, 1, 12, 0, 0, 0, 0,…
+$ cov_herbs  &lt;dbl&gt; 25, 25, 30, 35, 60, 70, 70, 15, 75, 8, 75, 40, 60, 40, 60, …
+$ cov_mosses &lt;dbl&gt; 10, 8, 10, 8, 3, 5, 5, 10, 3, 5, 20, 3, 5, 30, 1, 5, 1, 5, …
+$ latitude   &lt;dbl&gt; 492015.3, 492128.9, 492126.4, 490210.2, 490203.1, 490158.5,…
+$ longitude  &lt;dbl&gt; 163420.0, 163345.8, 162913.4, 162137.8, 162128.3, 162117.2,…
+$ precision  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ bias_min   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ bias_gps   &lt;dbl&gt; 5, 6, 10, 6, 5, 6, 14, 6, 4, 5, 5, 5, 6, 6, 5, 11, 8, 7, 4,…
+$ locality   &lt;chr&gt; "Svinošice (Brno, Kuřim); 450 m SZ od středu obce", "Lažany…</code></pre>
+</div>
+</div>
+<p>And save it for easier access</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(env, <span class="st">"data/env.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Alternative export option</strong> is to directly import the file exported from Turboveg database named <strong>tvhabita.dbf</strong> using specific approach. Since dbf is a bit specific type of files and we need to use a specialised packages. Here I used <strong>read.dbf</strong> function from the <code>foreign</code> library.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>env_dbf <span class="ot">&lt;-</span> <span class="fu">read.dbf</span>(<span class="st">"data/tvhabita.dbf"</span>, <span class="at">as.is =</span> F) <span class="sc">%&gt;%</span>    </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Check the structure, directly in R</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(env_dbf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Get the list of the variable names</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(env_dbf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "releve_nr"  "country"    "reference"  "table_nr"   "nr_in_tab" 
+ [6] "coverscale" "project"    "author"     "date"       "syntaxon"  
+[11] "surf_area"  "utm"        "altitude"   "exposition" "inclinatio"
+[16] "cov_total"  "cov_trees"  "cov_shrubs" "cov_herbs"  "cov_mosses"
+[21] "cov_lichen" "cov_algae"  "cov_litter" "cov_water"  "cov_rock"  
+[26] "tree_high"  "tree_low"   "shrub_high" "shrub_low"  "herb_high" 
+[31] "herb_low"   "herb_max"   "crypt_high" "moss_ident" "lich_ident"
+[36] "remarks"    "coord_code" "syntax_old" "resurvey"   "for_eva"   
+[41] "rs_project" "rs_site"    "rs_plot"    "rs_observ"  "plot_shape"
+[46] "manipulate" "maniptyp"   "loc_method" "data_owner" "eva_access"
+[51] "longitude"  "latitude"   "precision"  "locality"   "bias_min"  
+[56] "bias_gps"   "ceba_grid"  "field_nr"   "habitat"    "geology"   
+[61] "soil"       "water_ph"   "s_ph_h2o"   "s_ph_kcl"   "s_ph_cacl2"
+[66] "soil_ph"    "conduct"    "nr_orig"    "hloubk_cm"  "dno"       
+[71] "cel_plo_m2" "zarost_plo" "esy_code"   "esy_name"   "cov_wood"  
+[76] "soil_dpt"   "trampling"  "plot_type"  "rs_code"    "rs_projtyp"
+[81] "radiation"  "heat"       "les"        "neles"     </code></pre>
+</div>
+</div>
+<p>There are several issues with this type of import, as there might be different encodings used in the original files, not compatible with R. For Czech dataset I needed to further change the encoding style, so that the diacritics in text columns translates correctly.</p>
+<p>Check where are problems with encoding, add column names to the brackets, first we need to select the columns that include text there are issues with diacritics and special symbols, e.g.&nbsp;remarks, locality… I specify them in the brackets and use function <strong>iconv</strong> to change the encoding to UTF-8. You may need to play a bit to see if it works correctly and change the original type in the from argument. I added one more line to transform the dataframe to tibble, which is the data format used in tidyverse packages.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>env_dbf <span class="sc">%&gt;%</span>   </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(remarks, locality, habitat, soil),</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                <span class="sc">~</span> <span class="fu">iconv</span>(.x, <span class="at">from =</span> <span class="st">"cp852"</span>, <span class="at">to =</span> <span class="st">"UTF-8"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(locality, soil) <span class="sc">%&gt;%</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 137 × 2
+   locality                                                                soil 
+   &lt;chr&gt;                                                                   &lt;chr&gt;
+ 1 Svinošice (Brno, Kuřim); 450 m SZ od středu obce                        &lt;NA&gt; 
+ 2 Lažany (Brno, Kuřim); 1 km VSV od středu obce                           &lt;NA&gt; 
+ 3 Všechovice (Tišnov); 500 m Z od středu obce                             &lt;NA&gt; 
+ 4 Vedrovice (Moravský Krumlov), Krumlovský les; 2,2 km SZ od středu obce  &lt;NA&gt; 
+ 5 Vedrovice (Moravský Krumlov), Krumlovský les; 2,1 km SZ od středu obce  &lt;NA&gt; 
+ 6 Vedrovice (Moravský Krumlov), Krumlovský les; 2,2 km SZ od středu obce  &lt;NA&gt; 
+ 7 Vedrovice (Moravský Krumlov), Krumlovský les; 3,3 km SSV od středu obce &lt;NA&gt; 
+ 8 Čučice (Oslavany), Přírodní park Oslava; 1,7 km JV od středu obce       &lt;NA&gt; 
+ 9 Čučice (Oslavany), Přírodní park Oslava; 1 km JJZ od středu obce        &lt;NA&gt; 
+10 Senorady (Oslavany), Přírodní park Oslava; 1,2 km SSV od středu obce    &lt;NA&gt; 
+# ℹ 127 more rows</code></pre>
+</div>
+</div>
+<p>In the next step we select variables we want to keep further, which is useful, as the database structure includes also predefined variables, even if they are empty. Another advantage of select function</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> env_dbf <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(remarks, locality, habitat, soil),</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                <span class="sc">~</span> <span class="fu">iconv</span>(.x, <span class="at">from =</span> <span class="st">"cp852"</span>, <span class="at">to =</span> <span class="st">"UTF-8"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, field_nr, country, author, date, syntaxon, </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>         altitude, exposition, inclinatio, </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>         cov_trees, cov_shrubs, cov_herbs, cov_mosses, </span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>         latitude, longitude, precision, bias_min, bias_gps, locality )<span class="sc">%&gt;%</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

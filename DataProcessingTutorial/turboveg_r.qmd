@@ -3,3 +3,147 @@ title: "Turboveg for R"
 format: html
 ---
 
+Aim of this tutorial is to show you step by step how to import the data from Turboveg to R and prepare it for further analyses.
+
+## 1.1 Turboveg data format
+
+Turboveg for Windows is a program designed for the storage, selection, and export of vegetation plot data (relevés).The information is divided among several files that are matched by either species ID or releve ID. Within the Turboveg interface, you do not see this structure directly, but you can find it if you look in the *Turbowin* folder, subfolder *data* and particular database (see example below).
+
+![](images/clipboard-683841843.png)
+
+At some point you need to export the data and process them further. This can be done for example in a specialised software called JUICE, but also directly in R.
+
+To get Turboveg data to R, you first need to **export the Turboveg database** to a folder where you want to process the data. This step requires **selection of all the plots** you want to export. Alternatively you can access the files directly in the main file in Turbowin, but just to warn you, if you do something wrong here, you might completely loose your data.
+
+![](images/clipboard-454329014.png)
+
+## 1.2 Start a project and new script
+
+In this tutorial we will use tidyverse approach and tidy data rules. If you are interested in more details, check our study materials [here](https://botzooldataanalysis.github.io/DataManipulationVisualisation/1_introduction.html).
+
+For data processing we recommend to use a **project in R studio**. Directly to the main folder add subfolder "data", where we will store all the data files. The advantage of using projects, is that you can directly use the same structure and everything should work the same way, with exactly the same paths as below. If you want to train in the same way as is described below, download the zip file at the link here and save it to your computer. Below you can find instructions and individual parts of the code, that you can copy and insert them to your own script (***use*** ***copy icon in the upper right corner to copy individual code chunks***).
+
+Load libraries and if needed, first install those missing by function `install.packages("packagename")`
+
+```{r}
+#| warning: false
+library(foreign)   #for reading dbf files 
+library(tidyverse) #for data handling, pipes and visualisation 
+library(readxl)    #for data import directly from Excel 
+library(janitor)   #for unified, easy-to-handle format of variable names
+```
+
+## 1.3 Import env file = headers
+
+**One option** is to check the exported database manually, open the file called *tvhabita.dbf* in Excel and save it as *tvhabita.xlsx* or *tvhabita.csv* (UTF 8 encoded) file into your *data* folder. Although it includes one more step outside R, it is still rather straightforward and it saves you troubles with different formats in Turboveg and in R (encoding issues).
+
+You can then import the file as Excel
+
+```{r}
+env <- read_excel("data/tvhabita.xlsx")
+```
+
+or from csv file
+
+```{r}
+env <- read_csv("data/tvhabita.csv")
+```
+
+If you check the imported names, they are rather difficult to handle.
+
+```{r}
+names(env)
+```
+
+Therefore we will directly change them to tidy names with the `clean_names` function from package `janitor`. Alternative is to rename one by one using e.g. `rename`, but here we want to save time and effort.
+
+```{r}
+env <- read_csv("data/tvhabita.csv")%>% 
+  clean_names() %>%
+  glimpse()
+```
+
+Note that the **pipe** `%>%` allows the output of a previous command to be used as input to another command instead of using nested functions. It means, pipe binds individual steps into a sequence and it reads from left to right. You can insert it into your code as `ctrl+shift+M`.
+
+```{r}
+names(env)
+```
+
+Pipe also enables me to try first what would be the output before saving the result. For example I want to select just few variables for checking, but not to overwrite the data, before I am happy with the selection. For example here I see, the habitat information is not filled (returns NAs), so I will not use it.
+
+```{r}
+env %>% 
+  select(releve_nr, habitat, latitude, longitude)
+```
+
+When I am fine with the selection, I can rewrite the file
+
+```{r}
+env <- env %>% 
+  select(releve_nr, field_nr, country, author, date, syntaxon, 
+         altitude, exposition, inclinatio, 
+         cov_trees, cov_shrubs, cov_herbs, cov_mosses, 
+         latitude, longitude, precision, bias_min, bias_gps, locality )
+```
+
+Or I can add all the steps I did so far into one pipeline and check the resulting dataset
+
+```{r}
+env <- read_csv("data/tvhabita.csv")%>% 
+  clean_names() %>% 
+  select(releve_nr, field_nr, country, author, date, syntaxon, 
+         altitude, exposition, inclinatio, 
+         cov_trees, cov_shrubs, cov_herbs, cov_mosses, 
+         latitude, longitude, precision, bias_min, bias_gps, locality ) %>% 
+  glimpse()
+```
+
+And save it for easier access
+
+```{r}
+write.csv(env, "data/env.csv")
+```
+
+**Alternative export option** is to directly import the file exported from Turboveg database named **tvhabita.dbf** using specific approach. Since dbf is a bit specific type of files and we need to use a specialised packages. Here I used **read.dbf** function from the `foreign` library.
+
+```{r}
+env_dbf <- read.dbf("data/tvhabita.dbf", as.is = F) %>%    
+  clean_names()
+```
+
+Check the structure, directly in R
+
+```{r}
+view(env_dbf)
+```
+
+Get the list of the variable names
+
+```{r}
+names(env_dbf)
+```
+
+There are several issues with this type of import, as there might be different encodings used in the original files, not compatible with R. For Czech dataset I needed to further change the encoding style, so that the diacritics in text columns translates correctly.
+
+Check where are problems with encoding, add column names to the brackets, first we need to select the columns that include text there are issues with diacritics and special symbols, e.g. remarks, locality... I specify them in the brackets and use function **iconv** to change the encoding to UTF-8. You may need to play a bit to see if it works correctly and change the original type in the from argument. I added one more line to transform the dataframe to tibble, which is the data format used in tidyverse packages.
+
+```{r}
+env_dbf %>%   
+  mutate(across(c(remarks, locality, habitat, soil),
+                ~ iconv(.x, from = "cp852", to = "UTF-8"))) %>%
+  select(locality, soil) %>%
+  as_tibble()
+```
+
+In the next step we select variables we want to keep further, which is useful, as the database structure includes also predefined variables, even if they are empty. Another advantage of select function
+
+```{r}
+env <- env_dbf %>%
+  mutate(across(c(remarks, locality, habitat, soil),
+                ~ iconv(.x, from = "cp852", to = "UTF-8"))) %>%
+  select(releve_nr, field_nr, country, author, date, syntaxon, 
+         altitude, exposition, inclinatio, 
+         cov_trees, cov_shrubs, cov_herbs, cov_mosses, 
+         latitude, longitude, precision, bias_min, bias_gps, locality )%>%
+  as_tibble()
+```

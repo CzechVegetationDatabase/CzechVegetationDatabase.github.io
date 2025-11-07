@@ -1,5 +1,15 @@
 ---
 title: "Data processing tutorial"
 format: html
+author: Irena Axmanova
 ---
 
+We want to provide tutorial on how to import data from the Turboveg database and how to process it further in R, run basic analyses and prepare data for export to other formats.
+
+![](images/clipboard-286802146.png)
+
+For easier explanation we use the example of a subset of plots from the Czech Vegetation.
+
+You can either download the data [here]{.underline} or the whole project [here]{.underline}.
+
+Please note that we do not provide the whole script, but we encourage you to copy the code chunks from the examples here and use them to build your own script, adjusted to your needs.
