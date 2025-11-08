@@ -6,4 +6,44 @@ author: Irena Axmanová
 
 In this tutorial we will show you how to sort and filter the data. We will also train how to append traits, indicator values or information about status of species and calculate proportions of selected plant groups, community weighted and unweighted means or other summary statistics. If you are interested in more general overview of the functions, you are encouraged to check also our study materials [here](https://botzooldataanalysis.github.io/DataManipulationVisualisation/data_manipulation_visualisation.html).
 
-## 2.1 Basic overview of the data
+```{r}
+#| warning: false
+library(tidyverse)
+library(janitor)
+```
+
+## 2.1 Basic data handling 
+
+We will play a bit with measured variables from our plots and try few useful functions. For more see [study materials](https://botzooldataanalysis.github.io/DataManipulationVisualisation/2_data_manipulation.html) and links there.
+
+```{r}
+data<- read_csv("data/axmanova_forest_env_extra.csv") %>% clean_names()
+```
+
+Select extracts columns/variables based on their names or position. Select can be also used in combination with stringr package to identify the pattern in the names: try several options: `starts_with`, `ends_with` or more general one `contains`. With the use of select in your script you can order the variables always in the same way e.g. ID, forest type, species number, productivity, even during import. And you can also rename the variables using select, to get exactly what you need.
+
+```{r}
+data %>% 
+  select(ID=releve_nr, forest_type=forest_type_name, species_nr=herbs, productivity=biomass) 
+```
+
+Distinct is a function that takes your data and remove all the duplicate rows, keeping only the unique ones. There are many cases where you will really appreciate this elegant and easy way. For example, I want a list of unique PlotIDs= releve_nr, unique combinations of two categories etc. Here I want to prepare list of forest types codes and names.
+
+```{r}
+data %>%
+  arrange(forest_type) %>%
+  distinct(forest_type, forest_type_name)
+```
+
+When we have a large dataset, we sometimes need to create a subset of the rows/cases. First we have to define upon which variable we are going to filter the rows (e.g. Forest type, soil pH...) and which values are acceptable and which are not.
+
+```{r}
+data %>% 
+  filter(forest_type_name =="alluvial forest")
+```
+
+## 2.2 Join and summarise
+
+## 2.3 Community weighted means
+
+## 2.4 Ellenberg indicator values

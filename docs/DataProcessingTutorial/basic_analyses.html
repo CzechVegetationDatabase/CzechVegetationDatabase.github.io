@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -214,7 +249,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#basic-overview-of-the-data" id="toc-basic-overview-of-the-data" class="nav-link active" data-scroll-target="#basic-overview-of-the-data">2.1 Basic overview of the data</a></li>
+  <li><a href="#basic-data-handling" id="toc-basic-data-handling" class="nav-link active" data-scroll-target="#basic-data-handling">2.1 Basic data handling</a></li>
+  <li><a href="#join-and-summarise" id="toc-join-and-summarise" class="nav-link" data-scroll-target="#join-and-summarise">2.2 Join and summarise</a></li>
+  <li><a href="#community-weighted-means" id="toc-community-weighted-means" class="nav-link" data-scroll-target="#community-weighted-means">2.3 Community weighted means</a></li>
+  <li><a href="#ellenberg-indicator-values" id="toc-ellenberg-indicator-values" class="nav-link" data-scroll-target="#ellenberg-indicator-values">2.4 Ellenberg indicator values</a></li>
   </ul>
 </nav>
     </div>
@@ -247,8 +285,96 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>In this tutorial we will show you how to sort and filter the data. We will also train how to append traits, indicator values or information about status of species and calculate proportions of selected plant groups, community weighted and unweighted means or other summary statistics. If you are interested in more general overview of the functions, you are encouraged to check also our study materials <a href="https://botzooldataanalysis.github.io/DataManipulationVisualisation/data_manipulation_visualisation.html">here</a>.</p>
-<section id="basic-overview-of-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="basic-overview-of-the-data">2.1 Basic overview of the data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="basic-data-handling" class="level2">
+<h2 class="anchored" data-anchor-id="basic-data-handling">2.1 Basic data handling</h2>
+<p>We will play a bit with measured variables from our plots and try few useful functions. For more see <a href="https://botzooldataanalysis.github.io/DataManipulationVisualisation/2_data_manipulation.html">study materials</a> and links there.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/axmanova_forest_env_extra.csv"</span>) <span class="sc">%&gt;%</span> <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 65 Columns: 22
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (1): ForestTypeName
+dbl (21): Releve_nr, ForestType, Herbs, Juveniles, CoverE1, Biomass, Soil_de...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>Select extracts columns/variables based on their names or position. Select can be also used in combination with stringr package to identify the pattern in the names: try several options: <code>starts_with</code>, <code>ends_with</code> or more general one <code>contains</code>. With the use of select in your script you can order the variables always in the same way e.g.&nbsp;ID, forest type, species number, productivity, even during import. And you can also rename the variables using select, to get exactly what you need.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">ID=</span>releve_nr, <span class="at">forest_type=</span>forest_type_name, <span class="at">species_nr=</span>herbs, <span class="at">productivity=</span>biomass) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 65 × 4
+      ID forest_type         species_nr productivity
+   &lt;dbl&gt; &lt;chr&gt;                    &lt;dbl&gt;        &lt;dbl&gt;
+ 1     1 oak hornbeam forest         26         12.8
+ 2     2 oak forest                  13          9.9
+ 3     3 oak forest                  14         15.2
+ 4     4 oak forest                  15         16  
+ 5     5 oak forest                  13         20.7
+ 6     6 oak forest                  16         46.4
+ 7     7 oak forest                  17         49.2
+ 8     8 oak hornbeam forest         21         48.7
+ 9     9 oak hornbeam forest         15         13.8
+10    10 oak forest                  14         79.1
+# ℹ 55 more rows</code></pre>
+</div>
+</div>
+<p>Distinct is a function that takes your data and remove all the duplicate rows, keeping only the unique ones. There are many cases where you will really appreciate this elegant and easy way. For example, I want a list of unique PlotIDs= releve_nr, unique combinations of two categories etc. Here I want to prepare list of forest types codes and names.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(forest_type) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(forest_type, forest_type_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  forest_type forest_type_name   
+        &lt;dbl&gt; &lt;chr&gt;              
+1           1 oak forest         
+2           2 oak hornbeam forest
+3           3 ravine forest      
+4           4 alluvial forest    </code></pre>
+</div>
+</div>
+<p>When we have a large dataset, we sometimes need to create a subset of the rows/cases. First we have to define upon which variable we are going to filter the rows (e.g.&nbsp;Forest type, soil pH…) and which values are acceptable and which are not.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(forest_type_name <span class="sc">==</span><span class="st">"alluvial forest"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 11 × 22
+   releve_nr forest_type forest_type_name herbs juveniles cover_e1 biomass
+       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+ 1       101           4 alluvial forest     28         6       90    91.1
+ 2       103           4 alluvial forest     35         5       80   114. 
+ 3       104           4 alluvial forest     25        11       85   188. 
+ 4       110           4 alluvial forest     37         4       95   126. 
+ 5       111           4 alluvial forest     26        10       85    84.8
+ 6       113           4 alluvial forest     37        10       70    74.5
+ 7       125           4 alluvial forest     25         8       95   123. 
+ 8       127           4 alluvial forest     53         6        0   176  
+ 9       129           4 alluvial forest     31         7       85   100. 
+10       131           4 alluvial forest     59         3       95   163. 
+11       132           4 alluvial forest     60         7       90   287. 
+# ℹ 15 more variables: soil_depth_categ &lt;dbl&gt;, p_h_k_cl &lt;dbl&gt;, slope &lt;dbl&gt;,
+#   altitude &lt;dbl&gt;, canopy_e3 &lt;dbl&gt;, radiation &lt;dbl&gt;, heat &lt;dbl&gt;,
+#   trans_dir &lt;dbl&gt;, trans_dif &lt;dbl&gt;, trans_tot &lt;dbl&gt;, eiv_light &lt;dbl&gt;,
+#   eiv_moisture &lt;dbl&gt;, eiv_soilreaction &lt;dbl&gt;, eiv_nutrients &lt;dbl&gt;, twi &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="join-and-summarise" class="level2">
+<h2 class="anchored" data-anchor-id="join-and-summarise">2.2 Join and summarise</h2>
+</section>
+<section id="community-weighted-means" class="level2">
+<h2 class="anchored" data-anchor-id="community-weighted-means">2.3 Community weighted means</h2>
+</section>
+<section id="ellenberg-indicator-values" class="level2">
+<h2 class="anchored" data-anchor-id="ellenberg-indicator-values">2.4 Ellenberg indicator values</h2>
 
 
 </section>
