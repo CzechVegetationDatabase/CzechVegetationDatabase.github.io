@@ -1,5 +1,9 @@
 ---
 title: "Basic data analyses"
 format: html
+author: Irena Axmanová
 ---
 
+In this tutorial we will show you how to sort and filter the data. We will also train how to append traits, indicator values or information about status of species and calculate proportions of selected plant groups, community weighted and unweighted means or other summary statistics. If you are interested in more general overview of the functions, you are encouraged to check also our study materials [here](https://botzooldataanalysis.github.io/DataManipulationVisualisation/data_manipulation_visualisation.html).
+
+## 2.1 Basic overview of the data

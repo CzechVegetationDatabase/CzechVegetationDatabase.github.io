@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -242,9 +277,22 @@ ul.task-list li input[type="checkbox"] {
 
 <p>We want to provide tutorial on how to import data from the Turboveg database and how to process it further in R, run basic analyses and prepare data for export to other formats.</p>
 <p><img src="images/clipboard-286802146.png" class="img-fluid"></p>
-<p>For easier explanation we use the example of a subset of plots from the Czech Vegetation.</p>
-<p>You can either download the data <u>here</u> or the whole project <u>here</u>.</p>
+<p>We are using tidyverse approach and tidy data rules. If you are interested in more details and links for more literature, check our <strong>study materials</strong> <a href="https://botzooldataanalysis.github.io/DataManipulationVisualisation/1_introduction.html"><strong>here</strong></a>.</p>
+<p>For data processing we recommend to use a <strong>project in <a href="https://posit.co/download/rstudio-desktop/">R studio</a></strong>. The advantage of using projects, is that you can directly use the same structure with exactly the same paths as provided in this tutorial. For this, add subfolder “data” directly to the main folder, to store all the data files.</p>
+<p>We show all the data processing at the example of forest understory data from the Czech Vegetation Database. If you want to train in the same way as is described in the tutorials, you can download the data <u>here</u> or the whole project <u>here</u>.</p>
+<p>In individual subchapters you can find instructions and individual parts of the code, that you can copy and insert them to your own script (<strong><em>use</em></strong> <strong><em>copy icon in the upper right corner to copy individual code chunks</em></strong>).</p>
+<p><img src="images/clipboard-1035751728.png" class="img-fluid" width="369"></p>
 <p>Please note that we do not provide the whole script, but we encourage you to copy the code chunks from the examples here and use them to build your own script, adjusted to your needs.</p>
+<p>At the begining of your work, load the following libraries. If needed, first install those missing by function <code>install.packages("packageName")</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)   <span class="co">#for reading dbf files </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co">#for data handling, pipes and visualisation </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)    <span class="co">#for data import directly from Excel </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)   <span class="co">#for unified, easy-to-handle format of variable names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We are using <strong>pipes</strong> <code>%&gt;%</code> throughout the scripts. Pipes allows the output of a previous command to be used as input to another command instead of using nested functions. It means, pipe binds individual steps into a sequence and it reads from left to right. You can insert it into your code as <code>ctrl+shift+M</code>.</p>
+<p>To play a bit with the pipes, you can take part of the script, send it to the console with <code>ctrl+enter</code> and just try if and how it works without assigning it to final object as in the picture below.</p>
+<p><img src="images/clipboard-522705929.png" class="img-fluid"></p>
 
 
 
