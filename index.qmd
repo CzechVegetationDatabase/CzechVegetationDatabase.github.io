@@ -11,3 +11,6 @@ This is a website of the Czech National Phytosociological Database, here referre
 -   [About](About/introduction.qmd)
 -   [Data availability](DataAvailability/data_availability.qmd)
 -   [Data processing Tutorial](DataProcessingTutorial/data_processing_tutorial.qmd)
+
+
+Webpage prepared by Irena Axmanová and Klára Friesová

@@ -1,7 +1,7 @@
 ---
 title: "Data processing tutorial"
 format: html
-author: Irena Axmanova
+author: Irena Axmanová
 ---
 
 We want to provide tutorial on how to import data from the Turboveg database and how to process it further in R, run basic analyses and prepare data for export to other formats.
