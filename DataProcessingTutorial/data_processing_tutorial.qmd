@@ -12,7 +12,7 @@ We are using tidyverse approach and tidy data rules. If you are interested in mo
 
 For data processing we recommend to use a **project in [R studio](https://posit.co/download/rstudio-desktop/)**. The advantage of using projects, is that you can directly use the same structure with exactly the same paths as provided in this tutorial. For this, add subfolder "data" directly to the main folder, to store all the data files.
 
-We show all the data processing at the example of forest understory data from the Czech Vegetation Database. If you want to train in the same way as is described in the tutorials, you can download the data [here]{.underline} or the whole project [here]{.underline}.
+We show all the data processing at the example of forest understory data from the Czech Vegetation Database. If you want to train in the same way as is described in the tutorials, you can download the data as zip file here [`Link to Github folder`](https://github.com/CzechVegetationDatabase/CzechVegetationDatabase.github.io/tree/main/DataProcessingTutorial/data/data.zip)or the whole project [here]{.underline}.
 
 In individual subchapters you can find instructions and individual parts of the code, that you can copy and insert them to your own script (***use*** ***copy icon in the upper right corner to copy individual code chunks***).
 
