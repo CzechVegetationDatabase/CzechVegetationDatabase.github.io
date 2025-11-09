@@ -301,3 +301,5 @@ We can again save the final file, to be easily accessible for later
 ```{r}
 write.csv(spe, "data/spe.csv")
 ```
+
+## 1.5 Merging of species covers across layers

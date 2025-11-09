@@ -25,7 +25,7 @@ library(readxl)
 library(janitor)
 ```
 
-We will upload the species data saved in a long format and transform it into a matrix =wide format, so that it can be used in specific ecological analyses e.g. in `vegan`.
+We will upload the species data saved in a long format and transform it into a matrix =wide format, so that it can be used in specific ecological analyses e.g. in `vegan`. (For wide to long see [study materials](https://botzooldataanalysis.github.io/DataManipulationVisualisation/4_wide_vs_long.html))
 
 ```{r}
 spe <- read_csv("data/spe.csv") 
@@ -60,7 +60,9 @@ At this point we have everything we need to use it as input for the wide format 
 ```{r}
 spe %>%   
   mutate(species = str_replace_all(species, " ", "_"))%>%   
-  unite("species_layer", species,layer, na.rm = TRUE, remove = FALSE)
+  unite("species_layer", species,layer, na.rm = TRUE, remove = FALSE)%>%
+  select(releve_nr, species_layer, cover_perc)
+
 ```
 
 Now we can finaly use the **pivot wider** function to transform the data. We have to specify from where we are taking the names of new variables (**names_from**) and from where we should take the values which should appear in the table (**values_from**). Since we changed the format, all species, even those not occurring in that particular site/plot have to get some values. Therefore, one more step is to fill the empty cells by zeros using **values_fill**. In this case we can do that, because we know that if the species was absent its abundance was exactly 0.
@@ -72,6 +74,10 @@ spe %>%
   pivot_wider(names_from = species_layer, 
               values_from = cover_perc, 
               values_fill = 0) -> spe_wide
+```
+
+```{r}
+tibble(spe)
 ```
 
 ## 3.2 Juice input files

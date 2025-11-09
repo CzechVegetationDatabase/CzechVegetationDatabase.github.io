@@ -295,7 +295,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl) </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We will upload the species data saved in a long format and transform it into a matrix =wide format, so that it can be used in specific ecological analyses e.g.&nbsp;in <code>vegan</code>.</p>
+<p>We will upload the species data saved in a long format and transform it into a matrix =wide format, so that it can be used in specific ecological analyses e.g.&nbsp;in <code>vegan</code>. (For wide to long see <a href="https://botzooldataanalysis.github.io/DataManipulationVisualisation/4_wide_vs_long.html">study materials</a>)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/spe.csv"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -377,21 +377,22 @@ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span>   </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">str_replace_all</span>(species, <span class="st">" "</span>, <span class="st">"_"</span>))<span class="sc">%&gt;%</span>   </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"species_layer"</span>, species,layer, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"species_layer"</span>, species,layer, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, species_layer, cover_perc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4,583 × 7
-    ...1 releve_nr species_layer            species nonvascular layer cover_perc
-   &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                    &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
- 1     1    183111 Carex_digitata_6         Carex_…           0     6        0.5
- 2     2    183111 Carpinus_betulus_7       Carpin…           0     7        3  
- 3     3    183111 Cytisus_nigricans_6      Cytisu…           0     6        0.1
- 4     4    183111 Festuca_ovina_6          Festuc…           0     6        3  
- 5     5    183111 Fraxinus_excelsior_7     Fraxin…           0     7        0.1
- 6     6    183111 Galium_rotundifolium_6   Galium…           0     6        0.1
- 7     7    183111 Hieracium_lachenalii_6   Hierac…           0     6        3  
- 8     8    183111 Hieracium_murorum_6      Hierac…           0     6        0.5
- 9     9    183111 Hieracium_sabaudum_s.la… Hierac…           0     6        0.1
-10    10    183111 Hypericum_perforatum_6   Hyperi…           0     6        0.1
+<pre><code># A tibble: 4,583 × 3
+   releve_nr species_layer               cover_perc
+       &lt;dbl&gt; &lt;chr&gt;                            &lt;dbl&gt;
+ 1    183111 Carex_digitata_6                   0.5
+ 2    183111 Carpinus_betulus_7                 3  
+ 3    183111 Cytisus_nigricans_6                0.1
+ 4    183111 Festuca_ovina_6                    3  
+ 5    183111 Fraxinus_excelsior_7               0.1
+ 6    183111 Galium_rotundifolium_6             0.1
+ 7    183111 Hieracium_lachenalii_6             3  
+ 8    183111 Hieracium_murorum_6                0.5
+ 9    183111 Hieracium_sabaudum_s.lat._6        0.1
+10    183111 Hypericum_perforatum_6             0.1
 # ℹ 4,573 more rows</code></pre>
 </div>
 </div>
@@ -403,6 +404,25 @@ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> species_layer, </span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> cover_perc, </span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="ot">-&gt;</span> spe_wide</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(spe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4,583 × 6
+    ...1 releve_nr species                   nonvascular layer cover_perc
+   &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
+ 1     1    183111 Carex digitata                      0     6        0.5
+ 2     2    183111 Carpinus betulus                    0     7        3  
+ 3     3    183111 Cytisus nigricans                   0     6        0.1
+ 4     4    183111 Festuca ovina                       0     6        3  
+ 5     5    183111 Fraxinus excelsior                  0     7        0.1
+ 6     6    183111 Galium rotundifolium                0     6        0.1
+ 7     7    183111 Hieracium lachenalii                0     6        3  
+ 8     8    183111 Hieracium murorum                   0     6        0.5
+ 9     9    183111 Hieracium sabaudum s.lat.           0     6        0.1
+10    10    183111 Hypericum perforatum                0     6        0.1
+# ℹ 4,573 more rows</code></pre>
+</div>
 </div>
 </section>
 <section id="juice-input-files" class="level2">

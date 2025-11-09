@@ -305,7 +305,7 @@ dbl (21): Releve_nr, ForestType, Herbs, Juveniles, CoverE1, Biomass, Soil_de...
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
-<p>Select extracts columns/variables based on their names or position. Select can be also used in combination with stringr package to identify the pattern in the names: try several options: <code>starts_with</code>, <code>ends_with</code> or more general one <code>contains</code>. With the use of select in your script you can order the variables always in the same way e.g.&nbsp;ID, forest type, species number, productivity, even during import. And you can also rename the variables using select, to get exactly what you need.</p>
+<p><strong><code>Select</code></strong> extracts columns/variables based on their names or position. Select can be also used in combination with stringr package to identify the pattern in the names: try several options: <code>starts_with</code>, <code>ends_with</code> or more general one <code>contains</code>. With the use of select in your script you can order the variables always in the same way e.g.&nbsp;ID, forest type, species number, productivity, even during import. And you can also rename the variables using select, to get exactly what you need.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">ID=</span>releve_nr, <span class="at">forest_type=</span>forest_type_name, <span class="at">species_nr=</span>herbs, <span class="at">productivity=</span>biomass) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -326,7 +326,7 @@ dbl (21): Releve_nr, ForestType, Herbs, Juveniles, CoverE1, Biomass, Soil_de...
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
-<p>Distinct is a function that takes your data and remove all the duplicate rows, keeping only the unique ones. There are many cases where you will really appreciate this elegant and easy way. For example, I want a list of unique PlotIDs= releve_nr, unique combinations of two categories etc. Here I want to prepare list of forest types codes and names.</p>
+<p><strong><code>Distinct</code></strong> is a function that takes your data and remove all the duplicate rows, keeping only the unique ones. There are many cases where you will really appreciate this elegant and easy way. For example, I want a list of unique PlotIDs= releve_nr, unique combinations of two categories etc. Here I want to prepare list of forest types codes and names.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(forest_type) <span class="sc">%&gt;%</span></span>
@@ -341,7 +341,7 @@ dbl (21): Releve_nr, ForestType, Herbs, Juveniles, CoverE1, Biomass, Soil_de...
 4           4 alluvial forest    </code></pre>
 </div>
 </div>
-<p>When we have a large dataset, we sometimes need to create a subset of the rows/cases. First we have to define upon which variable we are going to filter the rows (e.g.&nbsp;Forest type, soil pH…) and which values are acceptable and which are not.</p>
+<p>When we have a large dataset, we sometimes need to create a subset of the rows/cases by <strong><code>filter</code></strong>. First we have to define upon which variable we are going to filter the rows (e.g.&nbsp;Forest type, soil pH…) and which values are acceptable and which are not. Here I keep only plots from a type that exactly match.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(forest_type_name <span class="sc">==</span><span class="st">"alluvial forest"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -365,6 +365,105 @@ dbl (21): Releve_nr, ForestType, Herbs, Juveniles, CoverE1, Biomass, Soil_de...
 #   trans_dir &lt;dbl&gt;, trans_dif &lt;dbl&gt;, trans_tot &lt;dbl&gt;, eiv_light &lt;dbl&gt;,
 #   eiv_moisture &lt;dbl&gt;, eiv_soilreaction &lt;dbl&gt;, eiv_nutrients &lt;dbl&gt;, twi &lt;dbl&gt;</code></pre>
 </div>
+</div>
+<p>or those that are listed</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(forest_type_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"alluvial forest"</span>, <span class="st">"ravine forest"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 21 × 22
+   releve_nr forest_type forest_type_name herbs juveniles cover_e1 biomass
+       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+ 1       101           4 alluvial forest     28         6       90    91.1
+ 2       103           4 alluvial forest     35         5       80   114. 
+ 3       104           4 alluvial forest     25        11       85   188. 
+ 4       105           3 ravine forest       12        10       80    65.5
+ 5       106           3 ravine forest       16         0       75    33.6
+ 6       108           3 ravine forest       28         7       70    82.3
+ 7       110           4 alluvial forest     37         4       95   126. 
+ 8       111           4 alluvial forest     26        10       85    84.8
+ 9       113           4 alluvial forest     37        10       70    74.5
+10       114           3 ravine forest       12         6       50    71.5
+# ℹ 11 more rows
+# ℹ 15 more variables: soil_depth_categ &lt;dbl&gt;, p_h_k_cl &lt;dbl&gt;, slope &lt;dbl&gt;,
+#   altitude &lt;dbl&gt;, canopy_e3 &lt;dbl&gt;, radiation &lt;dbl&gt;, heat &lt;dbl&gt;,
+#   trans_dir &lt;dbl&gt;, trans_dif &lt;dbl&gt;, trans_tot &lt;dbl&gt;, eiv_light &lt;dbl&gt;,
+#   eiv_moisture &lt;dbl&gt;, eiv_soilreaction &lt;dbl&gt;, eiv_nutrients &lt;dbl&gt;, twi &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Or I want to filter based on some values. If I have at the same time NAs in the variable, I should specify if I want to keep these rows or not. In the example below I will keep all rows/plots where biomass is higher than 80g/m2 but I will also keep all the NAs, i.e.&nbsp;plots where it was not measured.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(biomass<span class="sc">&gt;</span><span class="dv">80</span> <span class="sc">|</span><span class="fu">is.na</span>(biomass))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 17 × 22
+   releve_nr forest_type forest_type_name    herbs juveniles cover_e1 biomass
+       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+ 1       101           4 alluvial forest        28         6       90    91.1
+ 2       103           4 alluvial forest        35         5       80   114. 
+ 3       104           4 alluvial forest        25        11       85   188. 
+ 4       108           3 ravine forest          28         7       70    82.3
+ 5       110           4 alluvial forest        37         4       95   126. 
+ 6       111           4 alluvial forest        26        10       85    84.8
+ 7       120           2 oak hornbeam forest    36         6       75    98.5
+ 8       121           2 oak hornbeam forest    30        12       80    84.7
+ 9       122           3 ravine forest          29         6       60   102. 
+10       124           2 oak hornbeam forest    34        15       75   102. 
+11       125           4 alluvial forest        25         8       95   123. 
+12       127           4 alluvial forest        53         6        0   176  
+13       128           3 ravine forest          20         4       70   121. 
+14       129           4 alluvial forest        31         7       85   100. 
+15       130           3 ravine forest          18         5       85   238  
+16       131           4 alluvial forest        59         3       95   163. 
+17       132           4 alluvial forest        60         7       90   287. 
+# ℹ 15 more variables: soil_depth_categ &lt;dbl&gt;, p_h_k_cl &lt;dbl&gt;, slope &lt;dbl&gt;,
+#   altitude &lt;dbl&gt;, canopy_e3 &lt;dbl&gt;, radiation &lt;dbl&gt;, heat &lt;dbl&gt;,
+#   trans_dir &lt;dbl&gt;, trans_dif &lt;dbl&gt;, trans_tot &lt;dbl&gt;, eiv_light &lt;dbl&gt;,
+#   eiv_moisture &lt;dbl&gt;, eiv_soilreaction &lt;dbl&gt;, eiv_nutrients &lt;dbl&gt;, twi &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>You can also filter plots in a specified range of some value.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>((biomass <span class="sc">&gt;=</span> <span class="dv">40</span> <span class="sc">&amp;</span> biomass <span class="sc">&lt;=</span> <span class="dv">80</span>) <span class="sc">|</span> <span class="fu">is.na</span>(biomass))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 22
+   releve_nr forest_type forest_type_name    herbs juveniles cover_e1 biomass
+       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+ 1         6           1 oak forest             16         3       60    46.4
+ 2         7           1 oak forest             17         5       70    49.2
+ 3         8           2 oak hornbeam forest    21         1       70    48.7
+ 4        10           1 oak forest             14         4       75    79.1
+ 5        18           2 oak hornbeam forest    13         3       85    72.2
+ 6        86           2 oak hornbeam forest    32         5       40    46.9
+ 7        87           2 oak hornbeam forest    34         9       65    42.9
+ 8        99           2 oak hornbeam forest    18         6       85    64.8
+ 9       102           2 oak hornbeam forest    37        13       65    57.4
+10       105           3 ravine forest          12        10       80    65.5
+11       109           2 oak hornbeam forest    25         9       50    60.7
+12       112           2 oak hornbeam forest    32        14       60    58.4
+13       113           4 alluvial forest        37        10       70    74.5
+14       114           3 ravine forest          12         6       50    71.5
+15       115           3 ravine forest          23         2       70    54.6
+16       116           3 ravine forest          16         3       45    64.5
+17       117           2 oak hornbeam forest    31         7       55    54.7
+18       118           2 oak hornbeam forest     8         5       45    66.2
+19       123           3 ravine forest          34        11       70    53.6
+20       126           2 oak hornbeam forest    27         7       65    72.9
+# ℹ 15 more variables: soil_depth_categ &lt;dbl&gt;, p_h_k_cl &lt;dbl&gt;, slope &lt;dbl&gt;,
+#   altitude &lt;dbl&gt;, canopy_e3 &lt;dbl&gt;, radiation &lt;dbl&gt;, heat &lt;dbl&gt;,
+#   trans_dir &lt;dbl&gt;, trans_dif &lt;dbl&gt;, trans_tot &lt;dbl&gt;, eiv_light &lt;dbl&gt;,
+#   eiv_moisture &lt;dbl&gt;, eiv_soilreaction &lt;dbl&gt;, eiv_nutrients &lt;dbl&gt;, twi &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Similarly, you can for example <strong>filter plots based on their plot size</strong>. The example below is not working on our dataset, but it comes useful in large EVA exports. Here I keep grassland plots in the range 10-100 m2, forest plots between 100-1000 m2 and I keep the plots without specified plot size.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    (habitat <span class="sc">==</span> <span class="st">"grassland"</span> <span class="sc">&amp;</span> plot_size <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">&amp;</span> plot_size <span class="sc">&lt;=</span> <span class="dv">100</span>) <span class="sc">|</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    (habitat <span class="sc">==</span> <span class="st">"forest"</span> <span class="sc">&amp;</span> plot_size <span class="sc">&gt;=</span> <span class="dv">100</span> <span class="sc">&amp;</span> plot_size <span class="sc">&lt;=</span> <span class="dv">1000</span>) <span class="sc">|</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">is.na</span>(plot_size)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="join-and-summarise" class="level2">

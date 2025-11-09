@@ -12,7 +12,7 @@ library(tidyverse)
 library(janitor)
 ```
 
-## 2.1 Basic data handling 
+## 2.1 Basic data handling
 
 We will play a bit with measured variables from our plots and try few useful functions. For more see [study materials](https://botzooldataanalysis.github.io/DataManipulationVisualisation/2_data_manipulation.html) and links there.
 
@@ -20,14 +20,14 @@ We will play a bit with measured variables from our plots and try few useful fun
 data<- read_csv("data/axmanova_forest_env_extra.csv") %>% clean_names()
 ```
 
-Select extracts columns/variables based on their names or position. Select can be also used in combination with stringr package to identify the pattern in the names: try several options: `starts_with`, `ends_with` or more general one `contains`. With the use of select in your script you can order the variables always in the same way e.g. ID, forest type, species number, productivity, even during import. And you can also rename the variables using select, to get exactly what you need.
+**`Select`** extracts columns/variables based on their names or position. Select can be also used in combination with stringr package to identify the pattern in the names: try several options: `starts_with`, `ends_with` or more general one `contains`. With the use of select in your script you can order the variables always in the same way e.g. ID, forest type, species number, productivity, even during import. And you can also rename the variables using select, to get exactly what you need.
 
 ```{r}
 data %>% 
   select(ID=releve_nr, forest_type=forest_type_name, species_nr=herbs, productivity=biomass) 
 ```
 
-Distinct is a function that takes your data and remove all the duplicate rows, keeping only the unique ones. There are many cases where you will really appreciate this elegant and easy way. For example, I want a list of unique PlotIDs= releve_nr, unique combinations of two categories etc. Here I want to prepare list of forest types codes and names.
+**`Distinct`** is a function that takes your data and remove all the duplicate rows, keeping only the unique ones. There are many cases where you will really appreciate this elegant and easy way. For example, I want a list of unique PlotIDs= releve_nr, unique combinations of two categories etc. Here I want to prepare list of forest types codes and names.
 
 ```{r}
 data %>%
@@ -35,14 +35,53 @@ data %>%
   distinct(forest_type, forest_type_name)
 ```
 
-When we have a large dataset, we sometimes need to create a subset of the rows/cases. First we have to define upon which variable we are going to filter the rows (e.g. Forest type, soil pH...) and which values are acceptable and which are not.
+When we have a large dataset, we sometimes need to create a subset of the rows/cases by **`filter`**. First we have to define upon which variable we are going to filter the rows (e.g. Forest type, soil pH...) and which values are acceptable and which are not. Here I keep only plots from a type that exactly match.
 
 ```{r}
 data %>% 
   filter(forest_type_name =="alluvial forest")
 ```
 
+or those that are listed
+
+```{r}
+
+data %>% 
+  filter(forest_type_name %in% c("alluvial forest", "ravine forest"))
+```
+
+Or I want to filter based on some values. If I have at the same time NAs in the variable, I should specify if I want to keep these rows or not. In the example below I will keep all rows/plots where biomass is higher than 80g/m2 but I will also keep all the NAs, i.e. plots where it was not measured.
+
+```{r}
+data %>% 
+  filter(biomass>80 |is.na(biomass))
+```
+
+You can also filter plots in a specified range of some value.
+
+```{r}
+data %>% 
+  filter((biomass >= 40 & biomass <= 80) | is.na(biomass))
+
+```
+
+Similarly, you can for example **filter plots based on their plot size**. The example below is not working on our dataset, but it comes useful in large EVA exports. Here I keep grassland plots in the range 10-100 m2, forest plots between 100-1000 m2 and I keep the plots without specified plot size.
+
+```{r}
+#| eval: false
+data %>% 
+  filter(
+    (habitat == "grassland" & plot_size >= 10 & plot_size <= 100) |
+    (habitat == "forest" & plot_size >= 100 & plot_size <= 1000) |
+    is.na(plot_size)
+  )
+```
+
 ## 2.2 Join and summarise
+
+```{r}
+
+```
 
 ## 2.3 Community weighted means
 
