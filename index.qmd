@@ -4,7 +4,7 @@ title: "Czech Vegetation Database"
 
 The Czech Vegetation Database (formerly the Czech National Phytosociological Database) is a digital archive of vegetation-plot records from the territory of the Czech Republic. It includes phytosociological relevés, i.e., records of plant species composition and cover-abundances in delimited plots within relatively homogeneous vegetation patches, as well as similar data from vegetation surveys, monitoring programs, and ecological studies.
 
-The database is registered in the Global Index of Vegetation-Plot Databases ([GIVD](#0), [Dengler et al. 2011](#0)) with the code [EU-CZ-001](#0). It is a member of the European Vegetation Archive ([EVA](#0), [Chytrý et al. 2016](#0)) and the Global Vegetation Database ([sPlot](#0), [Bruelheide et al. 2019](#0)).
+The database is registered in the Global Index of Vegetation-Plot Databases ([GIVD](https://www.givd.info/), [Dengler et al. 2011](https://doi.org/10.1111/j.1654-1103.2011.01265.x)) with the code [EU-CZ-001](http://www.givd.info/ID/EU-CZ-001). It is a member of the European Vegetation Archive ([EVA](#0), [Chytrý et al. 2016](#0)) and the Global Vegetation Database ([sPlot](https://www.idiv.de/en/splot.html), [Bruelheide et al. 2019](https://doi.org/10.1111/jvs.12710)).
 
 It is coordinated at the [Department of Botany and Zoology](https://botzool.sci.muni.cz), Faculty of Science, Masaryk University, Brno, Czech Republic. The current database manager is Ilona Knollová ([ikuzel\@sci.muni.cz](mailto:ikuzel@sci.muni.cz)).
 
