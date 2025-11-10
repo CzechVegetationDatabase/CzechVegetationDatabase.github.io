@@ -2,7 +2,7 @@
 title: "Acknowledgements"
 format: html
 ---
-We thank all the contributors of the Czech Vegetation Database:
+Contributors of the Czech Vegetation Database:
 
 :::::: {layout-ncol="3"}
 ::: column
@@ -170,7 +170,7 @@ We thank all the contributors of the Czech Vegetation Database:
 
 -   Lucie Kratochvílová
 
--   ✝ Zdeněk Kropáč 
+-   Zdeněk Kropáč 
 
 -   Pavel Křížek
 
@@ -216,7 +216,7 @@ We thank all the contributors of the Czech Vegetation Database:
 
 -   Jiří Němec
 
--   ✝ Zdenka Neuhäuslová
+-   Zdenka Neuhäuslová
 
 -   Jana Nová
 
@@ -294,7 +294,7 @@ We thank all the contributors of the Czech Vegetation Database:
 
 -   Tomáš Svačina
 
--   ✝ Milan Šenkýř
+-   Milan Šenkýř
 
 -   Anna Šímová
 
@@ -326,7 +326,7 @@ We thank all the contributors of the Czech Vegetation Database:
 
 -   Jiří Velebil
 
--   ✝ Jiří Vicherek
+-   Jiří Vicherek
 
 -   Ondřej Vild
 
