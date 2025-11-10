@@ -17,5 +17,3 @@ It is coordinated at the [Department of Botany and Zoology](https://botzool.sci.
 -   [Data processing Tutorial](DataProcessingTutorial/data_processing_tutorial.qmd)
 
 Webpage prepared by Irena Axmanová and Klára Friesová
-
-![![](images/clipboard-195006419.png)](images/clipboard-195006419.png)
