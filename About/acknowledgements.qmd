@@ -2,7 +2,7 @@
 title: "Acknowledgements"
 format: html
 ---
-We thank all the contributors of the Czech National Phytosociological Database:
+We thank all the contributors of the Czech Vegetation Database:
 
 :::::: {layout-ncol="3"}
 ::: column
@@ -39,8 +39,6 @@ We thank all the contributors of the Czech National Phytosociological Database:
 -   Pavel Daněk
 
 -   Jiří Danihelka
-
--   Alice Dingová
 
 -   Daniel Dítě
 
@@ -124,7 +122,11 @@ We thank all the contributors of the Czech National Phytosociological Database:
 ::: column
 -   Markéta Chudomelová
 
+-   Helena Chytrá (Prokešová)
+
 -   Kryštof Chytrý
+
+-   Milan Chytrý
 
 -   Ivan Jindra
 
@@ -162,21 +164,23 @@ We thank all the contributors of the Czech National Phytosociological Database:
 
 -   Martin Kočí
 
+-   Alica Košuthová (Dingová)
+
 -   František Krahulec
 
 -   Lucie Kratochvílová
 
--   Zdeněk Kropáč
+-   ✝ Zdeněk Kropáč 
 
 -   Pavel Křížek
 
 -   Tomáš Kučera
 
--   Anna Kulíková
+-   Anna Kučerová
+
+-   Anna Kučerová (Kulíková)
 
 -   Petr Kuneš
-
--   Jana Kůrová
 
 -   Josef Kutlvašr
 
@@ -212,13 +216,15 @@ We thank all the contributors of the Czech National Phytosociological Database:
 
 -   Jiří Němec
 
--   Zdenka Neuhäuslová
+-   ✝ Zdenka Neuhäuslová
 
 -   Jana Nová
 
 -   Jan Novák
 
 -   Pavel Novák
+
+-   Kateřina Nováková (Píšťková)
 
 -   Ivan Ostrý
 
@@ -238,17 +244,17 @@ We thank all the contributors of the Czech National Phytosociological Database:
 :::
 
 ::: column
--   Kateřina Pišťková
-
 -   Zuzana Plesková
 
 -   Marie Popelářová
 
+-   Ondřej Popelka
+
+-   Jana Posslová (Kůrová)
+
 -   Jan Prančl
 
 -   Zdenka Preislerová (Otýpková)
-
--   Helena Prokešová
 
 -   Petr Pyšek
 
@@ -266,7 +272,7 @@ We thank all the contributors of the Czech National Phytosociological Database:
 
 -   Eva Rozehnalová
 
--   Marcela Řezníčková
+-   Marcela Řezníčková (Havlová)
 
 -   Jiří Sádlo
 
@@ -288,7 +294,7 @@ We thank all the contributors of the Czech National Phytosociological Database:
 
 -   Tomáš Svačina
 
--   Milan Šenkýř
+-   ✝ Milan Šenkýř
 
 -   Anna Šímová
 
@@ -310,7 +316,7 @@ We thank all the contributors of the Czech National Phytosociological Database:
 
 -   Lubomír Tichý
 
--   Jana Tkačíková
+-   Jana Tkáčiková
 
 -   Adam Trčka
 
@@ -320,7 +326,7 @@ We thank all the contributors of the Czech National Phytosociological Database:
 
 -   Jiří Velebil
 
--   Jiří Vicherek
+-   ✝ Jiří Vicherek
 
 -   Ondřej Vild
 
