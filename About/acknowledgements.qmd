@@ -8,6 +8,10 @@ Contributors of the Czech Vegetation Database:
 ::: column
 -   Irena Axmanová (Veselá)
 
+-   Marcel Bartoš
+
+-   David Beleš
+
 -   Lucie Benediktová
 
 -   Eliška Blažejová (Horodyská)
@@ -15,6 +19,8 @@ Contributors of the Czech Vegetation Database:
 -   Denisa Blažková
 
 -   Karel Boublík
+
+-   Pavel Brych
 
 -   Kateřina Bubíková
 
@@ -26,6 +32,8 @@ Contributors of the Czech Vegetation Database:
 
 -   Šárka Cimalová
 
+-   Ondřej Cudlín
+
 -   Jaroslav Čáp
 
 -   Alžběta Čejková
@@ -36,6 +44,8 @@ Contributors of the Czech Vegetation Database:
 
 -   Tomáš Černý
 
+-   Martin Dančák
+
 -   Pavel Daněk
 
 -   Jiří Danihelka
@@ -45,6 +55,8 @@ Contributors of the Czech Vegetation Database:
 -   Jan Divíšek
 
 -   Ctibor Dolejší
+
+-   Jan Doležal
 
 -   Jana Ďoubalová
 
@@ -74,6 +86,8 @@ Contributors of the Czech Vegetation Database:
 
 -   Jarmila Filippovová
 
+-   Klára Friesová (Klinkovská)
+
 -   Zuzana Fronková
 
 -   Jiří Galda
@@ -92,7 +106,11 @@ Contributors of the Czech Vegetation Database:
 
 -   Petra Hanáková
 
+-   Martin Harásek
+
 -   Handrij Härtel
+
+-   Kryštof Havelka
 
 -   Helena Havránková
 
@@ -115,6 +133,8 @@ Contributors of the Czech Vegetation Database:
 -   Jaroslav Hruban
 
 -   Monika Hrubanová (Dršková)
+
+-   Petr Hubatka
 
 -   Jindřich Chlapek
 :::
@@ -146,9 +166,13 @@ Contributors of the Czech Vegetation Database:
 
 -   Kamila Juřičková
 
+-   Daniel Kadaš
+
 -   Veronika Kalníková
 
 -   Veronika Kalusová
+
+-   Adam Kantor
 
 -   Zdeněk Kaplan
 
@@ -162,11 +186,19 @@ Contributors of the Czech Vegetation Database:
 
 -   Ilona Knollová (Kuželová)
 
+-   Jiří Kocián
+
 -   Martin Kočí
+
+-   Branislav Kopčan
+
+-   Jan Košnar
 
 -   Alica Košuthová (Dingová)
 
 -   František Krahulec
+
+-   Štěpánka Králová
 
 -   Lucie Kratochvílová
 
@@ -204,15 +236,21 @@ Contributors of the Czech Vegetation Database:
 
 -   Martina Macků (Nejezchlebová)
 
+-   Štěpánka Marková (Čížková)
+
+-   Ivona Matějková
+
 -   Michal Mazák
 
 -   Kristina Merunková
+
+-   Jan Mládek
 
 -   Zuzana Myšková
 
 -   Tereza Náhlíková
 
--   Jana Navrátilová
+-   Jana Navrátilová (Ernestová)
 
 -   Jiří Němec
 
@@ -228,6 +266,8 @@ Contributors of the Czech Vegetation Database:
 
 -   Ivan Ostrý
 
+-   Jiří Ouřada
+
 -   Marcela Paloudová
 
 -   Petra Pavlíčková
@@ -241,6 +281,8 @@ Contributors of the Czech Vegetation Database:
 -   Michaela Petrová
 
 -   Petr Petřík
+¨
+-   Lenka Pivoňková
 :::
 
 ::: column
@@ -254,7 +296,11 @@ Contributors of the Czech Vegetation Database:
 
 -   Jan Prančl
 
+-   Romana Prausová
+
 -   Zdenka Preislerová (Otýpková)
+
+-   Lenka Prokopová
 
 -   Petr Pyšek
 
@@ -264,6 +310,8 @@ Contributors of the Czech Vegetation Database:
 
 -   Ludmila Rivolová
 
+-   Jaroslav Rohel
+
 -   Jan Roleček
 
 -   Romana Roučková
@@ -272,6 +320,8 @@ Contributors of the Czech Vegetation Database:
 
 -   Eva Rozehnalová
 
+-   Vlastik Rybka
+
 -   Marcela Řezníčková (Havlová)
 
 -   Jiří Sádlo
@@ -279,6 +329,8 @@ Contributors of the Czech Vegetation Database:
 -   Vojtěch Sedláček
 
 -   Hana Sekerková
+
+-   Vojtěch Sobotka
 
 -   Martina Sojneková
 
@@ -292,7 +344,11 @@ Contributors of the Czech Vegetation Database:
 
 -   Lenka Staňková
 
+-   Eliška Suntychová
+
 -   Tomáš Svačina
+
+-   Eva Šaldová
 
 -   Milan Šenkýř
 
@@ -312,15 +368,21 @@ Contributors of the Czech Vegetation Database:
 
 -   Markéta Táborská
 
--   Přemysl Tajek
+-   Přemysl Tájek
+
+-   Vojtěch Taraška
 
 -   Lubomír Tichý
 
--   Jana Tkáčiková
+-   Jana Tkáčiková (Novosadová)
 
 -   Adam Trčka
 
+-   Jarmila Urbánková
+
 -   Martin Večeřa
+
+-   Kateřina Vejvodová
 
 -   Adam Veleba
 
