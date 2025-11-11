@@ -137,14 +137,16 @@ Contributors of the Czech Vegetation Database:
 -   Petr Hubatka
 
 -   Jindřich Chlapek
-:::
 
-::: column
 -   Markéta Chudomelová
 
 -   Helena Chytrá (Prokešová)
 
 -   Kryštof Chytrý
+
+:::
+
+::: column
 
 -   Milan Chytrý
 
