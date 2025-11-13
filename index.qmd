@@ -12,7 +12,7 @@ It is coordinated at the [Department of Botany and Zoology](https://botzool.sci.
 
 ### Website Navigation
 
--   [About](About/introduction.qmd)
+-   [About](About/history.qmd)
 -   [Data availability](DataAvailability/data_availability.qmd)
 -   [Data processing Tutorial](DataProcessingTutorial/data_processing_tutorial.qmd)
 
