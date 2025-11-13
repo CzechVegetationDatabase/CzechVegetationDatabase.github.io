@@ -13,7 +13,7 @@ Turboveg for Windows is a program designed for the storage, selection, and expor
 
 At some point you need to export the data and process them further. This can be done for example in a specialised software called JUICE, but also directly in R.
 
-![](images/clipboard-2303630584.png)
+![](images/clipboard-3933108048.png)
 
 To get Turboveg data to R, you first need to **export the Turboveg database** to a folder where you want to process the data. This step requires **selection of all the plots** you want to export. Alternatively you can access the files directly in the main file in Turbowin, but just to warn you, if you do something wrong here, you might completely loose your data.
 

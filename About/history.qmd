@@ -1,9 +1,7 @@
 ---
-title: "Introduction"
+title: "History"
 format: html
 ---
-
-### History
 
 The development of the Czech Vegetation Database (formerly Czech National Phytosociological Database) was stimulated by the activities of the [European Vegetation Survey](https://euroveg.org/) Working Group of the [International Association for Vegetation Science](https://www.iavs.org/), which was founded in 1992. One of the aims of this group was to support national vegetation survey programs in European countries ([Mucina et al. 1993](https://doi.org/10.2307/3235603)). The creation of the national vegetation databases was a key activity towards this aim. To support database development, Stephan Hennekens developed the database management program Turboveg and provided it to various vegetation researchers and research groups in Europe (Schaminée & Hennekens 1995).
 

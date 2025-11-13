@@ -22,8 +22,8 @@ website:
       - section: "About"
         href: index.qmd
         contents:
-        - text: "Introduction"
-          href: About/introduction.qmd
+        - text: "History"
+          href: About/history.qmd
         - text: "Current state"
           href: About/current_state.qmd
         - text: "Turboveg for Windows"
