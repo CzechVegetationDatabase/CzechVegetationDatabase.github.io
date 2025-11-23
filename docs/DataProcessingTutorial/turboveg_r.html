@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Turboveg for R – Czech Vegetation Database</title>
+<title>Turboveg to R – Czech Vegetation Database</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -250,12 +250,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#turboveg-data-format" id="toc-turboveg-data-format" class="nav-link active" data-scroll-target="#turboveg-data-format">1.1 Turboveg data format</a></li>
   <li><a href="#load-libraries" id="toc-load-libraries" class="nav-link" data-scroll-target="#load-libraries">1.2 Load libraries</a></li>
-  <li><a href="#import-env-file-headers" id="toc-import-env-file-headers" class="nav-link" data-scroll-target="#import-env-file-headers">1.3 Import env file = headers</a></li>
+  <li><a href="#import-env-file-header-data" id="toc-import-env-file-header-data" class="nav-link" data-scroll-target="#import-env-file-header-data">1.3 Import env file = header data</a></li>
   <li><a href="#import-spe-file-species-file-in-a-long-format" id="toc-import-spe-file-species-file-in-a-long-format" class="nav-link" data-scroll-target="#import-spe-file-species-file-in-a-long-format">1.4 Import spe file = species file in a long format</a>
   <ul class="collapse">
   <li><a href="#nomenclature" id="toc-nomenclature" class="nav-link" data-scroll-target="#nomenclature">1.4.1 Nomenclature</a></li>
   <li><a href="#cover" id="toc-cover" class="nav-link" data-scroll-target="#cover">1.4.2 Cover</a></li>
-  <li><a href="#merging-all-files-together-into-complete-spe-file" id="toc-merging-all-files-together-into-complete-spe-file" class="nav-link" data-scroll-target="#merging-all-files-together-into-complete-spe-file">1.4.2 Merging all files together into complete spe file</a></li>
+  <li><a href="#merging-all-files-into-complete-spe-file" id="toc-merging-all-files-into-complete-spe-file" class="nav-link" data-scroll-target="#merging-all-files-into-complete-spe-file">1.4.2 Merging all files into complete spe file</a></li>
   </ul></li>
   <li><a href="#merging-of-species-covers-across-layers" id="toc-merging-of-species-covers-across-layers" class="nav-link" data-scroll-target="#merging-of-species-covers-across-layers">1.5 Merging of species covers across layers</a>
   <ul class="collapse">
@@ -273,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../DataProcessingTutorial/data_processing_tutorial.html">Data processing tutorial</a></li><li class="breadcrumb-item"><a href="../DataProcessingTutorial/turboveg_r.html">Turboveg to R</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Turboveg for R</h1>
+<h1 class="title">Turboveg to R</h1>
 </div>
 
 
@@ -290,14 +290,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Aim of this tutorial is to show you step by step how to import the data from Turboveg to R and prepare it for further analyses.</p>
+<p>The aim of this tutorial is to show you step by step how to import the data from Turboveg 2 to R and prepare it for further analyses.</p>
 <section id="turboveg-data-format" class="level2">
 <h2 class="anchored" data-anchor-id="turboveg-data-format">1.1 Turboveg data format</h2>
-<p>Turboveg for Windows is a program designed for the storage, selection, and export of vegetation plot data (relevés).The information is divided among several files that are matched by either species ID or releve ID. Within the Turboveg interface, you do not see this structure directly, but you can find it if you look in the <em>Turbowin</em> folder, subfolder <em>data</em> and particular database (see example below).</p>
+<p>Turboveg for Windows is a program designed for the storage, selection, and export of vegetation plot data (relevés). The data are divided among several files that are matched by either species ID or relevé ID. You do not see this structure directly in the Turboveg interface, but you can find it in the&nbsp;<em>Turbowin</em>&nbsp;folder, subfolder&nbsp;<em>data</em>&nbsp;and particular database (see example below).</p>
 <p><img src="images/clipboard-683841843.png" class="img-fluid" width="637"></p>
-<p>At some point you need to export the data and process them further. This can be done for example in a specialised software called JUICE, but also directly in R.</p>
+<p>At some point, you need to export the data and process them further. This can be done in a specialised software called <a href="https://www.sci.muni.cz/botany/juice/NET/index.htm">JUICE</a>, but also directly in R.</p>
 <p><img src="images/clipboard-3933108048.png" class="img-fluid"></p>
-<p>To get Turboveg data to R, you first need to <strong>export the Turboveg database</strong> to a folder where you want to process the data. This step requires <strong>selection of all the plots</strong> you want to export. Alternatively you can access the files directly in the main file in Turbowin, but just to warn you, if you do something wrong here, you might completely loose your data.</p>
+<p>To get Turboveg data to R, you first need to&nbsp;<strong>export the Turboveg database</strong>&nbsp;to a folder where you want to process the data. This step requires&nbsp;the <strong>selection of all the plots</strong>&nbsp;you want to export. Alternatively, you can access the files directly in the data folder in Turbowin, but if you do something wrong here, you might completely lose your data.</p>
 </section>
 <section id="load-libraries" class="level2">
 <h2 class="anchored" data-anchor-id="load-libraries">1.2 Load libraries</h2>
@@ -308,14 +308,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)   <span class="co">#for unified, easy-to-handle format of variable names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="import-env-file-headers" class="level2">
-<h2 class="anchored" data-anchor-id="import-env-file-headers">1.3 Import env file = headers</h2>
+<section id="import-env-file-header-data" class="level2">
+<h2 class="anchored" data-anchor-id="import-env-file-header-data">1.3 Import env file = header data</h2>
 <p><strong>One option</strong> is to check the exported database manually, open the file called <em>tvhabita.dbf</em> in Excel and save it as <em>tvhabita.xlsx</em> or <em>tvhabita.csv</em> (UTF 8 encoded) file into your <em>data</em> folder. Although it includes one more step outside R, it is still rather straightforward and it saves you troubles with different formats in Turboveg and in R (encoding issues).</p>
-<p>You can then import the file as Excel</p>
+<p>You can then import the file from Excel</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/tvhabita.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>or from csv file, which is a slightly more universal option and we will use it for import of most of the files.</p>
+<p>or from a csv file, which is a slightly more universal option, and we will use it for the import of most of the files.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/tvhabita.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -353,7 +353,7 @@ lgl (26): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, UTM, RESURVEY, FOR_EVA, R...
 [81] "RADIATION"  "HEAT"       "LES"        "NELES"     </code></pre>
 </div>
 </div>
-<p>Therefore we will directly change them to tidy names with the <code>clean_names</code> function from package <code>janitor</code>. Alternative is to rename one by one using e.g.&nbsp;<code>rename</code>, but here we want to save time and effort.</p>
+<p>Therefore, we will directly change them to tidy names with the <code>clean_names</code> function from the package <code>janitor</code>. An alternative is to rename them one by one using e.g.&nbsp;<code>rename</code>, but here we want to save time and effort.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/tvhabita.csv"</span>)<span class="sc">%&gt;%</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -392,7 +392,7 @@ lgl (26): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, UTM, RESURVEY, FOR_EVA, R...
 #   shrub_low &lt;dbl&gt;, herb_high &lt;dbl&gt;, herb_low &lt;dbl&gt;, herb_max &lt;dbl&gt;, …</code></pre>
 </div>
 </div>
-<p>Note that the <strong>pipe</strong> <code>%&gt;%</code> allows the output of a previous command to be used as input to another command instead of using nested functions. It means, pipe binds individual steps into a sequence and it reads from left to right. You can insert it into your code as <code>ctrl+shift+M</code>.</p>
+<p>Note that the <strong>pipe</strong> <code>%&gt;%</code> allows the output of a previous command to be used as input to another command instead of using nested functions. It means that a pipe binds individual steps into a sequence and it reads from left to right. You can insert it into your code using <code>Ctrl+Shift+M</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(env)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -415,7 +415,7 @@ lgl (26): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, UTM, RESURVEY, FOR_EVA, R...
 [81] "radiation"  "heat"       "les"        "neles"     </code></pre>
 </div>
 </div>
-<p>Pipe also enables me to try first what would be the output before saving the result. For example I want to select just few variables for checking, but not to overwrite the data, before I am happy with the selection. For example here I see, the habitat information is not filled (returns NAs), so I will not use it.</p>
+<p>Pipe also enables us to see the output before saving the result. We want to select just a few variables for checking, but not overwrite the data, before we are happy with the selection. For example, here we see that the habitat information is not filled (returns NAs), so I will not use it.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, habitat, latitude, longitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -489,11 +489,11 @@ $ bias_gps   &lt;dbl&gt; 5, 6, 10, 6, 5, 6, 14, 6, 4, 5, 5, 5, 6, 6, 5, 11, 8, 7
 $ locality   &lt;chr&gt; "Svinošice (Brno, Kuřim); 450 m SZ od středu obce", "Lažany…</code></pre>
 </div>
 </div>
-<p>And save it for easier access. Always keep releve_nr and coverscale, as you will need them later on.</p>
+<p>And save it for easier access. Always keep releve_nr and coverscale, as you will need them later.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(env, <span class="st">"data/env.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>*Alternative option</strong> is to directly import the file exported from Turboveg database named <strong>tvhabita.dbf</strong> using specific approach. Since dbf is a bit specific type of files and we need to use a specialised packages. Here I used <strong>read.dbf</strong> function from the <code>foreign</code> library.</p>
+<p><strong>*An alternative option</strong> is to directly import the file exported from the Turboveg database named <strong>tvhabita.dbf</strong>. Since dbf is a specific type of files and we need to use a specialised packages. Here I used <strong>read.dbf</strong> function from the <code>foreign</code> library.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>env_dbf <span class="ot">&lt;-</span> <span class="fu">read.dbf</span>(<span class="st">"data/tvhabita.dbf"</span>, <span class="at">as.is =</span> F) <span class="sc">%&gt;%</span>    </span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -525,8 +525,8 @@ $ locality   &lt;chr&gt; "Svinošice (Brno, Kuřim); 450 m SZ od středu obce", 
 [81] "radiation"  "heat"       "les"        "neles"     </code></pre>
 </div>
 </div>
-<p>There are several issues with this type of import, as there might be different encodings used in the original files, not compatible with R. For Czech dataset I needed to further change the encoding style, so that the diacritics in text columns translates correctly.</p>
-<p>Check where are problems with encoding, add column names to the brackets, first we need to select the columns that include text there are issues with diacritics and special symbols, e.g.&nbsp;remarks, locality… I specify them in the brackets and use function <strong>iconv</strong> to change the encoding to UTF-8. You may need to play a bit to see if it works correctly and change the original type in the from argument. I added one more line to transform the dataframe to tibble, which is the data format used in tidyverse packages.</p>
+<p>There are several issues with this type of import, as there might be different encodings used in the original files, not compatible with R. For the Czech dataset, I needed to further change the encoding style, so that the diacritics in text columns is translated correctly.</p>
+<p>First we need to select the columns that include text and can have issues with diacritics and special symbols, e.g.&nbsp;remarks, locality… I specify them in the brackets and use function <strong>iconv</strong> to change the encoding to UTF-8. You may need to play a bit to see if it works correctly and change the original type in the from argument. I added one more line to transform the dataframe to tibble, which is the data format used in tidyverse packages.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>env_dbf <span class="sc">%&gt;%</span>   </span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(remarks, locality, habitat, soil),</span>
@@ -550,7 +550,7 @@ $ locality   &lt;chr&gt; "Svinošice (Brno, Kuřim); 450 m SZ od středu obce", 
 # ℹ 127 more rows</code></pre>
 </div>
 </div>
-<p>In the next step we select variables we want to keep further, which is useful, as the database structure includes also predefined variables, even if they are empty. Another advantage of select function</p>
+<p>In the next step we select variables we want to keep further, which is useful, as the database structure also includes predefined variables, even if they are empty. Another advantage of the select function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> env_dbf <span class="sc">%&gt;%</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(remarks, locality, habitat, soil),</span>
@@ -564,7 +564,7 @@ $ locality   &lt;chr&gt; "Svinošice (Brno, Kuřim); 450 m SZ od středu obce", 
 </section>
 <section id="import-spe-file-species-file-in-a-long-format" class="level2">
 <h2 class="anchored" data-anchor-id="import-spe-file-species-file-in-a-long-format">1.4 Import spe file = species file in a long format</h2>
-<p>First option is again to open the <em>tvabund.dbf</em> in Excel and save it as <em>tvabund.csv</em>. And import it to our environment in R. Again, I will use the clean_names function during import, so that we have the same style of the variable names.</p>
+<p>The first option is again to open the <em>tvabund.dbf</em> in Excel, save it as <em>tvabund.csv</em> and import it to our environment in R. Again, I will use the clean_names function during import, so that we have the same style of the variable names.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>tvabund <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/tvabund.csv"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -580,7 +580,7 @@ lgl (1): _ORIG_NAME
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
-<p>*Alternative option is to read the data directly from the dbf file. In this case, it is less complicated than import of env file, as there are no text variables.</p>
+<p>*An alternative option is to read the data directly from the dbf file. In this case, it is less complicated than the import of an env file, as there are no problematic text variables.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>tvabund <span class="ot">&lt;-</span> <span class="fu">read.dbf</span>(<span class="st">"data/tvabund.dbf"</span>, <span class="at">as.is =</span> F) <span class="sc">%&gt;%</span> </span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -597,14 +597,14 @@ $ layer      &lt;dbl&gt; 6, 7, 6, 6, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 7, 6, 6, 6
 $ orig_name  &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</code></pre>
 </div>
 </div>
-<p>Now we will check the data again and we see, that there are no species names, just numbers. Also the cover is given in the original codes and not in percentages. See the scheme below to understand where each piece of the information is stored.</p>
+<p>Now we will check the data again and we see, that there are no species names, just numbers. Also, the cover is given in the original codes and not in percentages. See the scheme below to understand where each piece of information is stored.</p>
 <p><img src="images/clipboard-161695252.png" class="img-fluid"></p>
 <p>We have to prepare these different files we need, import them and merge them.</p>
 <section id="nomenclature" class="level3">
 <h3 class="anchored" data-anchor-id="nomenclature">1.4.1 Nomenclature</h3>
-<p>In the abund file, species numbers refer to the codes in the checklist used in the Turboveg database. To translate them into species names you will need a translation table with the original number in the database, original name in the database and the name you want to use in the analyses.</p>
+<p>In the abund file, species numbers refer to the codes in the checklist used in the Turboveg database. To translate them into species names you will need a translation table with the original number in the database, the original name in the database and the name you want to use in the analyses.</p>
 <p><img src="images/clipboard-3188719096.png" class="img-fluid"></p>
-<p><strong>Preparation of translation table:</strong> To show you how to prepare such a table I opened the checklist file, so called <em>species.dbf</em> from the folder: Turbowin/species/CzechiaSlovakia2015 and saved it here in the data folder as <em>species.csv</em> Using the following pipeline you can prepare your own translation table and add other names or information.</p>
+<p><strong>Preparation of the translation table:</strong> To show you how to prepare such a table, I opened the checklist file, so called <em>species.dbf</em> from the folder: Turbowin/species/CzechiaSlovakia2015 and saved it here in the data folder as <em>species.csv.</em> Using the following pipeline, you can prepare your own translation table and add other names or information.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>nomenclature_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/species.csv"</span>) <span class="sc">%&gt;%</span>   </span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span>   </span>
@@ -624,7 +624,7 @@ lgl (1): SYNONYM
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
-<p>We will now import the nomenclature file that is already adapted for Czech flora.</p>
+<p>We will now import the nomenclature file that is already adapted for the Czech flora.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>nomenclature <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/nomenclature_20251108.csv"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -658,10 +658,10 @@ lgl (1): SYNONYM
 # ℹ 1 more variable: nonvascular &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>There are several advantages about this approach. First, you can adjust the nomenclature to the newest source/regional checklist etc. In our example the name in Turboveg is translated to the nomenclature presented in the recent Key of the Czech Flora, and it is named after the main editor Kaplan.</p>
-<p>Second, I can add a concept that groups several taxa into higher units, e.g.&nbsp;taxa that are not easy to recognise in the field are assigned into aggregates. This is exactly the same approach as you do when you create an expert system file. Here it is even more easy to understand and much easier to change the translation when you need to fix something. The name in this file is called ESy.</p>
-<p>Last but not least. I can directly add much more information into such table. For example status, growth form or anything else. Here we have indication if the species is nonvascular.</p>
-<p>I might want to check how the species are translated with the use of my translation file and select just these matching rows. Either create a variable called selection indicating if the species is in the subset or not</p>
+<p>There are several advantages of this approach. First, you can adjust the nomenclature to the newest source/regional checklist. In our example, the name in Turboveg is translated to the nomenclature presented in the recent edition of the Key to the Flora of the Czech Republick, and it is named after the main editor Kaplan.</p>
+<p>Second, I can add a concept that groups several taxa into higher units, e.g.&nbsp;taxa that are not easy to recognise in the field are assigned into aggregates. This is exactly the same approach you use when creating an expert system file. Here it is even easier to understand and much easier to change the translation when you need to fix something. The name in this file is called ESy.</p>
+<p>Last but not least. I can directly add much more information into such a table. For example invasion status, growth form or anything else. Here we have an indication of whether the species is nonvascular.</p>
+<p>I might want to check how the species are translated using my translation file and select just these matching rows. Either create a variable called selection indicating if the species is in the subset or not.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>nomenclature_check<span class="ot">&lt;-</span> nomenclature <span class="sc">%&gt;%</span> </span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(tvabund <span class="sc">%&gt;%</span> </span>
@@ -680,7 +680,7 @@ lgl (1): SYNONYM
 <pre><code>Joining with `by = join_by(species_nr)`</code></pre>
 </div>
 </div>
-<p>I can then write the file, make adjustments e.g.&nbsp;in Excel and upload it newly. Great thing is that I have indication of which species are in the dataset and I do not have to pay attention to the other rows.</p>
+<p>I can then write the file, make adjustments e.g.&nbsp;in Excel and upload it again. Great thing is that I have an indication of which species are in the dataset, and I do not have to pay attention to the other rows.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(nomenclature_check, <span class="st">"data/nomenclature_check.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -692,7 +692,7 @@ lgl (1): SYNONYM
 </section>
 <section id="cover" class="level3">
 <h3 class="anchored" data-anchor-id="cover">1.4.2 Cover</h3>
-<p>We have translation table for nomenclature, but we still need to translate cover codes to percentages. For cover translation we need to use information about cover scale (stored in the header data / tvhabita / env file) and information how to translate the values in that particular scale to percentages. The file here was prepared based on the translation of cover values in different scales to percentages following the EVA database approach. One more column was added to enable different adjustments, for example change the values for rare species etc. For any project I suggest to open the file and check if the scales you are using are there and if you agree with the translation.</p>
+<p>We have a translation table for nomenclature, but we still need to translate cover codes to percentages. For translation of cover we need to use information about the cover scale (stored in the header data / tvhabita / env file) and information on how to translate the values in that particular scale to percentages. The file here was prepared based on the translation of cover values in different scales to percentages following the EVA database approach. One more column was added to enable different adjustments, for example, change the values for rare species. For any project, we suggest to open the file and check if the scales you are using are there and if you agree with the translation.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>cover <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/cover_20230402.csv"</span>) <span class="sc">%&gt;%</span> <span class="fu">clean_names</span>()  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -723,7 +723,6 @@ dbl (3): ID, CoverPercEVA, CoverPerc
 # ℹ 316 more rows</code></pre>
 </div>
 </div>
-<p>The file here was prepared based on the translation of cover values in different scales to percentages following the EVA database approach. One more column was added to enable different adjustments, for example change the values for rare species etc. For any project I suggest to open the file and check if the scales you are using are there and if you agree with the translation.</p>
 <p>Here I can check the different scale names included in the file</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>cover <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(cover_scale_name) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -777,8 +776,8 @@ dbl (3): ID, CoverPercEVA, CoverPerc
 </div>
 </div>
 </section>
-<section id="merging-all-files-together-into-complete-spe-file" class="level3">
-<h3 class="anchored" data-anchor-id="merging-all-files-together-into-complete-spe-file">1.4.2 Merging all files together into complete spe file</h3>
+<section id="merging-all-files-into-complete-spe-file" class="level3">
+<h3 class="anchored" data-anchor-id="merging-all-files-into-complete-spe-file">1.4.2 Merging all files into complete spe file</h3>
 <p>Finally, I have translation to nomenclature, to cover, so I need to put everything together.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>tvabund <span class="sc">%&gt;%</span> </span>
@@ -811,7 +810,7 @@ Joining with `by = join_by(cover_code, coverscale)`</code></pre>
 </div>
 <p>The output contains these variables</p>
 <pre><code> "releve_nr"     "species_nr"    "cover_code"    "layer"         "orig_name"     "kaplan"        "expert_system" "nonvascular"   "coverscale"    "cover_perc"   </code></pre>
-<p>If I am satisfied with the result I assign the pipeline into the <em>spe</em> file and add one more line to select just needed variables, here I decided to use just the <em>expert_system name</em> and I renamed it directly in the <code>select</code> function</p>
+<p>If I am satisfied with the result, I assign the pipeline into the <em>spe</em> file and add one more line to select just the needed variables. Here I decided to use the <em>expert_system name</em> and I renamed it directly in the <code>select</code> function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>spe<span class="ot">&lt;-</span> tvabund <span class="sc">%&gt;%</span> </span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(nomenclature <span class="sc">%&gt;%</span> </span>
@@ -867,7 +866,7 @@ Joining with `by = join_by(cover_code, coverscale)`</code></pre>
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>tvabund <span class="sc">%&gt;%</span>    </span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, species_nr)<span class="sc">%&gt;%</span>   </span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(nomenclature <span class="sc">%&gt;%</span>                </span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(species_nr, <span class="at">turboveg=</span> turboveg_czechia_slovakia,                       <span class="at">species=</span>expert_system)) <span class="sc">%&gt;%</span>   </span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(species_nr, <span class="at">turboveg=</span> turboveg_czechia_slovakia,  <span class="at">species=</span>expert_system)) <span class="sc">%&gt;%</span>   </span>
 <span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(releve_nr <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">132</span>, <span class="dv">183182</span>) <span class="sc">&amp;</span> species <span class="sc">==</span><span class="st">"Galium palustre agg."</span>)   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(species_nr)`</code></pre>
@@ -892,7 +891,7 @@ Joining with `by = join_by(cover_code, coverscale)`</code></pre>
 <span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>tvabund <span class="sc">%&gt;%</span>    </span>
 <span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, species_nr)<span class="sc">%&gt;%</span>   </span>
 <span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(nomenclature <span class="sc">%&gt;%</span>                </span>
-<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(species_nr, <span class="at">turboveg=</span> turboveg_czechia_slovakia,                       <span class="at">species=</span>expert_system)) <span class="sc">%&gt;%</span>   </span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(species_nr, <span class="at">turboveg=</span> turboveg_czechia_slovakia, <span class="at">species=</span>expert_system)) <span class="sc">%&gt;%</span>   </span>
 <span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(species_nr)`
