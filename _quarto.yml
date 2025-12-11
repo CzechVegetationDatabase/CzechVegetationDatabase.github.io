@@ -22,8 +22,8 @@ website:
       - section: "About"
         href: index.qmd
         contents:
-        - text: "Introduction"
-          href: About/introduction.qmd
+        - text: "History"
+          href: About/history.qmd
         - text: "Current state"
           href: About/current_state.qmd
         - text: "Turboveg for Windows"
@@ -39,19 +39,19 @@ website:
           - text: "CzechVeg-Open-Strat"
             href: DataAvailability/czech_veg_open_strat.qmd
 
-      - section: "Data processing"
-        href: DataProcessing/data_processing.qmd
+      - section: "Data processing tutorial"
+        href: DataProcessingTutorial/data_processing_tutorial.qmd
         contents:
           - text: "Turboveg to R"
-            href: DataProcessing/turboveg_r.qmd
+            href: DataProcessingTutorial/turboveg_r.qmd
           - text: "Basic data analyses"
-            href: DataProcessing/basic_analyses.qmd
+            href: DataProcessingTutorial/basic_analyses.qmd
           - text: "Export to other formats"
-            href: DataProcessing/export.qmd
+            href: DataProcessingTutorial/export.qmd
           - text: 'Data stratification'
-            href: DataProcessing/data_stratification.qmd
+            href: DataProcessingTutorial/data_stratification.qmd
           - text: 'Export to GBIF'
-            href: DataProcessing/export_gbif.qmd
+            href: DataProcessingTutorial/export_gbif.qmd
 
 
 format:
