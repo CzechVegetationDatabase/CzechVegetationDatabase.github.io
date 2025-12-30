@@ -2,7 +2,7 @@
 title: "Acknowledgements"
 format: html
 ---
-Since its foundation in 1996, many Contributors of the Czech Vegetation Database:
+Since its foundation in 1996, more than 200 people have contributed to the development of the Czech Vegetation Database by providing original vegetation-plot data, digitizing data from the literature, standardizing, cleaning and correcting the data, georeferencing vegetation plots, preparing and updating the taxonomic backbone, offering conceptual advice, and providing IT support. Many thanks to all of them:  
 
 :::::: {layout-ncol="3"}
 ::: column
@@ -11,7 +11,7 @@ Since its foundation in 1996, many Contributors of the Czech Vegetation Database
 -   David Beleš
 -   Lucie Benediktová
 -   Eliška Blažejová (Horodyská)
--   Denisa Blažková
+-   Denisa Blažková †
 -   Karel Boublík
 -   Pavel Brych
 -   Kateřina Bubíková
@@ -34,6 +34,7 @@ Since its foundation in 1996, many Contributors of the Czech Vegetation Database
 -   Jan Doležal
 -   Jana Ďoubalová
 -   Jan Douda
+-   Julian Dring
 -   Pavel Dřevojan
 -   Lydie Dudová (Navrátilová)
 -   Martin Duchoslav
@@ -52,6 +53,8 @@ Since its foundation in 1996, many Contributors of the Czech Vegetation Database
 -   Michal Gerža
 -   Marek Gonda
 -   Tomáš Grulich
+-   Vít Grulich †
+-   Walter Gutermann †
 -   Michal Hájek
 -   Petra Hájková
 -   Jana Halúzová
@@ -75,11 +78,12 @@ Since its foundation in 1996, many Contributors of the Czech Vegetation Database
 -   Jindřich Chlapek
 -   Markéta Chudomelová
 -   Helena Chytrá (Prokešová)
--   Kryštof Chytrý
 
 :::
 ::: column
+-   Kryštof Chytrý
 -   Milan Chytrý
+-   Ivan Jarolímek
 -   Ivan Jindra
 -   Martin Jiroušek
 -   Jana Jiroušková (Božková)
@@ -97,7 +101,7 @@ Since its foundation in 1996, many Contributors of the Czech Vegetation Database
 -   Katrin Karimová
 -   Petr Karlík
 -   Alexandra Klaudisová
--   Leoš Klimeš
+-   Leoš Klimeš †
 -   Ilona Knollová (Kuželová)
 -   Jiří Kocián
 -   Martin Kočí
@@ -107,7 +111,7 @@ Since its foundation in 1996, many Contributors of the Czech Vegetation Database
 -   František Krahulec
 -   Štěpánka Králová
 -   Lucie Kratochvílová
--   Zdeněk Kropáč 
+-   Zdeněk Kropáč †
 -   Pavel Křížek
 -   Tomáš Kučera
 -   Anna Kučerová
@@ -129,12 +133,13 @@ Since its foundation in 1996, many Contributors of the Czech Vegetation Database
 -   Michal Mazák
 -   Ján Medal
 -   Kristina Merunková
--   Jan Mládek
+-   Jan Mládek †
 -   Zuzana Myšková
 -   Tereza Náhlíková
 -   Jana Navrátilová (Ernestová)
 -   Jiří Němec
--   Zdenka Neuhäuslová
+-   Zdenka Neuhäuslová †
+-   Harald Niklfeld †
 -   Jana Nová
 -   Jan Novák
 -   Pavel Novák
@@ -148,12 +153,12 @@ Since its foundation in 1996, many Contributors of the Czech Vegetation Database
 -   Tomáš Peterka
 -   Michaela Petrová
 -   Petr Petřík
--   Lenka Pivoňková
 
 :::
 ::: column
+-   Lenka Pivoňková
 -   Zuzana Plesková
--   Marie Popelářová
+-   Marie Popelářová (Derková)
 -   Ondřej Popelka
 -   Jana Posslová (Kůrová)
 -   Jan Prančl
@@ -164,6 +169,7 @@ Since its foundation in 1996, many Contributors of the Czech Vegetation Database
 -   Marie Rafajová
 -   Frank Richter
 -   Ludmila Rivolová
+-   John S. Rodwell
 -   Jaroslav Rohel
 -   Jan Roleček
 -   Romana Roučková
@@ -184,7 +190,7 @@ Since its foundation in 1996, many Contributors of the Czech Vegetation Database
 -   Eliška Suntychová
 -   Tomáš Svačina
 -   Eva Šaldová
--   Milan Šenkýř
+-   Milan Šenkýř †
 -   Anna Šímová
 -   Petr Šmarda
 -   Eva Šmerdová (Hettenbergerová)
@@ -198,11 +204,12 @@ Since its foundation in 1996, many Contributors of the Czech Vegetation Database
 -   Lubomír Tichý
 -   Jana Tkáčiková (Novosadová)
 -   Adam Trčka
+-   Milan Valachovič
 -   Martin Večeřa
 -   Kateřina Vejvodová
 -   Adam Veleba
 -   Jiří Velebil
--   Jiří Vicherek
+-   Jiří Vicherek †
 -   Ondřej Vild
 -   Karla Vincenecová
 -   Richard Višňák
