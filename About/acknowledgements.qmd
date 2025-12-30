@@ -281,15 +281,13 @@ Contributors of the Czech Vegetation Database:
 -   Jan Pergl
 
 -   Tomáš Peterka
-
 -   Michaela Petrová
-
 -   Petr Petřík
-
--   Lenka Pivoňková
 :::
 
 ::: column
+-   Lenka Pivoňková
+
 -   Zuzana Plesková
 
 -   Marie Popelářová
