@@ -2,7 +2,8 @@
 title: "Acknowledgements"
 format: html
 ---
-Since its foundation in 1996, more than 200 people have contributed to the development of the Czech Vegetation Database by providing original vegetation-plot data, digitizing data from the literature, standardizing, cleaning and correcting the data, georeferencing vegetation plots, preparing and updating the taxonomic backbone, offering conceptual advice, and providing IT support. Many thanks to all of them:  
+
+Since its foundation in 1996, more than 200 people have contributed to the development of the Czech Vegetation Database by providing original vegetation-plot data, digitizing data from the literature, standardizing, cleaning and correcting the data, georeferencing vegetation plots, preparing and updating the taxonomic backbone, offering conceptual advice, and providing IT support. Many thanks to all of them:
 
 :::::: {layout-ncol="3"}
 ::: column
@@ -78,8 +79,8 @@ Since its foundation in 1996, more than 200 people have contributed to the devel
 -   Jindřich Chlapek
 -   Markéta Chudomelová
 -   Helena Chytrá (Prokešová)
-
 :::
+
 ::: column
 -   Kryštof Chytrý
 -   Milan Chytrý
@@ -153,8 +154,8 @@ Since its foundation in 1996, more than 200 people have contributed to the devel
 -   Tomáš Peterka
 -   Michaela Petrová
 -   Petr Petřík
-
 :::
+
 ::: column
 -   Lenka Pivoňková
 -   Zuzana Plesková
