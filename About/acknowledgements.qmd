@@ -17,6 +17,11 @@ Since its foundation in 1996, more than 200 people have contributed to the devel
 -   Pavel Brych
 -   Kateřina Bubíková
 -   Lucia Cachovanová
+-   Jindřich Chlapek
+-   Markéta Chudomelová
+-   Helena Chytrá (Prokešová)
+-   Kryštof Chytrý
+-   Milan Chytrý
 -   Jaroslava Cieslarová
 -   David Cigánek
 -   Šárka Cimalová
@@ -73,17 +78,12 @@ Since its foundation in 1996, more than 200 people have contributed to the devel
 -   Lucie Hradilová
 -   Richard Hrivnák
 -   Zdenka Hroudová
--   Jaroslav Hruban
--   Monika Hrubanová (Dršková)
--   Petr Hubatka
--   Jindřich Chlapek
--   Markéta Chudomelová
--   Helena Chytrá (Prokešová)
 :::
 
 ::: column
--   Kryštof Chytrý
--   Milan Chytrý
+-   Jaroslav Hruban
+-   Monika Hrubanová (Dršková)
+-   Petr Hubatka
 -   Ivan Jarolímek
 -   Ivan Jindra
 -   Martin Jiroušek
@@ -152,11 +152,11 @@ Since its foundation in 1996, more than 200 people have contributed to the devel
 -   Sylvie Pecháčková
 -   Jan Pergl
 -   Tomáš Peterka
--   Michaela Petrová
--   Petr Petřík
 :::
 
 ::: column
+-   Michaela Petrová
+-   Petr Petřík
 -   Lenka Pivoňková
 -   Zuzana Plesková
 -   Marie Popelářová (Derková)
