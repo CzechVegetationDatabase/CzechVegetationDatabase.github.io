@@ -2,18 +2,42 @@
 title: "Czech Vegetation Database"
 ---
 
-The Czech Vegetation Database (formerly the Czech National Phytosociological Database) is a digital archive of vegetation-plot records from the territory of the Czech Republic. It includes phytosociological relevés, i.e., records of plant species composition and cover-abundances in delimited plots within relatively homogeneous vegetation patches, as well as similar vegetation-plot data from vegetation surveys, monitoring programs, and ecological studies.
+The Czech Vegetation Database (formerly the *Czech National Phytosociological Database*) is an open digital archive of vegetation-plot records from the territory of the Czech Republic. It includes phytosociological relevés, i.e., records of plant species composition and cover-abundances in delimited plots within relatively homogeneous vegetation patches, as well as similar vegetation-plot data from vegetation surveys, monitoring programs, and ecological studies.
 
-The database is registered in the Global Index of Vegetation-Plot Databases ([GIVD](https://www.givd.info/), [Dengler et al. 2011](https://doi.org/10.1111/j.1654-1103.2011.01265.x)) with the code [EU-CZ-001](http://www.givd.info/ID/EU-CZ-001). It is a member of the European Vegetation Archive ([EVA](https://euroveg.org/eva-database/), [Chytrý et al. 2016](https://doi.org/10.1111/avsc.12191)) and the Global Vegetation Database ([sPlot](https://www.idiv.de/en/splot.html), [Bruelheide et al. 2019](https://doi.org/10.1111/jvs.12710)).
+The database is registered in the *Global Index of Vegetation-Plot Databases* ([GIVD](https://www.givd.info/), [Dengler et al. 2011](https://doi.org/10.1111/j.1654-1103.2011.01265.x)) with the code [EU-CZ-001](http://www.givd.info/ID/EU-CZ-001). It is a member of the *European Vegetation Archive* ([EVA](https://euroveg.org/eva-database/), [Chytrý et al. 2016](https://doi.org/10.1111/avsc.12191)), its subset of resurveyed vegetation plots ([ReSurveyEurope](https://euroveg.org/resurvey/), [Knollová et al. 2024](https://doi.org/10.1111/jvs.13235)), and *sPlot – the Global Vegetation Database* ([sPlot](https://www.idiv.de/en/splot.html), [Bruelheide et al. 2019](https://doi.org/10.1111/jvs.12710)).
 
-It is coordinated at the [Department of Botany and Zoology](https://botzool.sci.muni.cz), Faculty of Science, Masaryk University, Brno, Czech Republic. The current database manager is Ilona Knollová ([ikuzel\@sci.muni.cz](mailto:ikuzel@sci.muni.cz)).
+It is coordinated at the [Vegetation Science Group](https://botzool.cz/vegsci/), [Department of Botany and Zoology](https://botzool.sci.muni.cz/en), Faculty of Science, Masaryk University, Brno, Czech Republic. The current database manager is Ilona Knollová ([ikuzel\@sci.muni.cz](mailto:ikuzel@sci.muni.cz)).
 
-![](images/clipboard-3548603256.png)
+In November 2025, the database contained 116,314 vegetation plots from the Czech Republic, sampled between 1922 and 2025. These plots represent all vegetation types found in the country, with grassland and forest plots being the most numerous, followed by plots from wetlands, ruderal, and weed vegetation.
 
-### Website Navigation
+### Online Viewer
 
--   [About](About/history.qmd)
--   [Data availability](DataAvailability/data_availability.qmd)
--   [Data processing Tutorial](DataProcessingTutorial/data_processing_tutorial.qmd)
+[https://vegscibrno.shinyapps.io/CzechVegetationDatabase](https://vegscibrno.shinyapps.io/CzechVegetationDatabase/)
 
-Webpage prepared by Irena Axmanová and Klára Friesová
+This interactive viewer of the Czech Vegetation Database provides maps and summary characteristics of vegetation plots for the whole database and its subsets defined by plot size and location uncertainty, years of sampling, altitude, covers of vegetation layers, and occurrence of specific species or species groups.
+
+![](images/clipboard-2787976972.jpeg)
+
+### Related resources
+
+-   **EVA-MAP:** [www.evamap.eu](https://www.evamap.eu/)
+
+An interactive online viewer for the European Vegetation Archive, which includes the data from the Czech Vegetation Database. It has partly overlapping and partly unique functions.
+
+-   **Phytosociological Bibliography of the Czech Republic:** [www.sci.muni.cz/botany/tvref](https://www.sci.muni.cz/botany/tvref/)
+
+This online database contains the full bibliographic references to the sources of vegetation-plot data that have been digitized and included in the Cyech Vegetation Database.
+
+### Website funding and authors
+
+This website was launched in January 2026. Its development was supported through the Open Science Clusters' Action for Research and Society ([OSCARS](https://oscars-project.eu/)) Horizon Europe project under grant agreement No. 101129751, subproject "[EVA-FAIR](https://oscars-project.eu/projects/eva-fair-implementing-fair-principles-european-vegetation-archive-data) - Implementing FAIR principles in the European Vegetation Archive data".
+
+-   Web design: Irena Axmanová and Klára Friesová
+-   Data preparation: Ilona Knollová, with contributions from Marcela Řezníčková, Irena Axmanová, Martin Večeřa, and Milan Chytrý
+-   Stratified version of the database: Jan Divíšek and Martin Večeřa
+-   Online viewer: Klára Friesová
+-   Introductory text and data description: Milan Chytrý, with contributions from Ilona Knollová
+-   Data processing tutorial: Irena Axmanová
+-   Project coordination: Milan Chytrý
+
+![](images/clipboard-4264386568.jpeg)

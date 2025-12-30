@@ -3,22 +3,4 @@ title: "Current state"
 format: html
 ---
 
-In November 2025, the central database contained more than 116,000 relevés from the territory of the Czech Republic. Most relevés belong to phytosociological classes of broad-leaved forests (*Querco-Fagetea*), meadows and mesic pastures (*Molinio-Arrhenatheretea*), marshes (*Phragmito-Magno-Caricetea*), dry grasslands (*Festuco-Brometea*) and disturbed vegetation of wet to mesic habitats (*Galio-Urticetea*). A phytosociological bibliography of the Czech Republic, indicating which data sources have been digitised and included in the database, is available [here](http://www.sci.muni.cz/botany/tvref/).
-
-For details, see the interactive map at <https://vegscibrno.shinyapps.io/CzechVegetationDatabase/>.
-
-![](images/clipboard-3624594893.png)
-
-### Contacts
-
-**MUNI**
-
-[**Department of Botany and Zoology,**](http://botzool.sci.muni.cz/)[**Faculty of Science,**](http://www.sci.muni.cz/)[**Masaryk University**](https://www.muni.cz/)
-
-**Postal Address**
-
-Kotlářská 267/2, 611 37 Brno, Czech Republic
-
-**Physical Address**
-
-University Campus Bohunice, building A32, Kamenice 753/5, Brno, Czech Republic
+**Data structure**
