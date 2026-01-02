@@ -214,7 +214,13 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#species-data" id="toc-species-data" class="nav-link active" data-scroll-target="#species-data">1. Species data</a></li>
-  <li><a href="#header-data" id="toc-header-data" class="nav-link" data-scroll-target="#header-data">2. Header data</a></li>
+  <li><a href="#header-data" id="toc-header-data" class="nav-link" data-scroll-target="#header-data">2. Header data</a>
+  <ul class="collapse">
+  <li><a href="#basic-header-data-variables" id="toc-basic-header-data-variables" class="nav-link" data-scroll-target="#basic-header-data-variables">2.1. Basic header-data variables</a></li>
+  <li><a href="#header-data-variables-with-outdated-content-replaced-by-new-variables" id="toc-header-data-variables-with-outdated-content-replaced-by-new-variables" class="nav-link" data-scroll-target="#header-data-variables-with-outdated-content-replaced-by-new-variables">2.2. Header-data variables with outdated content replaced by new variables</a></li>
+  <li><a href="#rarely-or-never-used-header-data-variables" id="toc-rarely-or-never-used-header-data-variables" class="nav-link" data-scroll-target="#rarely-or-never-used-header-data-variables">2.3. Rarely or never used header-data variables</a></li>
+  <li><a href="#inconsistently-used-header-data-variables-with-non-unified-content" id="toc-inconsistently-used-header-data-variables-with-non-unified-content" class="nav-link" data-scroll-target="#inconsistently-used-header-data-variables-with-non-unified-content">2.4. Inconsistently used header data variables with non-unified content</a></li>
+  </ul></li>
   <li><a href="#remarks" id="toc-remarks" class="nav-link" data-scroll-target="#remarks">3. Remarks</a></li>
   </ul>
 </nav>
@@ -241,23 +247,22 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><strong>Data description</strong></p>
 <p>Following the structure of the Turboveg database management software, vegetation-plot data in the Czech Vegetation Database are divided into three parts:</p>
 <ol type="1">
 <li>Species data</li>
 <li>Header data</li>
 <li>Remarks</li>
 </ol>
-<section id="species-data" class="level3">
-<h3 class="anchored" data-anchor-id="species-data">1. Species data</h3>
+<section id="species-data" class="level2">
+<h2 class="anchored" data-anchor-id="species-data">1. Species data</h2>
 <p>Species data contain unique plot identifiers (RELEVE_NR), species numbers (SPECIES_NR), cover-abundance grade for each species record (COVER_CODE), and vegetation layer for each species record (LAYER). Species numbers are linked to species names, and cover-abundances are linked to percentage covers using translation tables.</p>
 </section>
-<section id="header-data" class="level3">
-<h3 class="anchored" data-anchor-id="header-data">2. Header data</h3>
+<section id="header-data" class="level2">
+<h2 class="anchored" data-anchor-id="header-data">2. Header data</h2>
 <p>Header data contain information related to vegetation plots other than information on species and their cover-abundances. They include details of sampling methods, location, vegetation structure, vegetation type, and environmental information.</p>
 <p>In addition to basic variables, the database also contains variables with outdated content (replaced by new variables with up-to-date content), variables that are rarely or never used, and one variable with non-unified content. Individual private databases that have been incorporated into the Czech Vegetation Database may also have contained other variables that are specific to those databases.</p>
-<section id="basic-header-data-variables" class="level4">
-<h4 class="anchored" data-anchor-id="basic-header-data-variables">2.1. Basic header-data variables</h4>
+<section id="basic-header-data-variables" class="level3">
+<h3 class="anchored" data-anchor-id="basic-header-data-variables">2.1. Basic header-data variables</h3>
 <p><strong>Relevé number (RELEVE_NR).</strong> Unique numerical code of the vegetation plot in the database.</p>
 <p><strong>Country code (COUNTRY).</strong> Two-letter country code according to ISO 3166-1 alpha-2. All plots recorded within the territory of the Czech Republic have the value “CZ”.</p>
 <p><strong>Biblioreference (REFERENCE).</strong> Bibliographic reference for vegetation plots that have been published in a citable source (article, book, student thesis, research report). A database of biblioreferences is available here: <a href="https://www.sci.muni.cz/botany/tvref/" class="uri">https://www.sci.muni.cz/botany/tvref/</a>.</p>
@@ -330,16 +335,16 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Geology (GEOLOGY).</strong> Textual description of geological bedrock in the vegetation plot.</p>
 <p><strong>Soil (SOIL).</strong> Textual description of soil in the vegetation plot.</p>
 </section>
-<section id="header-data-variables-with-outdated-content-replaced-by-new-variables" class="level4">
-<h4 class="anchored" data-anchor-id="header-data-variables-with-outdated-content-replaced-by-new-variables">2.2. Header-data variables with outdated content replaced by new variables</h4>
+<section id="header-data-variables-with-outdated-content-replaced-by-new-variables" class="level3">
+<h3 class="anchored" data-anchor-id="header-data-variables-with-outdated-content-replaced-by-new-variables">2.2. Header-data variables with outdated content replaced by new variables</h3>
 <p><strong>Syntaxon old (SYNTAX_OLD).</strong> Vegetation unit (syntaxon) to which the vegetation plot was subjectively assigned by its author or database administrator according to the outdated classification system in the publication:</p>
 <ul>
 <li>Moravec J., Balátová-Tuláčková E., Blažková D., Hadač E., Hejný S., Husák Š., Jeník J., Kolbek J., Krahulec F., Kropáč Z., Neuhäusl R., Rybníček K., Řehořek V. &amp; Vicherek J. (1995): Rostlinná společenstva České republiky a jejich ohrožení. Ed. 2. Severočeskou přírodou, Příloha 1995: 1–206.</li>
 </ul>
 <p><strong>Bias min (BIAS_MIN).</strong> Estimated uncertainty of the given geographic coordinates in minutes. The first digit indicates uncertainty in minutes of longitude, and the second digit indicates uncertainty in minutes of latitude.</p>
 </section>
-<section id="rarely-or-never-used-header-data-variables" class="level4">
-<h4 class="anchored" data-anchor-id="rarely-or-never-used-header-data-variables">2.3. Rarely or never used header-data variables</h4>
+<section id="rarely-or-never-used-header-data-variables" class="level3">
+<h3 class="anchored" data-anchor-id="rarely-or-never-used-header-data-variables">2.3. Rarely or never used header-data variables</h3>
 <p><strong>UTM grid system code (UTM).</strong> Code of geographic position in the Universal Transverse Mercator (UTM) system.</p>
 <p><strong>Cover lichen layer (COV_LICHEN).</strong> Percentage cover of lichens. Usually left empty, as lichens are included in the moss layer.</p>
 <p><strong>Cover algae layer (COV_ALGAE).</strong> Percentage cover of algae. A value of -1 represents missing data.</p>
@@ -352,13 +357,13 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Maximum height cryptogam layer (CRYPT_HIGH).</strong> Height of the tallest bryophytes or lichens in centimeters.</p>
 <p><strong>CEBA grid (CEBA_GRID).</strong> Localization of the vegetation plot in the grid used for Central European flora mapping (see <a href="https://pladias.cz/download/phytogeography" class="uri">https://pladias.cz/download/phytogeography</a>), either into basic grid cells (CEBA, Central European Basic Area) of size 10’ × 6’ minutes (e.g.&nbsp;6062) or quadrants of these basic grid cells of size 5’ × 3’ minutes (e.g.&nbsp;6062c).</p>
 </section>
-<section id="inconsistently-used-header-data-variables-with-non-unified-content" class="level4">
-<h4 class="anchored" data-anchor-id="inconsistently-used-header-data-variables-with-non-unified-content">2.4. Inconsistently used header data variables with non-unified content</h4>
+<section id="inconsistently-used-header-data-variables-with-non-unified-content" class="level3">
+<h3 class="anchored" data-anchor-id="inconsistently-used-header-data-variables-with-non-unified-content">2.4. Inconsistently used header data variables with non-unified content</h3>
 <p><strong>Project code (PROJECT).</strong> Project codes were entered by some data contributors and served their internal purposes. Within the entire Czech Vegetation Database, project codes are not unified. Consequently, the same project code used by different data contributors can refer to different projects.</p>
 </section>
 </section>
-<section id="remarks" class="level3">
-<h3 class="anchored" data-anchor-id="remarks">3. Remarks</h3>
+<section id="remarks" class="level2">
+<h2 class="anchored" data-anchor-id="remarks">3. Remarks</h2>
 <p>The REMARKS field contains non-standardized textual comments, such as details of taxonomic interpretation of some taxa reported in the plot, the uncertainty level of identification of specific taxa, and sampling methods. There is one REMARKS field for each plot.</p>
 
 
