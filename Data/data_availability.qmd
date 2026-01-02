@@ -1,5 +1,5 @@
 ---
-title: "Data availability"
+title: "Data"
 format: html
 ---
 

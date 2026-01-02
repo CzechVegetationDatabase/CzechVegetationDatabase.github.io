@@ -29,15 +29,15 @@ website:
         - text: 'Acknowledgements'
           href: About/acknowledgements.qmd
 
-      - section: "Data availability"
-        href: DataAvailability/data_availability.qmd
+      - section: "Data"
+        href: Data/data_availability.qmd
         contents:
           - text: "Data description"
-            href: DataAvailability/data_description.qmd
+            href: Data/data_description.qmd
           - text: "CzechVeg-Open"
-            href: DataAvailability/czech_veg_open.qmd
+            href: Data/czech_veg_open.qmd
           - text: "CzechVeg-Open-Strat"
-            href: DataAvailability/czech_veg_open_strat.qmd
+            href: Data/czech_veg_open_strat.qmd
 
       - section: "Data processing tutorial"
         href: DataProcessingTutorial/data_processing_tutorial.qmd
