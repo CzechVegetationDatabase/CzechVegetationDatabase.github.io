@@ -23,7 +23,5 @@ Species occurrence data from the Czech Vegetation Database are available in spec
 -   Chytrý M., Axmanová I., Divíšek J., Friesová K., Řezníčková M., Večeřa M. & Knollová I. (In preparation): Czech Vegetation Database: an open resource of vegetation-plot data.
 
 -   The article above should be cited whenever data from the Czech Vegetation Database are used, together with a reference to the website [czechvegetationdatabase.github.io](https://czechvegetationdatabase.github.io/).
-
 -   Additionally, the version used and its DOI, as recorded in Zenodo, should be cited.
-
 -   If only a small part of the database was used, with vegetation plots originating from a few published sources, or if a few published sources make up a large proportion of the plots, the original sources should also be cited, or the original authors should be mentioned for unpublished sources.

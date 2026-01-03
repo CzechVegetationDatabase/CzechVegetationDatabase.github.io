@@ -165,4 +165,4 @@ In addition to basic variables, the database also contains variables with outdat
 
 ## 3 Remarks
 
-The REMARKS field contains non-standardized textual comments, such as details of taxonomic interpretation of some taxa reported in the plot, the uncertainty level of identification of specific taxa, and sampling methods. There is one REMARKS field for each plot.
+The REMARKS field contains non-standardized textual comments, such as details of taxonomic interpretation of some taxa reported in the plot, the uncertainty level of identification of specific taxa, and sampling methods. There is one REMARKS field for each vegetation plot.
