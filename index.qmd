@@ -22,24 +22,30 @@ This interactive viewer of the Czech Vegetation Database provides maps and summa
 
 ### 3. Related resources
 
-**EVA-MAP:** [www.evamap.eu](https://www.evamap.eu/)
+#### **3.1. EVA-MAP**
+
+#### [www.evamap.eu](https://www.evamap.eu/)
 
 An interactive online viewer for the European Vegetation Archive, which includes the data from the Czech Vegetation Database. It has partly overlapping and partly unique functions.
 
-**Phytosociological Bibliography of the Czech Republic:** [www.sci.muni.cz/botany/tvref](https://www.sci.muni.cz/botany/tvref/)
+#### **3.2. Phytosociological Bibliography of the Czech Republic**
+
+[www.sci.muni.cz/botany/tvref](https://www.sci.muni.cz/botany/tvref/)
 
 This online database contains the full bibliographic references to the sources of vegetation-plot data that have been digitized and included in the Cyech Vegetation Database.
 
-### 4. Website funding and authors
-
-This website was launched in January 2026. Its development was supported through the Open Science Clusters' Action for Research and Society ([OSCARS](https://oscars-project.eu/)) Horizon Europe project under grant agreement No. 101129751, subproject "[EVA-FAIR](https://oscars-project.eu/projects/eva-fair-implementing-fair-principles-european-vegetation-archive-data) - Implementing FAIR principles in the European Vegetation Archive data".
+### 4. Website authors
 
 -   Web design: Irena Axmanová and Klára Friesová
 -   Data preparation: Ilona Knollová, with contributions from Marcela Řezníčková, Irena Axmanová, Martin Večeřa, and Milan Chytrý
 -   Stratified version of the database: Jan Divíšek and Martin Večeřa
 -   Online viewer: Klára Friesová
 -   Introductory text and data description: Milan Chytrý, with contributions from Ilona Knollová
--   Data processing tutorial: Irena Axmanová
+-   Data processing tutorial: Irena Axmanová, Jan Divíšek, and Martin Večeřa
 -   Project coordination: Milan Chytrý
+
+### 5. Funding
+
+This website was launched in January 2026. Its development was supported through the Open Science Clusters' Action for Research and Society ([OSCARS](https://oscars-project.eu/)) Horizon Europe project under grant agreement No. 101129751, subproject "[EVA-FAIR](https://oscars-project.eu/projects/eva-fair-implementing-fair-principles-european-vegetation-archive-data) - Implementing FAIR principles in the European Vegetation Archive data".
 
 ![](images/clipboard-4264386568.jpeg)
