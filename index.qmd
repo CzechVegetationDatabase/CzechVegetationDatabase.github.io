@@ -2,7 +2,7 @@
 title: "Czech Vegetation Database"
 ---
 
-### 1. Introduction
+## 1. Introduction
 
 The Czech Vegetation Database (formerly the *Czech National Phytosociological Database*) is an open digital archive of vegetation-plot records from the territory of the Czech Republic. It includes phytosociological relevés, i.e., records of plant species composition and cover-abundances in delimited plots within relatively homogeneous vegetation patches, as well as similar vegetation-plot data from vegetation surveys, monitoring programs, and ecological studies.
 
@@ -12,7 +12,7 @@ It is coordinated at the [Vegetation Science Group](https://botzool.cz/vegsci/),
 
 In November 2025, the database contained 116,314 vegetation plots from the Czech Republic, sampled between 1922 and 2025. These plots represent all vegetation types found in the country, with grassland and forest plots being the most numerous, followed by plots from wetlands, ruderal, and weed vegetation.
 
-### 2. Online Viewer
+## 2. Online Viewer
 
 [https://vegscibrno.shinyapps.io/CzechVegetationDatabase](https://vegscibrno.shinyapps.io/CzechVegetationDatabase/)
 
@@ -20,21 +20,21 @@ This interactive viewer of the Czech Vegetation Database provides maps and summa
 
 ![](images/clipboard-2787976972.jpeg)
 
-### 3. Related resources
+## 3. Related resources
 
-#### **3.1. EVA-MAP**
+### **3.1. EVA-MAP**
 
-#### [www.evamap.eu](https://www.evamap.eu/)
+[www.evamap.eu](https://www.evamap.eu/)
 
 An interactive online viewer for the European Vegetation Archive, which includes the data from the Czech Vegetation Database. It has partly overlapping and partly unique functions.
 
-#### **3.2. Phytosociological Bibliography of the Czech Republic**
+### **3.2. Phytosociological Bibliography of the Czech Republic**
 
 [www.sci.muni.cz/botany/tvref](https://www.sci.muni.cz/botany/tvref/)
 
 This online database contains the full bibliographic references to the sources of vegetation-plot data that have been digitized and included in the Cyech Vegetation Database.
 
-### 4. Website authors
+## 4. Website authors
 
 -   Web design: Irena Axmanová and Klára Friesová
 -   Data preparation: Ilona Knollová, with contributions from Marcela Řezníčková, Irena Axmanová, Martin Večeřa, and Milan Chytrý
@@ -44,7 +44,7 @@ This online database contains the full bibliographic references to the sources o
 -   Data processing tutorial: Irena Axmanová, Jan Divíšek, and Martin Večeřa
 -   Project coordination: Milan Chytrý
 
-### 5. Funding
+## 5. Funding
 
 This website was launched in January 2026. Its development was supported through the Open Science Clusters' Action for Research and Society ([OSCARS](https://oscars-project.eu/)) Horizon Europe project under grant agreement No. 101129751, subproject "[EVA-FAIR](https://oscars-project.eu/projects/eva-fair-implementing-fair-principles-european-vegetation-archive-data) - Implementing FAIR principles in the European Vegetation Archive data".
 
