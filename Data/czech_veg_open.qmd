@@ -3,3 +3,12 @@ title: "CzechVeg-Open"
 format: html
 ---
 
+CzechVeg-Open is a publicly available, full version of the Czech Vegetation Database, containing all vegetation-plot records included in the database. The taxonomy and nomenclature of plant taxa are not fully harmonized. It is available in two formats: the Turboveg 2 format, which requires the [Turboveg 2](https://czechvegetationdatabase.github.io/About/turboveg_windows.html) program, and the CSV format (see the [Data processing tutorial](https://czechvegetationdatabase.github.io/DataProcessingTutorial/data_processing_tutorial.html)).
+
+**Version 1.0**
+
+-   Compiled on: 28 November 2025
+-   Size: 116,314 vegetation plots
+-   DOI: TO BE ADDED
+-   Turboveg 2 format
+-   CSV format

@@ -3,4 +3,14 @@ title: "CzechVeg-Open-Strat"
 format: html
 ---
 
+CzechVeg-Open-Strat is a publicly available, geographically and environmentally stratified subset of the Czech Vegetation Database, with harmonized taxonomy and nomenclature of plant taxa. It is only available in the CSV format (see the Data processing tutorial).
 
+**Version 1.0**
+
+-   Compiled on: XXXXX
+
+-   Size: XXXX vegetation plots
+
+-   DOI: TO BE ADDED
+
+-   Dataset

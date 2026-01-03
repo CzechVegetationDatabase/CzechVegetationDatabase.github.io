@@ -14,7 +14,7 @@ Data from the Czech Vegetation Database are also available in international vege
 
 Species occurrence data from the Czech Vegetation Database are available in species occurrence record databases:
 
--   [Pladias](https://www.pladias.cz/) **–** Database of the Czech Flora and Vegetation ([Chytrý et al. 2021](https://www.preslia.cz/article/9))
+-   [Pladias](https://www.pladias.cz/en) **–** Database of the Czech Flora and Vegetation ([Chytrý et al. 2021](https://www.preslia.cz/article/9))
 -   [NDOP](https://portal23.nature.cz/nd/) **–** Species Occurrence Database of the Nature Conservation Agency of the Czech Republic
 -   [GBIF](https://www.gbif.org/) **–** Global Biodiversity Information Facility
 
