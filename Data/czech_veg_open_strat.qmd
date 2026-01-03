@@ -8,9 +8,6 @@ CzechVeg-Open-Strat is a publicly available, geographically and environmentally 
 **Version 1.0**
 
 -   Compiled on: XXXXX
-
 -   Size: XXXX vegetation plots
-
 -   DOI: TO BE ADDED
-
 -   Dataset
