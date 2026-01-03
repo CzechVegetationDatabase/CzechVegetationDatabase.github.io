@@ -4,7 +4,7 @@ format: html
 author: Irena Axmanová
 ---
 
-In this tutorial we will show you how to sort and filter the data. We will also train how to append traits, indicator values or information about status of species and calculate proportions of selected plant groups, community weighted and unweighted means or other summary statistics. If you are interested in more general overview of the functions, you are encouraged to check also our study materials [here](https://botzooldataanalysis.github.io/DataManipulationVisualisation/data_manipulation_visualisation.html).
+In this tutorial, we will show you how to sort and filter the data. We will also train how to append traits, indicator values or information about the status of species and calculate proportions of selected plant groups, community weighted and unweighted means or other summary statistics. If you are interested in a more general overview of the functions, you are encouraged to check also our study materials [here](https://botzooldataanalysis.github.io/DataManipulationVisualisation/data_manipulation_visualisation.html).
 
 ```{r}
 #| warning: false
@@ -25,7 +25,7 @@ env_extra<- read_csv("data/axmanova_forest_env_extra.csv")%>%
   clean_names()
 ```
 
-For **env dataset** I want to import the clean version which was saved in the previous script, but I will directly filter it to the same subset as in the dataset above. I can do it with semi_join. But I decided to merge both datasets at this point - to keep only the matching rows but all information I want. For more on joins see here.
+For the env dataset, I want to import the clean version saved in the previous script, but I will directly filter it to the same subset as in the dataset above. I can do it with semi_join. But I decided to merge both datasets at this point - to keep only the matching rows, but all the information I want. For more on joins, see here.
 
 ```{r}
 env<- read_csv("data/env.csv") %>%       

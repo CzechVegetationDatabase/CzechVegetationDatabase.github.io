@@ -157,12 +157,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../About/current_state.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Current state</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../About/turboveg_windows.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Turboveg for Windows</span></a>
   </div>
@@ -177,8 +171,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../DataAvailability/data_availability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data availability</span></a>
+            <a href="../Data/data_availability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -186,13 +180,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../DataAvailability/czech_veg_open.html" class="sidebar-item-text sidebar-link">
+  <a href="../Data/data_description.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data description</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Data/czech_veg_open.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">CzechVeg-Open</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../DataAvailability/czech_veg_open_strat.html" class="sidebar-item-text sidebar-link">
+  <a href="../Data/czech_veg_open_strat.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">CzechVeg-Open-Strat</span></a>
   </div>
 </li>
@@ -290,7 +290,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In this tutorial we will show you how to sort and filter the data. We will also train how to append traits, indicator values or information about status of species and calculate proportions of selected plant groups, community weighted and unweighted means or other summary statistics. If you are interested in more general overview of the functions, you are encouraged to check also our study materials <a href="https://botzooldataanalysis.github.io/DataManipulationVisualisation/data_manipulation_visualisation.html">here</a>.</p>
+<p>In this tutorial, we will show you how to sort and filter the data. We will also train how to append traits, indicator values or information about the status of species and calculate proportions of selected plant groups, community weighted and unweighted means or other summary statistics. If you are interested in a more general overview of the functions, you are encouraged to check also our study materials <a href="https://botzooldataanalysis.github.io/DataManipulationVisualisation/data_manipulation_visualisation.html">here</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -315,7 +315,7 @@ dbl (21): Releve_nr, ForestType, Herbs, Juveniles, CoverE1, Biomass, Soil_de...
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
-<p>For&nbsp;<strong>env dataset</strong>&nbsp;I want to import the clean version which was saved in the previous script, but I will directly filter it to the same subset as in the dataset above. I can do it with semi_join. But I decided to merge both datasets at this point - to keep only the matching rows but all information I want. For more on joins see here.</p>
+<p>For the&nbsp;env dataset,&nbsp;I want to import the clean version saved in the previous script, but I will directly filter it to the same subset as in the dataset above. I can do it with semi_join. But I decided to merge both datasets at this point - to keep only the matching rows, but all the information I want. For more on joins, see here.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>env<span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/env.csv"</span>) <span class="sc">%&gt;%</span>       </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(env_extra <span class="sc">%&gt;%</span>                                 </span>
