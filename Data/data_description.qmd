@@ -9,17 +9,17 @@ Following the structure of the Turboveg database management software, vegetation
 2.  Header data
 3.  Remarks
 
-## 1. Species data
+## 1 Species data
 
 Species data contain unique plot identifiers (RELEVE_NR), species numbers (SPECIES_NR), cover-abundance grade for each species record (COVER_CODE), and vegetation layer for each species record (LAYER). Species numbers are linked to species names, and cover-abundances are linked to percentage covers using translation tables.
 
-## 2. Header data
+## 2 Header data
 
 Header data contain information related to vegetation plots other than information on species and their cover-abundances. They include details of sampling methods, location, vegetation structure, vegetation type, and environmental information.
 
 In addition to basic variables, the database also contains variables with outdated content (replaced by new variables with up-to-date content), variables that are rarely or never used, and one variable with non-unified content. Individual private databases that have been incorporated into the Czech Vegetation Database may also have contained other variables that are specific to those databases.
 
-### 2.1. Basic header-data variables
+### 2.1 Basic header-data variables
 
 **Relevé number (RELEVE_NR).** Unique numerical code of the vegetation plot in the database.
 
@@ -127,7 +127,7 @@ In addition to basic variables, the database also contains variables with outdat
 
 **Soil (SOIL).** Textual description of soil in the vegetation plot.
 
-### 2.2. Header-data variables with outdated content replaced by new variables
+### 2.2 Header-data variables with outdated content replaced by new variables
 
 **Syntaxon old (SYNTAX_OLD).** Vegetation unit (syntaxon) to which the vegetation plot was subjectively assigned by its author or database administrator according to the outdated classification system in the publication:
 
@@ -135,7 +135,7 @@ In addition to basic variables, the database also contains variables with outdat
 
 **Bias min (BIAS_MIN).** Estimated uncertainty of the given geographic coordinates in minutes. The first digit indicates uncertainty in minutes of longitude, and the second digit indicates uncertainty in minutes of latitude.
 
-### 2.3. Rarely or never used header-data variables
+### 2.3 Rarely or never used header-data variables
 
 **UTM grid system code (UTM).** Code of geographic position in the Universal Transverse Mercator (UTM) system.
 
@@ -159,10 +159,10 @@ In addition to basic variables, the database also contains variables with outdat
 
 **CEBA grid (CEBA_GRID).** Localization of the vegetation plot in the grid used for Central European flora mapping (see <https://pladias.cz/download/phytogeography>), either into basic grid cells (CEBA, Central European Basic Area) of size 10’ × 6’ minutes (e.g. 6062) or quadrants of these basic grid cells of size 5’ × 3’ minutes (e.g. 6062c).
 
-### 2.4. Inconsistently used header data variables with non-unified content
+### 2.4 Inconsistently used header data variables with non-unified content
 
 **Project code (PROJECT).** Project codes were entered by some data contributors and served their internal purposes. Within the entire Czech Vegetation Database, project codes are not unified. Consequently, the same project code used by different data contributors can refer to different projects.
 
-## 3. Remarks
+## 3 Remarks
 
 The REMARKS field contains non-standardized textual comments, such as details of taxonomic interpretation of some taxa reported in the plot, the uncertainty level of identification of specific taxa, and sampling methods. There is one REMARKS field for each plot.
