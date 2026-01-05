@@ -288,11 +288,11 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Date (DATE).</strong> Date of vegetation plot sampling, recorded in the format YYYYMMDD.</p>
 <p><strong>Syntaxon (SYNTAXON).</strong> Vegetation unit (syntaxon) to which the vegetation plot was subjectively assigned by its author or a database administrator, according to the classification system in the publication:</p>
 <ul>
-<li>Chytrý M. (ed.) (2007–2013): Vegetace České republiky 1–4. Vegetation of the Czech Republic 1–4. Academia, Praha.</li>
+<li>Chytrý M. (ed.) (2007–2013) <em>Vegetace České republiky 1–4. Vegetation of the Czech Republic 1–4</em>. Academia, Praha.</li>
 </ul>
 <p><strong>ESy code (ESY_CODE).</strong> Code of the vegetation unit according to the Vegetation of the Czech Republic (Chytrý 2007–2013), assigned based on vegetation classification by the expert system CzechVeg-Esy, version v1-2020-01-12 (<a href="https://doi.org/10.5281/zenodo.3605562" class="uri">https://doi.org/10.5281/zenodo.3605562</a>). This field is empty for plots that were not unambiguously classified by the expert system.</p>
 <p><strong>ESy name (ESY_NAME).</strong> Name of the vegetation unit according to the Vegetation of the Czech Republic (Chytrý 2007–2013), assigned based on vegetation classification by the expert system CzechVeg-Esy, version v1-2020-01-12 (<a href="https://doi.org/10.5281/zenodo.3605562" class="uri">https://doi.org/10.5281/zenodo.3605562</a>). This field is empty for plots that were not unambiguously classified by the expert system.</p>
-<p><strong>Syntaxon code (ESY_K_CODE).</strong> Code of the vegetation unit according to the expert system (taken from the ESy code variable), which is supplemented by subjective classification from the Syntaxon field for plots not classified by the expert system .</p>
+<p><strong>Syntaxon code (ESY_K_CODE).</strong> Code of the vegetation unit according to the expert system (taken from the ESy code variable), which is supplemented by subjective classification from the Syntaxon field for plots not classified by the expert system.</p>
 <p><strong>Syntaxon name (ESY_K_NAME).</strong> Name of the vegetation unit according to the expert system (taken from the ESy code variable), which is supplemented by subjective classification from the Syntaxon field for plots not classified by the expert system.</p>
 <p><strong>Relevé area (SURF_AREA).</strong> Area of the vegetation plot in m². A value of -1 represents missing data.</p>
 <p><strong>Altitude (ALTITUDE).</strong> Altitude of the vegetation plot in meters. A value of -1 represents missing data.</p>
@@ -329,7 +329,6 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Longitude (LONGITUDE).</strong> Longitude in the format DDMMSS.SS in the WGS-84 system (e.g., 170322.55 corresponds to 17° 3’ 22.55’’ E).</p>
 <p><strong>Latitude (LATITUDE).</strong> Latitude in the format DDMMSS.SS in the WGS-84 system (e.g., 492215.12 corresponds to 49° 22’ 15.12’’ N).</p>
 <p><strong>Precision (PRECISION).</strong> Estimated uncertainty of the given geographic coordinates in meters.</p>
-<p><strong>Bias GPS (BIAS_GPS).</strong> Uncertainty of geographic coordinates measured using GPS, in meters.</p>
 <p><strong>Field number (FIELD_NR).</strong> Field number or code of the vegetation plot used by its author.</p>
 <p><strong>Habitat (HABITAT).</strong> Textual description of the abiotic or biotic environment in the vegetation plot and its close surroundings.</p>
 <p><strong>Geology (GEOLOGY).</strong> Textual description of geological bedrock in the vegetation plot.</p>
@@ -339,9 +338,8 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="header-data-variables-with-outdated-content-replaced-by-new-variables">2.2 Header-data variables with outdated content replaced by new variables</h3>
 <p><strong>Syntaxon old (SYNTAX_OLD).</strong> Vegetation unit (syntaxon) to which the vegetation plot was subjectively assigned by its author or database administrator according to the outdated classification system in the publication:</p>
 <ul>
-<li>Moravec J., Balátová-Tuláčková E., Blažková D., Hadač E., Hejný S., Husák Š., Jeník J., Kolbek J., Krahulec F., Kropáč Z., Neuhäusl R., Rybníček K., Řehořek V. &amp; Vicherek J. (1995): Rostlinná společenstva České republiky a jejich ohrožení. Ed. 2. Severočeskou přírodou, Příloha 1995: 1–206.</li>
+<li>Moravec J., Balátová-Tuláčková E., Blažková D., Hadač E., Hejný S., Husák Š., Jeník J., Kolbek J., Krahulec F., Kropáč Z., Neuhäusl R., Rybníček K., Řehořek V. &amp; Vicherek J. (1995): Rostlinná společenstva České republiky a jejich ohrožení. Ed. 2. <em>Severočeskou přírodou</em>, Příloha 1995: 1–206.</li>
 </ul>
-<p><strong>Bias min (BIAS_MIN).</strong> Estimated uncertainty of the given geographic coordinates in minutes. The first digit indicates uncertainty in minutes of longitude, and the second digit indicates uncertainty in minutes of latitude.</p>
 </section>
 <section id="rarely-or-never-used-header-data-variables" class="level3">
 <h3 class="anchored" data-anchor-id="rarely-or-never-used-header-data-variables">2.3 Rarely or never used header-data variables</h3>
@@ -355,7 +353,6 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Height low shrub layer (SHRUB_LOW).</strong> Height of the lower shrub sublayer in meters.</p>
 <p><strong>Height low herb layer (HERB_LOW).</strong> Height of the lower herb sublayer in centimeters.</p>
 <p><strong>Maximum height cryptogam layer (CRYPT_HIGH).</strong> Height of the tallest bryophytes or lichens in centimeters.</p>
-<p><strong>CEBA grid (CEBA_GRID).</strong> Localization of the vegetation plot in the grid used for Central European flora mapping (see <a href="https://pladias.cz/download/phytogeography" class="uri">https://pladias.cz/download/phytogeography</a>), either into basic grid cells (CEBA, Central European Basic Area) of size 10’ × 6’ minutes (e.g.&nbsp;6062) or quadrants of these basic grid cells of size 5’ × 3’ minutes (e.g.&nbsp;6062c).</p>
 </section>
 <section id="inconsistently-used-header-data-variables-with-non-unified-content" class="level3">
 <h3 class="anchored" data-anchor-id="inconsistently-used-header-data-variables-with-non-unified-content">2.4 Inconsistently used header data variables with non-unified content</h3>
