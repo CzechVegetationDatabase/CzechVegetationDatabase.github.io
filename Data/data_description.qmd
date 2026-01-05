@@ -53,13 +53,13 @@ In addition to basic variables, the database also contains variables with outdat
 
 **Syntaxon (SYNTAXON).** Vegetation unit (syntaxon) to which the vegetation plot was subjectively assigned by its author or a database administrator, according to the classification system in the publication:
 
--   Chytrý M. (ed.) (2007–2013): Vegetace České republiky 1–4. Vegetation of the Czech Republic 1–4. Academia, Praha.
+-   Chytrý M. (ed.) (2007–2013) *Vegetace České republiky 1–4. Vegetation of the Czech Republic 1–4*. Academia, Praha.
 
 **ESy code (ESY_CODE).** Code of the vegetation unit according to the Vegetation of the Czech Republic (Chytrý 2007–2013), assigned based on vegetation classification by the expert system CzechVeg-Esy, version v1-2020-01-12 (<https://doi.org/10.5281/zenodo.3605562>). This field is empty for plots that were not unambiguously classified by the expert system.
 
 **ESy name (ESY_NAME).** Name of the vegetation unit according to the Vegetation of the Czech Republic (Chytrý 2007–2013), assigned based on vegetation classification by the expert system CzechVeg-Esy, version v1-2020-01-12 (<https://doi.org/10.5281/zenodo.3605562>). This field is empty for plots that were not unambiguously classified by the expert system.
 
-**Syntaxon code (ESY_K_CODE).** Code of the vegetation unit according to the expert system (taken from the ESy code variable), which is supplemented by subjective classification from the Syntaxon field for plots not classified by the expert system .
+**Syntaxon code (ESY_K_CODE).** Code of the vegetation unit according to the expert system (taken from the ESy code variable), which is supplemented by subjective classification from the Syntaxon field for plots not classified by the expert system.
 
 **Syntaxon name (ESY_K_NAME).** Name of the vegetation unit according to the expert system (taken from the ESy code variable), which is supplemented by subjective classification from the Syntaxon field for plots not classified by the expert system.
 
@@ -117,8 +117,6 @@ In addition to basic variables, the database also contains variables with outdat
 
 **Precision (PRECISION).** Estimated uncertainty of the given geographic coordinates in meters.
 
-**Bias GPS (BIAS_GPS).** Uncertainty of geographic coordinates measured using GPS, in meters.
-
 **Field number (FIELD_NR).** Field number or code of the vegetation plot used by its author.
 
 **Habitat (HABITAT).** Textual description of the abiotic or biotic environment in the vegetation plot and its close surroundings.
@@ -131,9 +129,7 @@ In addition to basic variables, the database also contains variables with outdat
 
 **Syntaxon old (SYNTAX_OLD).** Vegetation unit (syntaxon) to which the vegetation plot was subjectively assigned by its author or database administrator according to the outdated classification system in the publication:
 
--   Moravec J., Balátová-Tuláčková E., Blažková D., Hadač E., Hejný S., Husák Š., Jeník J., Kolbek J., Krahulec F., Kropáč Z., Neuhäusl R., Rybníček K., Řehořek V. & Vicherek J. (1995): Rostlinná společenstva České republiky a jejich ohrožení. Ed. 2. Severočeskou přírodou, Příloha 1995: 1–206.
-
-**Bias min (BIAS_MIN).** Estimated uncertainty of the given geographic coordinates in minutes. The first digit indicates uncertainty in minutes of longitude, and the second digit indicates uncertainty in minutes of latitude.
+-   Moravec J., Balátová-Tuláčková E., Blažková D., Hadač E., Hejný S., Husák Š., Jeník J., Kolbek J., Krahulec F., Kropáč Z., Neuhäusl R., Rybníček K., Řehořek V. & Vicherek J. (1995): Rostlinná společenstva České republiky a jejich ohrožení. Ed. 2. *Severočeskou přírodou*, Příloha 1995: 1–206.
 
 ### 2.3 Rarely or never used header-data variables
 
@@ -156,8 +152,6 @@ In addition to basic variables, the database also contains variables with outdat
 **Height low herb layer (HERB_LOW).** Height of the lower herb sublayer in centimeters.
 
 **Maximum height cryptogam layer (CRYPT_HIGH).** Height of the tallest bryophytes or lichens in centimeters.
-
-**CEBA grid (CEBA_GRID).** Localization of the vegetation plot in the grid used for Central European flora mapping (see <https://pladias.cz/download/phytogeography>), either into basic grid cells (CEBA, Central European Basic Area) of size 10’ × 6’ minutes (e.g. 6062) or quadrants of these basic grid cells of size 5’ × 3’ minutes (e.g. 6062c).
 
 ### 2.4 Inconsistently used header data variables with non-unified content
 
