@@ -4,3 +4,5 @@
 .Ruserdata
 /.quarto/
 Postup publikace R GitHub.txt
+
+**/*.quarto_ipynb
