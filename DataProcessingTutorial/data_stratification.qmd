@@ -25,4 +25,12 @@ library(vegan) #Required by resample function
 library(igraph) #Required by resample function
 ```
 
-Now, we need two files: 1) header data with vegetation-plot (relevé) ID and geographical coordinates, and 2) species data in long format with relevé ID, taxon names and their covers.
+Now, we need two files: 1) header data with vegetation-plot (relevé) ID and geographical coordinates, and 2) species data in long format with relevé ID, taxon names and their cover.
+
+```{r}
+#| label: Load data
+#| eval: false
+#| include: false
+coord <- read.csv("env_selected.csv", header=T)
+spe <- read.csv("spe_merged_covers_acorss_layers.csv", header=T)
+```
