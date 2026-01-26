@@ -1,5 +1,5 @@
 ---
-title: "Data stratification"
+title: "Data resampling & stratification"
 format: html
 author: Jan Divíšek
 ---

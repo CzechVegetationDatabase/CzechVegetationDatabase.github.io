@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -32,15 +32,14 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-d9589ad4e98504035195c70aa99e1e7d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-2c70ee9cb39a79c0c719330d5428fe92.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-0508618caa1d256af916c83e0797e277.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -96,8 +95,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -242,6 +240,11 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Vegetation-plot records from large databases, including CzechVeg, are usually unevenly distributed in space because some areas, such as nature reserves or other botanically attractive locations, have been sampled more frequently than others. Vegetation plots from these areas also often record the same vegetation type, leading to overrepresentation of local vegetation and its environmental conditions in the dataset.</p>
+<p>This may be undesirable in analyses that require evenly distributed data. To reduce local oversampling and provide a dataset that is spatially, environmentally, and compositionally more balanced, we have prepared a stratified version of the Czech Vegetation Database: <strong>CzechVeg-Open-Strat</strong>.</p>
+<p>Now, we will go through all the steps of the resampling procedure so that every user of the CzechVeg data can prepare an alternative resampled and stratified dataset according to their own criteria. We will start with the full CzechVeg-Open dataset containing XXXX vegetation plots. For resampling, we will use the <code>resample</code> function developed specifically for vegetation-plot data. This function uses geographic proximity and species composition similarity of vegetation plots to reduce sampling density in areas where many plots are located close to each other and record compositionally similar vegetation. It is also possible to include environmental (or other) strata to perform the resampling within predefined environmentally similar groups of plots. The function first identifies the most similar pair of plots within the specified distance (and stratum, if used), removes one of them based on a selected rule, and repeats this process until no pairs that violate the specified distance and similarity thresholds remain in the dataset. A detailed technical description of the workflow is available <a href="https://github.com/jdivisek/FilteringReleves">here</a>.</p>
+<p>First, let’s load required libraries.</p>
+<p>Now, we need two files: 1) header data with vegetation-plot (relevé) ID and geographical coordinates, and 2) species data in long format with relevé ID, taxon names and their cover.</p>
 
 
 
@@ -297,14 +300,13 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
