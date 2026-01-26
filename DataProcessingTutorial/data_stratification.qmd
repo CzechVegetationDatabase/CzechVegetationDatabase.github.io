@@ -14,8 +14,6 @@ First, let’s load required libraries.
 
 ```{r}
 #| label: Load packages
-#| eval: false
-#| include: false
 library(tidyverse) #Data manipulation
 library(terra) #Transformation of coordinates
 library(data.table) #Required by resample function
@@ -29,8 +27,6 @@ Now, we need two files: 1) header data with vegetation-plot (relevé) ID and geo
 
 ```{r}
 #| label: Load data
-#| eval: false
-#| include: false
 coord <- read.csv("env_selected.csv", header=T)
 spe <- read.csv("spe_merged_covers_acorss_layers.csv", header=T)
 ```
