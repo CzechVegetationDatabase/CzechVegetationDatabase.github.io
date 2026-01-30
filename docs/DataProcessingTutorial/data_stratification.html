@@ -244,8 +244,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#resampling" id="toc-resampling" class="nav-link" data-scroll-target="#resampling">Resampling</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -275,6 +283,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
 <p>Vegetation-plot records from large databases, including CzechVeg, are usually unevenly distributed in space because some areas, such as nature reserves or other botanically attractive locations, have been sampled more frequently than others. Vegetation plots from these areas also often record the same vegetation type, leading to overrepresentation of this vegetation and its environmental conditions in the dataset. This may be undesirable in analyses that require evenly distributed data. To reduce local oversampling and provide a dataset that is spatially, environmentally, and compositionally more balanced, we have prepared a stratified version of the Czech Vegetation Database: <strong>CzechVeg-Open-Strat</strong>.</p>
 <p>Now, we will go through all the steps of the resampling procedure so that every user of the CzechVeg data can prepare an alternative resampled and stratified dataset according to their own criteria. We will start with the CzechVeg-Open dataset. After removing plots without geographical coordinates and those containing only non-vascular plants, the dataset contains 116,156 vegetation plots as shown below. Yellow areas are those with the highest plot density.</p>
 <p><img src="images/CzechVeg_allPlots.png" class="img-fluid"></p>
@@ -289,7 +299,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan) <span class="co">#Required by resample function</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph) <span class="co">#Required by resample function</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now, we need two files:</p>
+</section>
+<section id="data" class="level1">
+<h1>Data</h1>
+<p>To run stratified resampling of the CzechVeg-Open, we need two files:</p>
 <p><strong>1) Header data with relevé ID, geographical coordinates and other optional variables</strong></p>
 <p>The first object required by the <code>resample</code> function (<code>coord</code>) must be a <code>data.table</code> containing at least three columns including plot IDs and the longitude and latitude (or X and Y) coordinates of vegetation plots. Optionally, this <code>data.table</code> may include additional columns with environmental strata and a variable used to decide which vegetation plot will be removed from each pair of plots that are closer and more compositionally similar than specified thresholds. In our case, we will use environmental strata defined based on principal component analysis (PCA) of XXX environmental factors (details can be found here). However, in the full CzechVeg-Open dataset we provide also alternative environmental stratifications of the country that are based on published literature and can be used as an alternative to our PCA-based strata. Finally, we will use also the year of sampling to prefer younger plots in the resampling procedure. Only this variable may contain <code>NA</code> values and the corresponding plots are removed first. So, let’s read the the header data and create <code>data.table</code>:</p>
 <div class="cell">
@@ -319,7 +332,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(spe_sel) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"PlotObservationID"</span>, <span class="st">"Taxon_name"</span>, <span class="st">"cover"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now, we are ready to run the stratified resampling of the CzechVeg-Open dataset. Let’t load the function:</p>
+</section>
+<section id="resampling" class="level1">
+<h1>Resampling</h1>
+<p>Now, we are ready to run the resampling. First, let’t load the function:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"https://raw.githubusercontent.com/jdivisek/FilteringReleves/refs/heads/main/ResampleFunction.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -336,6 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
