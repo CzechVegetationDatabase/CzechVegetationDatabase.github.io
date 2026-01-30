@@ -4,6 +4,8 @@ format: html
 author: Jan Divíšek
 ---
 
+# Introduction
+
 Vegetation-plot records from large databases, including CzechVeg, are usually unevenly distributed in space because some areas, such as nature reserves or other botanically attractive locations, have been sampled more frequently than others. Vegetation plots from these areas also often record the same vegetation type, leading to overrepresentation of this vegetation and its environmental conditions in the dataset. This may be undesirable in analyses that require evenly distributed data. To reduce local oversampling and provide a dataset that is spatially, environmentally, and compositionally more balanced, we have prepared a stratified version of the Czech Vegetation Database: **CzechVeg-Open-Strat**.
 
 Now, we will go through all the steps of the resampling procedure so that every user of the CzechVeg data can prepare an alternative resampled and stratified dataset according to their own criteria. We will start with the CzechVeg-Open dataset. After removing plots without geographical coordinates and those containing only non-vascular plants, the dataset contains 116,156 vegetation plots as shown below. Yellow areas are those with the highest plot density.
@@ -26,7 +28,9 @@ library(vegan) #Required by resample function
 library(igraph) #Required by resample function
 ```
 
-Now, we need two files:
+# Data
+
+To run stratified resampling of the CzechVeg-Open, we need two files:
 
 **1) Header data with relevé ID, geographical coordinates and other optional variables**
 
@@ -84,7 +88,9 @@ Columns must have specific names: `PlotObservationID`, `Taxon_name` and `cover`.
 colnames(spe_sel) <- c("PlotObservationID", "Taxon_name", "cover")
 ```
 
-Now, we are ready to run the stratified resampling of the CzechVeg-Open dataset. Let’t load the function:
+# Resampling
+
+Now, we are ready to run the resampling. First, let’t load the function:
 
 ```{r}
 #| label: Load function
