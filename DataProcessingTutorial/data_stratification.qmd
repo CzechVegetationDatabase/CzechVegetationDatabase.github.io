@@ -43,6 +43,8 @@ coord <- read.csv("header_data.csv", header = TRUE)
 head(coord)
 ```
 
+![](images/head_coord.png){width="251"}
+
 As the first column with plot IDs must have a specific name, we need to rename it:
 
 ```{r}
@@ -79,6 +81,8 @@ The second object required by the `resample` function must be a `data.table` in 
 spe <- read.csv("species_data.csv", header = TRUE)
 head(spe)
 ```
+
+![](images/head_spe.png){width="382"}
 
 Columns must have specific names: `PlotObservationID`, `Taxon_name` and `cover`.
 
