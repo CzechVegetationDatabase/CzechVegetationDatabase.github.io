@@ -71,7 +71,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-d9589ad4e98504035195c70aa99e1e7d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-0508618caa1d256af916c83e0797e277.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -275,9 +275,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Vegetation-plot records from large databases, including CzechVeg, are usually unevenly distributed in space because some areas, such as nature reserves or other botanically attractive locations, have been sampled more frequently than others. Vegetation plots from these areas also often record the same vegetation type, leading to overrepresentation of this vegetation and its environmental conditions in the dataset.</p>
-<p>This may be undesirable in analyses that require evenly distributed data. To reduce local oversampling and provide a dataset that is spatially, environmentally, and compositionally more balanced, we have prepared a stratified version of the Czech Vegetation Database: <strong>CzechVeg-Open-Strat</strong>.</p>
-<p>Now, we will go through all the steps of the resampling procedure so that every user of the CzechVeg data can prepare an alternative resampled and stratified dataset according to their own criteria. We will start with the full CzechVeg-Open dataset containing XXXX vegetation plots. For resampling, we will use the <code>resample</code> function developed specifically for vegetation-plot data. This function uses geographic proximity and species composition similarity of vegetation plots to reduce sampling density in areas where many plots are located close to each other and record compositionally similar vegetation. It is also possible to include environmental (or other) strata to perform the resampling within predefined environmentally similar groups of plots. The function first identifies the most similar pair of plots within the specified distance (and stratum, if used), removes one of them based on a selected rule, and repeats this process until no pairs that violate the specified distance and similarity thresholds remain in the dataset. A detailed technical description of the workflow is available <a href="https://github.com/jdivisek/FilteringReleves">here</a>.</p>
+<p>Vegetation-plot records from large databases, including CzechVeg, are usually unevenly distributed in space because some areas, such as nature reserves or other botanically attractive locations, have been sampled more frequently than others. Vegetation plots from these areas also often record the same vegetation type, leading to overrepresentation of this vegetation and its environmental conditions in the dataset. This may be undesirable in analyses that require evenly distributed data. To reduce local oversampling and provide a dataset that is spatially, environmentally, and compositionally more balanced, we have prepared a stratified version of the Czech Vegetation Database: <strong>CzechVeg-Open-Strat</strong>.</p>
+<p>Now, we will go through all the steps of the resampling procedure so that every user of the CzechVeg data can prepare an alternative resampled and stratified dataset according to their own criteria. We will start with the CzechVeg-Open dataset. After removing plots without geographical coordinates and those containing only non-vascular plants, the dataset contains 116,156 vegetation plots as shown below. Yellow areas are those with the highest plot density.</p>
+<p><img src="images/CzechVeg_allPlots.png" class="img-fluid"></p>
+<p>For resampling, we will use the resample function developed specifically for vegetation-plot data. This function uses geographic proximity and species composition similarity of vegetation plots to reduce sampling density in areas where many plots are located close to each other and record compositionally similar vegetation. It is also possible to include environmental (or other) strata to perform the resampling within predefined environmentally similar groups of plots. The function first identifies the most similar pair of plots within the specified distance (and stratum, if used), removes one of them based on a selected rule, and repeats this process until no pairs that violate the specified distance and similarity thresholds remain in the dataset. A detailed technical description of the workflow is available <a href="https://github.com/jdivisek/FilteringReleves">here</a>.</p>
 <p>First, let’s load required libraries.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co">#Data manipulation</span></span>
@@ -288,11 +289,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan) <span class="co">#Required by resample function</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph) <span class="co">#Required by resample function</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now, we need two files: 1) header data with vegetation-plot (relevé) ID and geographical coordinates, and 2) species data in long format with relevé ID, taxon names and their cover.</p>
+<p>Now, we need two files:</p>
+<p><strong>1) Header data with relevé ID, geographical coordinates and other optional variables</strong></p>
+<p>The first object required by the <code>resample</code> function (<code>coord</code>) must be a <code>data.table</code> containing at least three columns including plot IDs and the longitude and latitude (or X and Y) coordinates of vegetation plots. Optionally, this <code>data.table</code> may include additional columns with environmental strata and a variable used to decide which vegetation plot will be removed from each pair of plots that are closer and more compositionally similar than specified thresholds. In our case, we will use environmental strata defined based on principal component analysis (PCA) of XXX environmental factors (details can be found here). However, in the full CzechVeg-Open dataset we provide also alternative environmental stratifications of the country that are based on published literature and can be used as an alternative to our PCA-based strata. Finally, we will use also the year of sampling to prefer younger plots in the resampling procedure. Only this variable may contain <code>NA</code> values and the corresponding plots are removed first. So, let’s read the the header data and create <code>data.table</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>coord <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"env_selected.csv"</span>, <span class="at">header=</span>T)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"spe_merged_covers_acorss_layers.csv"</span>, <span class="at">header=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>coord <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"header_data.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coord)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>As the first column with plot IDs must have a specific name, we need to rename it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(coord_sel)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"PlotObservationID"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Although the <code>resample</code> function can handle geographical coordinates in degrees (with <code>longlat = TRUE</code>) it is highly recommended to provide coordinates in meters. To achieve this, we need to project coordinates expressed in WGS 84 (EPSG: 4326) to metric WGS 84 / UTM zone 33N (EPSG: 32633) coordinate system. We will replace original coordinates in the coord object. The easiest way to is to use <code>terra::project()</code> function which can handle a matrix of coordinates and its thus not necessary to create a spatial object.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>coord[, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>] <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">project</span>(<span class="fu">as.matrix</span>(coord[, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]), <span class="at">from =</span><span class="st">"epsg:4326"</span>, <span class="at">to =</span><span class="st">"epsg:32633"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that for projecting coordinates of plots from other countries, appropriate projected coordinate system must be used.</p>
+<p>And now, we can create a <code>data.table</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>coord <span class="ot">&lt;-</span> <span class="fu">data.table</span>(coord)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>2) Species data in long format with relevé ID, taxon names and their covers</strong></p>
+<p>The second object required by the <code>resample</code> function must be a <code>data.table</code> in long format containing relevé IDs, taxon names, and their percentage covers in each vegetation plot. All plot IDs must match those in the header data and vice versa. No <code>NA</code> values are allowed in any column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"species_data.csv"</span>, <span class="at">header=</span>T)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Columns must have specific names: <code>PlotObservationID</code>, <code>Taxon_name</code> and <code>cover</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(spe_sel) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"PlotObservationID"</span>, <span class="st">"Taxon_name"</span>, <span class="st">"cover"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we are ready to run the stratified resampling of the CzechVeg-Open dataset. Let’t load the function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"https://raw.githubusercontent.com/jdivisek/FilteringReleves/refs/heads/main/ResampleFunction.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will use moderate criteria to remove only the closest and most compositionally similar plots in each stratum:</p>
+<ul>
+<li><p><code>longlat = FALSE</code> Because we use coordinates in the WGS 84 / UTM zone 33N coordinate system, this argument must be set to <code>FALSE</code>.</p></li>
+<li><p><code>dist.threshold = 1000</code> With this setting, the function will consider plots closer than 1000 m as neighbors. Within this neighborhood, it will search for conflicting pairs that exceed the similarity threshold. Note that the value set depends on the coordinate system used. Please see the detailed description <a href="https://github.com/jdivisek/FilteringReleves">here</a>.</p></li>
+<li><p><code>sim.threshold = 0.8</code> Pairs of neighboring plots with similarity exceeding this value will be resampled.</p></li>
+<li><p><code>sim.method = "simpson"</code> We use the Simpson similarity index, which is independent of differences in species richness, to calculate similarity in species composition.</p></li>
+<li><p><code>remove = "lower var.value"</code> This argument sets which plot from a conflicting pair will be removed. “lower var.value” removes the plot with the lower value in the column defined by the var.value parameter. <code>NA</code> values are allowed and these plots are removed first.</p></li>
+<li><p><code>var.value = "year"</code> We use the year of sampling to remove the older plot from each conflicting pair. If both plots were recorded in the same year, a random plot will be removed.</p></li>
+<li><p><code>strata = "env_class"</code> This argument specifies the column in <code>coord</code> that contains environmental stratification. Plots will be resampled separately within each stratum.</p></li>
+<li><p><code>seed = 1234</code> The seed value for the random number generator, which ensures reproducibility of results.</p></li>
+</ul>
 
 
 

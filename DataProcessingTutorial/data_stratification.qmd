@@ -87,7 +87,7 @@ colnames(spe_sel) <- c("PlotObservationID", "Taxon_name", "cover")
 Now, we are ready to run the stratified resampling of the CzechVeg-Open dataset. Let’t load the function:
 
 ```{r}
-#| label: Renaming columns
+#| label: Load function
 #| eval: false
 source("https://raw.githubusercontent.com/jdivisek/FilteringReleves/refs/heads/main/ResampleFunction.R")
 ```
