@@ -56,7 +56,7 @@ Although the `resample` function can handle geographical coordinates in degrees 
 ```{r}
 #| label: Projecting coordinates
 #| eval: false
-coord[, 2:3] <- terra::project(as.matrix(coord[, 2:3]), from ="epsg:4326", to ="epsg:32633")
+coord[, 2:3] <- terra::project(as.matrix(coord[, 2:3]), from = "epsg:4326", to = "epsg:32633")
 ```
 
 Note that for projecting coordinates of plots from other countries, appropriate projected coordinate system must be used.
@@ -76,7 +76,7 @@ The second object required by the `resample` function must be a `data.table` in 
 ```{r}
 #| label: Reading species data
 #| eval: false
-spe <- read.csv("species_data.csv", header=T)
+spe <- read.csv("species_data.csv", header = TRUE)
 head(spe)
 ```
 
