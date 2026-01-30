@@ -314,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(coord_sel)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"PlotObservationID"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Although the <code>resample</code> function can handle geographical coordinates in degrees (with <code>longlat = TRUE</code>) it is highly recommended to provide coordinates in meters. To achieve this, we need to project coordinates expressed in WGS 84 (EPSG: 4326) to metric WGS 84 / UTM zone 33N (EPSG: 32633) coordinate system. We will replace original coordinates in the coord object. The easiest way to is to use <code>terra::project()</code> function which can handle a matrix of coordinates and its thus not necessary to create a spatial object.</p>
+<p>Although the <code>resample</code> function can handle geographical coordinates in degrees (with <code>longlat = TRUE</code>) it is highly recommended to provide coordinates in meters. To achieve this, we need to project coordinates expressed in WGS 84 (EPSG: 4326) to metric WGS 84 / UTM zone 33N (EPSG: 32633) coordinate system. We will replace original coordinates in the <code>coord</code> object. The easiest way to is to use <code>terra::project()</code> function which can handle a matrix of coordinates and its thus not necessary to create a spatial object.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>coord[, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>] <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">project</span>(<span class="fu">as.matrix</span>(coord[, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]), <span class="at">from =</span> <span class="st">"epsg:4326"</span>, <span class="at">to =</span> <span class="st">"epsg:32633"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -330,7 +330,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/head_spe.png" class="img-fluid" width="382"></p>
-<p>Columns must have specific names: <code>PlotObservationID</code>, <code>Taxon_name</code> and <code>cover</code>.</p>
+<p>All columns must have specific names: <code>PlotObservationID</code>, <code>Taxon_name</code> and <code>cover</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(spe_sel) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"PlotObservationID"</span>, <span class="st">"Taxon_name"</span>, <span class="st">"cover"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -343,11 +343,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We will use moderate criteria to remove only the closest and most compositionally similar plots in each stratum:</p>
 <ul>
-<li><p><code>longlat = FALSE</code> Because we use coordinates in the WGS 84 / UTM zone 33N coordinate system, this argument must be set to <code>FALSE</code>.</p></li>
-<li><p><code>dist.threshold = 1000</code> With this setting, the function will consider plots closer than 1000 m as neighbors. Within this neighborhood, it will search for conflicting pairs that exceed the similarity threshold. Note that the value set depends on the coordinate system used. Please see the detailed description <a href="https://github.com/jdivisek/FilteringReleves">here</a>.</p></li>
+<li><p><code>longlat = FALSE</code> This argument must be set to <code>FALSE</code>, because we use coordinates in the WGS 84 / UTM zone 33N coordinate system.</p></li>
+<li><p><code>dist.threshold = 1000</code> With this setting, the function will consider plots closer than 1000 m as neighbors. Within this neighborhood, it will search for conflicting pairs that exceed the similarity threshold. Note that the value set depends on the coordinate system used. Please, see the detailed description <a href="https://github.com/jdivisek/FilteringReleves">here</a>.</p></li>
 <li><p><code>sim.threshold = 0.8</code> Pairs of neighboring plots with similarity exceeding this value will be resampled.</p></li>
 <li><p><code>sim.method = "simpson"</code> We use the Simpson similarity index, which is independent of differences in species richness, to calculate similarity in species composition.</p></li>
-<li><p><code>remove = "lower var.value"</code> This argument sets which plot from a conflicting pair will be removed. “lower var.value” removes the plot with the lower value in the column defined by the var.value parameter. <code>NA</code> values are allowed and these plots are removed first.</p></li>
+<li><p><code>remove = "lower var.value"</code> This argument sets which plot from a conflicting pair will be removed. <code>"lower var.value"</code> removes the plot with the lower value in the column defined by the <code>var.value</code> parameter. <code>NA</code> values are allowed and these plots are removed first.</p></li>
 <li><p><code>var.value = "year"</code> We use the year of sampling to remove the older plot from each conflicting pair. If both plots were recorded in the same year, a random plot will be removed.</p></li>
 <li><p><code>strata = "env_class"</code> This argument specifies the column in <code>coord</code> that contains environmental stratification. Plots will be resampled separately within each stratum.</p></li>
 <li><p><code>seed = 1234</code> The seed value for the random number generator, which ensures reproducibility of results.</p></li>
