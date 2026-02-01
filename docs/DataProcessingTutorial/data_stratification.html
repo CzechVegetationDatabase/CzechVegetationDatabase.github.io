@@ -312,7 +312,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="images/head_coord.png" class="img-fluid" width="254"></p>
 <p>As the first column with plot IDs must have a specific name, we need to rename it:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(coord_sel)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"PlotObservationID"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(coord)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"PlotObservationID"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Although the <code>resample</code> function can handle geographical coordinates in degrees (with <code>longlat = TRUE</code>) it is highly recommended to provide coordinates in meters. To achieve this, we need to project coordinates expressed in WGS 84 (EPSG: 4326) to metric WGS 84 / UTM zone 33N (EPSG: 32633) coordinate system. We will replace original coordinates in the <code>coord</code> object. The easiest way to is to use <code>terra::project()</code> function which can handle a matrix of coordinates and its thus not necessary to create a spatial object.</p>
 <div class="cell">

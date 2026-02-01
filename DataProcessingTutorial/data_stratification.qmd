@@ -50,7 +50,7 @@ As the first column with plot IDs must have a specific name, we need to rename i
 ```{r}
 #| label: Renaming
 #| eval: false
-colnames(coord_sel)[1] <- "PlotObservationID"
+colnames(coord)[1] <- "PlotObservationID"
 ```
 
 Although the `resample` function can handle geographical coordinates in degrees (with `longlat = TRUE`) it is highly recommended to provide coordinates in meters. To achieve this, we need to project coordinates expressed in WGS 84 (EPSG: 4326) to metric WGS 84 / UTM zone 33N (EPSG: 32633) coordinate system. We will replace original coordinates in the `coord` object. The easiest way to is to use `terra::project()` function which can handle a matrix of coordinates and its thus not necessary to create a spatial object.
