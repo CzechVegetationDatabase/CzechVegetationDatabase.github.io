@@ -43,7 +43,7 @@ coord <- read.csv("header_data.csv", header = TRUE)
 head(coord)
 ```
 
-![](images/head_coord.png){width="251"}
+![](images/head_coord.png){width="254"}
 
 As the first column with plot IDs must have a specific name, we need to rename it:
 
@@ -69,7 +69,10 @@ And now, we can create a `data.table`:
 #| label: data.table
 #| eval: false
 coord <- data.table(coord)
+head(coord)
 ```
+
+![](images/head_coord_data.table.png){width="326"}
 
 **2) Species data in long format with relevé ID, taxon names and their covers**
 
@@ -82,15 +85,26 @@ spe <- read.csv("species_data.csv", header = TRUE)
 head(spe)
 ```
 
-![](images/head_spe.png){width="382"}
+![](images/head_spe.png){width="385"}
 
 All columns must have specific names: `PlotObservationID`, `Taxon_name` and `cover`.
 
 ```{r}
 #| label: Renaming columns
 #| eval: false
-colnames(spe_sel) <- c("PlotObservationID", "Taxon_name", "cover")
+colnames(spe) <- c("PlotObservationID", "Taxon_name", "cover")
 ```
+
+And the object must be a `data.table`.
+
+```{r}
+#| label: spe to data.table
+#| eval: false
+spe <- data.table(spe)
+head(spe)
+```
+
+![](images/head_spe_data.table.png){width="417"}
 
 # Resampling
 
