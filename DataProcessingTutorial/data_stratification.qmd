@@ -34,7 +34,7 @@ To run stratified resampling of the CzechVeg-Open, we need two files:
 
 **1) Header data with relevé ID, geographical coordinates and other optional variables**
 
-The first object required by the `resample` function (`coord`) must be a `data.table` containing at least three columns including plot IDs and the longitude and latitude (or X and Y) coordinates of vegetation plots. Optionally, this `data.table` may include additional columns with environmental strata and a variable used to decide which vegetation plot will be removed from each pair of plots that are closer and more compositionally similar than specified thresholds. In our case, we will use environmental strata defined based on principal component analysis (PCA) of 18 environmental factors (details can be found here). However, in the full CzechVeg-Open dataset we provide also alternative environmental stratifications of the country that are based on published literature and can be used as an alternative to our PCA-based strata. Finally, we will use also the year of sampling to prefer younger plots in the resampling procedure. This variable may contain `NA` values and the corresponding plots are removed first. So, let’s read the the header data and create `data.table`:
+The first object required by the `resample` function (`coord`) must be a `data.table` containing at least three columns including plot IDs and the longitude and latitude (or X and Y) coordinates of vegetation plots. Optionally, this `data.table` may include additional columns with environmental strata and a variable used to decide which vegetation plot will be removed from each pair of plots that are closer and more compositionally similar than specified thresholds. In our case, we will use 282 environmental strata defined based on principal component analysis (PCA) of 18 environmental factors (details can be found here). However, in the full CzechVeg-Open dataset we provide also alternative environmental stratifications of the country that are based on published literature and can be used as an alternative to our PCA-based strata. Finally, we will use also the year of sampling to prefer younger plots in the resampling procedure. This variable may contain `NA` values and the corresponding plots are removed first. So, let’s read the the header data and create `data.table`:
 
 ```{r}
 #| label: Load data
@@ -43,7 +43,7 @@ coord <- read.csv("header_data.csv", header = TRUE)
 head(coord)
 ```
 
-![](images/head_coord.png){width="338"}
+![](images/head_coord.png){width="425"}
 
 As the first column with plot IDs must have a specific name, we need to rename it:
 
@@ -72,7 +72,7 @@ coord <- data.table(coord)
 coord
 ```
 
-![](images/head_coord_data.table.png){width="432"}
+![](images/head_coord_data.table.png){width="543"}
 
 **2) Species data in long format with relevé ID, taxon names and their covers**
 
@@ -85,7 +85,7 @@ spe <- read.csv("species_data.csv", header = TRUE)
 head(spe)
 ```
 
-![](images/head_spe.png){width="320"}
+![](images/head_spe.png){width="404"}
 
 All columns must have specific names: `PlotObservationID`, `Taxon_name` and `cover`.
 
@@ -104,7 +104,7 @@ spe <- data.table(spe)
 spe
 ```
 
-![](images/head_spe_data.table.png){width="497"}
+![](images/head_spe_data.table.png){width="626"}
 
 # Resampling
 
@@ -120,7 +120,7 @@ We will use the following criteria to remove the closest and most compositionall
 
 -   `longlat = FALSE` This argument must be set to `FALSE`, because we use coordinates in the WGS 84 / UTM zone 33N coordinate system.
 
--   `dist.threshold = 1000` With this setting, the function will consider plots closer than 1000 m as neighbors. Within this neighborhood, it will search for conflicting pairs that exceed the similarity threshold. Note that the value set depends on the coordinate system used. Please, see the detailed description [here](https://github.com/jdivisek/FilteringReleves).
+-   `dist.threshold = 1000` With this setting, the function will consider plots closer than 1,000 m as neighbors. Within this neighborhood, it will search for conflicting pairs that exceed the similarity threshold. Note that the value set depends on the coordinate system used. Please, see the detailed description [here](https://github.com/jdivisek/FilteringReleves).
 
 -   `sim.threshold = 0.6` Pairs of neighboring plots with similarity exceeding this value will be resampled.
 
@@ -150,3 +150,19 @@ res <- resample(coord = coord,
                 strata = "env_strata", 
                 seed = 1234)
 ```
+
+![](images/resampling.png){width="682"}
+
+On a laptop with 32 GB RAM and an Intel Core i7-11850H 2.5 GHz processor, resampling 116,156 plots took less than 4 minutes. As a result, we obtained a `data.table` with PlotObservationIDs and coordinates for **61,336 plots** that are either more than 1,000 m apart or less similar than 0.6 within each environmental stratum.
+
+```{r}
+#| label: Show result
+#| eval: false
+res
+```
+
+![](images/result.png){width="379"}
+
+As shown below, the density of plots in intensively sampled areas decreased considerably. This dataset is provided as **CzechVeg-Open-Strat**.
+
+![](images/CzechVeg_allPlots_vs_strat.png)

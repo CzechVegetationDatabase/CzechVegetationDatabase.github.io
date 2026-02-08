@@ -306,12 +306,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Data</h1>
 <p>To run stratified resampling of the CzechVeg-Open, we need two files:</p>
 <p><strong>1) Header data with relevé ID, geographical coordinates and other optional variables</strong></p>
-<p>The first object required by the <code>resample</code> function (<code>coord</code>) must be a <code>data.table</code> containing at least three columns including plot IDs and the longitude and latitude (or X and Y) coordinates of vegetation plots. Optionally, this <code>data.table</code> may include additional columns with environmental strata and a variable used to decide which vegetation plot will be removed from each pair of plots that are closer and more compositionally similar than specified thresholds. In our case, we will use environmental strata defined based on principal component analysis (PCA) of 18 environmental factors (details can be found here). However, in the full CzechVeg-Open dataset we provide also alternative environmental stratifications of the country that are based on published literature and can be used as an alternative to our PCA-based strata. Finally, we will use also the year of sampling to prefer younger plots in the resampling procedure. This variable may contain <code>NA</code> values and the corresponding plots are removed first. So, let’s read the the header data and create <code>data.table</code>:</p>
+<p>The first object required by the <code>resample</code> function (<code>coord</code>) must be a <code>data.table</code> containing at least three columns including plot IDs and the longitude and latitude (or X and Y) coordinates of vegetation plots. Optionally, this <code>data.table</code> may include additional columns with environmental strata and a variable used to decide which vegetation plot will be removed from each pair of plots that are closer and more compositionally similar than specified thresholds. In our case, we will use 282 environmental strata defined based on principal component analysis (PCA) of 18 environmental factors (details can be found here). However, in the full CzechVeg-Open dataset we provide also alternative environmental stratifications of the country that are based on published literature and can be used as an alternative to our PCA-based strata. Finally, we will use also the year of sampling to prefer younger plots in the resampling procedure. This variable may contain <code>NA</code> values and the corresponding plots are removed first. So, let’s read the the header data and create <code>data.table</code>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>coord <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"header_data.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coord)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><img src="images/head_coord.png" class="img-fluid" width="338"></p>
+<p><img src="images/head_coord.png" class="img-fluid" width="425"></p>
 <p>As the first column with plot IDs must have a specific name, we need to rename it:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(coord)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"PlotObservationID"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -326,14 +326,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>coord <span class="ot">&lt;-</span> <span class="fu">data.table</span>(coord)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>coord</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><img src="images/head_coord_data.table.png" class="img-fluid" width="432"></p>
+<p><img src="images/head_coord_data.table.png" class="img-fluid" width="543"></p>
 <p><strong>2) Species data in long format with relevé ID, taxon names and their covers</strong></p>
 <p>The second object required by the <code>resample</code> function must be a <code>data.table</code> in long format containing relevé IDs, taxon names, and their percentage covers in each vegetation plot. All plot IDs must match those in the header data and vice versa. No <code>NA</code> values are allowed in any column.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"species_data.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spe)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><img src="images/head_spe.png" class="img-fluid" width="320"></p>
+<p><img src="images/head_spe.png" class="img-fluid" width="404"></p>
 <p>All columns must have specific names: <code>PlotObservationID</code>, <code>Taxon_name</code> and <code>cover</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(spe) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"PlotObservationID"</span>, <span class="st">"Taxon_name"</span>, <span class="st">"cover"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -343,7 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> <span class="fu">data.table</span>(spe)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>spe</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><img src="images/head_spe_data.table.png" class="img-fluid" width="497"></p>
+<p><img src="images/head_spe_data.table.png" class="img-fluid" width="626"></p>
 </section>
 <section id="resampling" class="level1">
 <h1>Resampling</h1>
@@ -354,7 +354,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We will use the following criteria to remove the closest and most compositionally similar plots in each stratum:</p>
 <ul>
 <li><p><code>longlat = FALSE</code> This argument must be set to <code>FALSE</code>, because we use coordinates in the WGS 84 / UTM zone 33N coordinate system.</p></li>
-<li><p><code>dist.threshold = 1000</code> With this setting, the function will consider plots closer than 1000 m as neighbors. Within this neighborhood, it will search for conflicting pairs that exceed the similarity threshold. Note that the value set depends on the coordinate system used. Please, see the detailed description <a href="https://github.com/jdivisek/FilteringReleves">here</a>.</p></li>
+<li><p><code>dist.threshold = 1000</code> With this setting, the function will consider plots closer than 1,000 m as neighbors. Within this neighborhood, it will search for conflicting pairs that exceed the similarity threshold. Note that the value set depends on the coordinate system used. Please, see the detailed description <a href="https://github.com/jdivisek/FilteringReleves">here</a>.</p></li>
 <li><p><code>sim.threshold = 0.6</code> Pairs of neighboring plots with similarity exceeding this value will be resampled.</p></li>
 <li><p><code>sim.method = "simpson"</code> We use the Simpson similarity index, which is independent of differences in species richness, to calculate similarity in species composition.</p></li>
 <li><p><code>remove = "lower var.value"</code> This argument sets which plot from a conflicting pair will be removed. <code>"lower var.value"</code> removes the plot with the lower value in the column defined by the <code>var.value</code> parameter. <code>NA</code> values are allowed and these plots are removed first.</p></li>
@@ -375,6 +375,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">strata =</span> <span class="st">"env_strata"</span>, </span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">seed =</span> <span class="dv">1234</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p><img src="images/resampling.png" class="img-fluid" width="682"></p>
+<p>On a laptop with 32 GB RAM and an Intel Core i7-11850H 2.5 GHz processor, resampling 116,156 plots took less than 4 minutes. As a result, we obtained a <code>data.table</code> with PlotObservationIDs and coordinates for <strong>61,336 plots</strong> that are either more than 1,000 m apart or less similar than 0.6 within each environmental stratum.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><img src="images/result.png" class="img-fluid" width="379"></p>
+<p>As shown below, the density of plots in intensively sampled areas decreased considerably. This dataset is provided as <strong>CzechVeg-Open-Strat</strong>.</p>
+<p><img src="images/CzechVeg_allPlots_vs_strat.png" class="img-fluid"></p>
 
 
 </section>
