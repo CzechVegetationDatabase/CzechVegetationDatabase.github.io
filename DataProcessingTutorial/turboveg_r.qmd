@@ -1,6 +1,7 @@
 ---
 title: "Turboveg to R"
 format: html
+author: Irena Axmanová
 ---
 
 The aim of this tutorial is to show you step by step how to import the data from Turboveg 2 to R and prepare it for further analyses.

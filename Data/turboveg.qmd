@@ -1,6 +1,7 @@
 ---
 title: "Turboveg"
 format: html
+author: Milan Chytrý, Ilona Knollová
 ---
 
 The Czech Vegetation Database is stored and managed in the [Turboveg 2](https://www.synbiosys.alterra.nl/turboveg/) program, which was developed specifically for managing vegetation-plot databases by Stephan Hennekens ([Hennekens & Schaminée 2001](http://onlinelibrary.wiley.com/doi/10.2307/3237010/pdf)). This program and the database format it supports have become widespread across Europe and beyond. We encourage all data contributors to the Czech Vegetation Database to use this program to digitize their vegetation-plot data.
