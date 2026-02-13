@@ -18,39 +18,31 @@ The database is coordinated at the [Vegetation Science Group](https://botzool.cz
 
 In November 2025, the database contained 117,740 vegetation plots from the Czech Republic, sampled between 1922 and 2025. These plots represent all vegetation types found in the country, with grassland and forest plots being the most numerous, followed by plots from wetlands, ruderal, and weed vegetation.
 
-## 2 Online Viewer
+## 2 Related resources
 
-[https://vegscibrno.shinyapps.io/CzechVegetationDatabase](https://vegscibrno.shinyapps.io/CzechVegetationDatabase/)
-
-This interactive viewer of the Czech Vegetation Database provides maps and summary characteristics of vegetation plots for the whole database and its subsets defined by plot size and location uncertainty, years of sampling, altitude, covers of vegetation layers, and occurrence of specific species or species groups.
-
-![](images/clipboard-2787976972.jpeg)
-
-## 3 Related resources
-
-### 3.1 EVA-MAP
+### EVA-MAP
 
 [www.evamap.eu](https://www.evamap.eu/)
 
 An interactive online viewer for the European Vegetation Archive, which includes the data from the Czech Vegetation Database. It has partly overlapping and partly unique functions.
 
-### 3.2 Phytosociological Bibliography of the Czech Republic
+### Phytosociological Bibliography of the Czech Republic
 
 [www.sci.muni.cz/botany/tvref](https://www.sci.muni.cz/botany/tvref/)
 
 This online database contains the full bibliographic references to the sources of vegetation-plot data that have been digitized and included in the Cyech Vegetation Database.
 
-## 4 Website authors
+## 3 Website authors
 
 -   Web design: Irena Axmanová and Klára Friesová
 -   Data preparation: Ilona Knollová, with contributions from Marcela Řezníčková, Irena Axmanová, Martin Večeřa, and Milan Chytrý
 -   Stratified version of the database: Jan Divíšek and Martin Večeřa
--   Online viewer: Klára Friesová
+-   Online map viewer: Klára Friesová
 -   Introductory text and data description: Milan Chytrý, with contributions from Ilona Knollová
 -   Data processing tutorial: Irena Axmanová, Jan Divíšek, and Martin Večeřa
 -   Project coordination: Milan Chytrý
 
-## 5 Funding
+## 4 Funding
 
 This website was launched in January 2026. Its development was supported through the Open Science Clusters' Action for Research and Society ([OSCARS](https://oscars-project.eu/)) Horizon Europe project under grant agreement No. 101129751, subproject "[EVA-FAIR](https://oscars-project.eu/projects/eva-fair-implementing-fair-principles-european-vegetation-archive-data) - Implementing FAIR principles in the European Vegetation Archive data".
 

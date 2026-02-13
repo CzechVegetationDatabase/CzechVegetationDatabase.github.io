@@ -49,7 +49,7 @@ In addition to basic variables, the database also contains variables with outdat
 
 **Author code (AUTHOR).** Author of the vegetation plot. The dataset in the Turboveg 2 format (DBF) contains the author numeric code. The CSV format also includes the full author name in the field **AUTHOR_NAME**.
 
-**Date (DATE).** Date of vegetation plot sampling, recorded in the format YYYYMMDD.
+**Date (DATE).** Date of vegetation plot sampling, recorded in the format YYYYMMDD. The CSV format also includes **YEAR**.
 
 **Syntaxon (SYNTAXON).** Vegetation unit (syntaxon) to which the vegetation plot was subjectively assigned by its author or a database administrator. The dataset in the Turboveg 2 format (DBF) contains the syntaxon code. The CSV format also includes the full syntaxon name in the field **SYNTAXON_NAME**. The vegetation classification is according to the classification system in the publication:
 
