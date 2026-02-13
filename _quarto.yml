@@ -22,24 +22,24 @@ website:
       - section: "About"
         href: index.qmd
         contents:
-        - text: "Map viewer"
-          href: About/map_viewer.qmd
         - text: "History"
           href: About/history.qmd
-        - text: "Turboveg for Windows"
-          href: About/turboveg_windows.qmd
         - text: 'Acknowledgements'
           href: About/acknowledgements.qmd
 
       - section: "Data"
         href: Data/data_availability.qmd
         contents:
+          - text: "Map viewer"
+            href: Data/map_viewer.qmd
           - text: "CzechVeg-Open"
             href: Data/czech_veg_open.qmd
           - text: "CzechVeg-OpenStrat"
             href: Data/czech_veg_openstrat.qmd
           - text: "Data description"
             href: Data/data_description.qmd
+          - text: "Turboveg"
+            href: Data/turboveg.qmd
 
       - section: "Data processing tutorial"
         href: DataProcessingTutorial/data_processing_tutorial.qmd

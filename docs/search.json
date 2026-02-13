@@ -93,6 +93,61 @@
     ]
   },
   {
+    "objectID": "Data/turboveg.html",
+    "href": "Data/turboveg.html",
+    "title": "Turboveg",
+    "section": "",
+    "text": "The Czech Vegetation Database is stored and managed in the Turboveg 2 program, which was developed specifically for managing vegetation-plot databases by Stephan Hennekens (Hennekens & Schaminée 2001). This program and the database format it supports have become widespread across Europe and beyond. We encourage all data contributors to the Czech Vegetation Database to use this program to digitize their vegetation-plot data.",
+    "crumbs": [
+      "Data",
+      "Turboveg"
+    ]
+  },
+  {
+    "objectID": "Data/turboveg.html#installation",
+    "href": "Data/turboveg.html#installation",
+    "title": "Turboveg",
+    "section": "1 Installation",
+    "text": "1 Installation\nTo obtain the version of Turboveg optimized for Czech data, please contact Ilona Knollová (ikuzel@sci.muni.cz) or Milan Chytrý (chytry@sci.muni.cz). This version is not available for international users who work with data from other countries. If these users are interested in working with Turboveg, they should contact database coordinators in their countries or Stephan Hennnekens.",
+    "crumbs": [
+      "Data",
+      "Turboveg"
+    ]
+  },
+  {
+    "objectID": "Data/turboveg.html#updates",
+    "href": "Data/turboveg.html#updates",
+    "title": "Turboveg",
+    "section": "2 Updates",
+    "text": "2 Updates\n\n2.1 Program update\nAfter the Turboveg installation, the program should be updated to the current version from the Turboveg website (select „International, single user version“).\n\n\n2.2 Installation and update of the Czech species list\nThe standard Turboveg list of the Czech flora (common with the standard list of Slovak flora) should be downloaded here:\n\nspecies.zip (version 28 November 2024)\n\nExtract this file. After extraction, you will receive a folder named Czechia_Slovakia_2015, which should be copied to the folder /TURBOWIN/species on your computer. In the Turboveg program, assign the species list to each specific database using Database/Modify attributes.\n\n\n2.3 Installation and update of the common database directories\nThe standard directories for specific header-data variables should be downloaded from here:\n\npopup.zip (version 16 December 2024)\n\nExtract this file to the folder /TURBOWIN/popup (old files should be rewritten). If there are problems with the syntaxon list, follow the instructions here.",
+    "crumbs": [
+      "Data",
+      "Turboveg"
+    ]
+  },
+  {
+    "objectID": "Data/turboveg.html#instructions",
+    "href": "Data/turboveg.html#instructions",
+    "title": "Turboveg",
+    "section": "3 Instructions",
+    "text": "3 Instructions\nBefore storing the vegetation-plot data entered into Turboveg in the Czech Vegetation Database, each plot must have a unique number. To guarantee that your plots have unique numbers, contact Ilona Knollová (ikuzel@sci.muni.cz), who may assign a range of plot numbers to you. The list of numbers assigned to individual collaborators is here. Collaborators who have not been assigned to a range of plot numbers should code their plots starting from no. 1. Their plots will be renumbered by the coordinator once they are sent to the central database. If collaborators with assigned plot numbers enter plots from published sources, the bibliographic references should have numbers from the same numerical range.\nTurboveg manual for beginners (in Czech) is here. You can download an empty database template with standard header data fields used in the Czech Vegetation Database. Restore this template to the folder /TURBOWIN/data and rename it.",
+    "crumbs": [
+      "Data",
+      "Turboveg"
+    ]
+  },
+  {
+    "objectID": "Data/turboveg.html#taxonomic-and-nomenclatural-standards",
+    "href": "Data/turboveg.html#taxonomic-and-nomenclatural-standards",
+    "title": "Turboveg",
+    "section": "4 Taxonomic and nomenclatural standards",
+    "text": "4 Taxonomic and nomenclatural standards\nTo ensure compatibility among different datasets, the Czech Vegetation Database uses standardized species lists included in the Czech version of Turboveg.\nThe list of vascular plant species (including some other infraspecific and infrageneric taxa) was prepared by the late Professor Harald Niklfeld and Dr. Walter Gutermann (University of Vienna) in 1996 based on an updated version of Liste der Gefäßpflanzen Mitteleuropas (Ehrendorfer 1973). This species list contains plant species occurring in Czechia, Slovakia, and Austria. In 2015, Jiří Danihelka updated this species list to reflect additions to the Czech flora published in Danihelka et al. (2012), while keeping compatibility with the previous list. This species list is currently used by both the Czech Vegetation Database and the Central Database of Phytosociological Relevés in Slovakia.\nThe lists of bryophytes and lichens follow Frahm et al. (1995) and Pišút et al. (1993), respectively.\nReferences\n\nDanihelka J., Chrtek J. Jr. & Kaplan Z. (2012) Checklist of vascular plants of the Czech Republic. Preslia 84: 647–811.\nEhrendorfer F. (ed.) (1973) Liste der Gefäßpflanzen Mitteleuropas. Ed. 2. G. Fischer, Stuttgart.\nFrey W., Frahm J. P., Fischer E. & Lobin W. (1995) Die Moos- und Farnpflanzen Europas. G. Fischer, Stuttgart.\nPišút I., Lackovicová A. & Lisická E. (1993) Súpis lišajníkov Slovenska. Biológia, 48, Suppl. 1: 53–98.",
+    "crumbs": [
+      "Data",
+      "Turboveg"
+    ]
+  },
+  {
     "objectID": "Data/data_description.html",
     "href": "Data/data_description.html",
     "title": "Data description",
@@ -148,61 +203,6 @@
     ]
   },
   {
-    "objectID": "About/turboveg_windows.html",
-    "href": "About/turboveg_windows.html",
-    "title": "Turboveg for Windows",
-    "section": "",
-    "text": "The Czech Vegetation Database is stored and managed in the Turboveg 2 program, which was developed specifically for managing vegetation-plot databases by Stephan Hennekens (Hennekens & Schaminée 2001). This program and the database format it supports have become widespread across Europe and beyond. We encourage all data contributors to the Czech Vegetation Database to use this program to digitize their vegetation-plot data.",
-    "crumbs": [
-      "About",
-      "Turboveg for Windows"
-    ]
-  },
-  {
-    "objectID": "About/turboveg_windows.html#installation",
-    "href": "About/turboveg_windows.html#installation",
-    "title": "Turboveg for Windows",
-    "section": "1 Installation",
-    "text": "1 Installation\nTo obtain the version of Turboveg optimized for Czech data, please contact Ilona Knollová (ikuzel@sci.muni.cz) or Milan Chytrý (chytry@sci.muni.cz). This version is not available for international users who work with data from other countries. If these users are interested in working with Turboveg, they should contact database coordinators in their countries or Stephan Hennnekens.",
-    "crumbs": [
-      "About",
-      "Turboveg for Windows"
-    ]
-  },
-  {
-    "objectID": "About/turboveg_windows.html#updates",
-    "href": "About/turboveg_windows.html#updates",
-    "title": "Turboveg for Windows",
-    "section": "2 Updates",
-    "text": "2 Updates\n\n2.1 Program update\nAfter the Turboveg installation, the program should be updated to the current version from the Turboveg website (select „International, single user version“).\n\n\n2.2 Installation and update of the Czech species list\nThe standard Turboveg list of the Czech flora (common with the standard list of Slovak flora) should be downloaded here:\n\nspecies.zip (version 28 November 2024)\n\nExtract this file. After extraction, you will receive a folder named Czechia_Slovakia_2015, which should be copied to the folder /TURBOWIN/species on your computer. In the Turboveg program, assign the species list to each specific database using Database/Modify attributes.\n\n\n2.3 Installation and update of the common database directories\nThe standard directories for specific header-data variables should be downloaded from here:\n\npopup.zip (version 16 December 2024)\n\nExtract this file to the folder /TURBOWIN/popup (old files should be rewritten). If there are problems with the syntaxon list, follow the instructions here.",
-    "crumbs": [
-      "About",
-      "Turboveg for Windows"
-    ]
-  },
-  {
-    "objectID": "About/turboveg_windows.html#instructions",
-    "href": "About/turboveg_windows.html#instructions",
-    "title": "Turboveg for Windows",
-    "section": "3 Instructions",
-    "text": "3 Instructions\nBefore storing the vegetation-plot data entered into Turboveg in the Czech Vegetation Database, each plot must have a unique number. To guarantee that your plots have unique numbers, contact Ilona Knollová (ikuzel@sci.muni.cz), who may assign a range of plot numbers to you. The list of numbers assigned to individual collaborators is here. Collaborators who have not been assigned to a range of plot numbers should code their plots starting from no. 1. Their plots will be renumbered by the coordinator once they are sent to the central database. If collaborators with assigned plot numbers enter plots from published sources, the bibliographic references should have numbers from the same numerical range.\nTurboveg manual for beginners (in Czech) is here. You can download an empty database template with standard header data fields used in the Czech Vegetation Database. Restore this template to the folder /TURBOWIN/data and rename it.",
-    "crumbs": [
-      "About",
-      "Turboveg for Windows"
-    ]
-  },
-  {
-    "objectID": "About/turboveg_windows.html#taxonomic-and-nomenclatural-standards",
-    "href": "About/turboveg_windows.html#taxonomic-and-nomenclatural-standards",
-    "title": "Turboveg for Windows",
-    "section": "4 Taxonomic and nomenclatural standards",
-    "text": "4 Taxonomic and nomenclatural standards\nTo ensure compatibility among different datasets, the Czech Vegetation Database uses standardized species lists included in the Czech version of Turboveg.\nThe list of vascular plant species (including some other infraspecific and infrageneric taxa) was prepared by the late Professor Harald Niklfeld and Dr. Walter Gutermann (University of Vienna) in 1996 based on an updated version of Liste der Gefäßpflanzen Mitteleuropas (Ehrendorfer 1973). This species list contains plant species occurring in Czechia, Slovakia, and Austria. In 2015, Jiří Danihelka updated this species list to reflect additions to the Czech flora published in Danihelka et al. (2012), while keeping compatibility with the previous list. This species list is currently used by both the Czech Vegetation Database and the Central Database of Phytosociological Relevés in Slovakia.\nThe lists of bryophytes and lichens follow Frahm et al. (1995) and Pišút et al. (1993), respectively.\nReferences\n\nDanihelka J., Chrtek J. Jr. & Kaplan Z. (2012) Checklist of vascular plants of the Czech Republic. Preslia 84: 647–811.\nEhrendorfer F. (ed.) (1973) Liste der Gefäßpflanzen Mitteleuropas. Ed. 2. G. Fischer, Stuttgart.\nFrey W., Frahm J. P., Fischer E. & Lobin W. (1995) Die Moos- und Farnpflanzen Europas. G. Fischer, Stuttgart.\nPišút I., Lackovicová A. & Lisická E. (1993) Súpis lišajníkov Slovenska. Biológia, 48, Suppl. 1: 53–98.",
-    "crumbs": [
-      "About",
-      "Turboveg for Windows"
-    ]
-  },
-  {
     "objectID": "About/history.html",
     "href": "About/history.html",
     "title": "History",
@@ -225,17 +225,6 @@
     ]
   },
   {
-    "objectID": "About/map_viewer.html",
-    "href": "About/map_viewer.html",
-    "title": "Map viewer",
-    "section": "",
-    "text": "https://vegscibrno.shinyapps.io/CzechVegetationDatabase\nThis interactive viewer of the Czech Vegetation Database provides maps and summary characteristics of vegetation plots for the whole database and its subsets defined by plot size and location uncertainty, years of sampling, altitude, covers of vegetation layers, and occurrence of specific species or species groups.",
-    "crumbs": [
-      "About",
-      "Map viewer"
-    ]
-  },
-  {
     "objectID": "Data/czech_veg_open.html",
     "href": "Data/czech_veg_open.html",
     "title": "CzechVeg-Open",
@@ -254,6 +243,17 @@
     "text": "The Czech Vegetation Database adheres to the FAIR Guiding Principles for scientific data management and stewardship (Wilkinson et al. 2016). It is an open resource available under the CC-BY license, allowing data to be shared and adapted, provided the source is cited and any changes are indicated.\nData can be obtained from this website, either as the full database (CzechVeg-Open) or as a spatially and environmentally stratified subset (CzechVeg-Open-Strat), which is suitable for analyses at the national scale. The same datasets, with DOI and versioning, are available in the Zenodo repository.\nData from the Czech Vegetation Database are also available in international vegetation-plot databases. For analyses at supranational scales, data should be requested through these databases:\n\nEVA – European Vegetation Archive, for analyses at the international scale within Europe\nsPlot – Global Vegetation Database, for analyses across regions larger than Europe\n\nSpecies occurrence data from the Czech Vegetation Database are available in species occurrence record databases:\n\nPladias – Database of the Czech Flora and Vegetation (Chytrý et al. 2021)\nNDOP – Species Occurrence Database of the Nature Conservation Agency of the Czech Republic\nGBIF – Global Biodiversity Information Facility\n\nRecommended citation for the Czech Vegetation Database\n\nChytrý M., Axmanová I., Divíšek J., Friesová K., Řezníčková M., Večeřa M. & Knollová I. (In preparation): Czech Vegetation Database: an open resource of vegetation-plot data.\nThe article above should be cited whenever data from the Czech Vegetation Database are used, together with a reference to the website czechvegetationdatabase.github.io.\nAdditionally, the version used and its DOI, as recorded in Zenodo, should be cited.\nIf only a small part of the database was used, with vegetation plots originating from a few published sources, or if a few published sources make up a large proportion of the plots, the original sources should also be cited, or the original authors should be mentioned for unpublished sources.",
     "crumbs": [
       "Data"
+    ]
+  },
+  {
+    "objectID": "Data/map_viewer.html",
+    "href": "Data/map_viewer.html",
+    "title": "Map viewer",
+    "section": "",
+    "text": "https://vegscibrno.shinyapps.io/CzechVegetationDatabase\nThis interactive viewer of the Czech Vegetation Database provides maps and summary characteristics of vegetation plots for the whole database and its subsets defined by plot size and location uncertainty, years of sampling, altitude, covers of vegetation layers, and occurrence of specific species or species groups.",
+    "crumbs": [
+      "Data",
+      "Map viewer"
     ]
   },
   {

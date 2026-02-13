@@ -1,5 +1,5 @@
 ---
-title: "Turboveg for Windows"
+title: "Turboveg"
 format: html
 ---
 
