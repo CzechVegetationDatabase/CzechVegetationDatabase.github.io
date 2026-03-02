@@ -18,7 +18,7 @@ First, let’s load required libraries.
 
 ```{r}
 #| label: Load packages
-#| warning: false
+#| eval: false
 library(terra) #Transformation of coordinates
 library(data.table) #Required by resample function
 library(spdep) #Required by resample function
