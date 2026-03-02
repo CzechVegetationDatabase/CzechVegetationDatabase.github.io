@@ -166,7 +166,7 @@ The **REMARKS** field contains non-standardized textual comments, such as detail
 
 ## 4 Environmental & biogeographical strata
 
-**Env_strata (ENV_STRATA).** Environmental strata used in the resampling procedure to create CzecVeg-OpenStrat. For details, see Data stratification.
+**Env_strata (ENV_STRATA).** Environmental strata used in the resampling procedure to create CzecVeg-OpenStrat. For details, see [Data stratification](https://czechvegetationdatabase.github.io/DataProcessingTutorial/data_stratification.html).
 
 **Skalicky1988 (SKALICKY1988).** Phytogeographical regions by Skalický (1988).
 
