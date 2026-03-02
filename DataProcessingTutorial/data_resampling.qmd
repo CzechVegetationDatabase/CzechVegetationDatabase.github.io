@@ -6,7 +6,7 @@ author: Jan Divíšek
 
 # Introduction
 
-Vegetation-plot records from large databases, including CzechVeg, are usually unevenly distributed in space because some areas, such as nature reserves or other botanically attractive locations, have been sampled more frequently than others. Vegetation plots from these areas also often record the same vegetation type, leading to overrepresentation of this vegetation and its environmental conditions in the dataset. This may be undesirable in analyses that require evenly distributed data. To reduce local oversampling and provide a dataset that is spatially, environmentally, and compositionally more balanced, we have prepared a stratified version of the Czech Vegetation Database: **CzechVeg-Open-Strat**.
+Vegetation-plot records from large databases, including CzechVeg, are usually unevenly distributed in space because some areas, such as nature reserves or other botanically attractive locations, have been sampled more frequently than others. Vegetation plots from these areas also often record the same vegetation type, leading to overrepresentation of this vegetation and its environmental conditions in the dataset. This may be undesirable in analyses that require evenly distributed data. To reduce local oversampling and provide a dataset that is spatially, environmentally, and compositionally more balanced, we have prepared a stratified version of the Czech Vegetation Database: [**CzechVeg-Open-Strat**](https://czechvegetationdatabase.github.io/Data/czech_veg_openstrat.html).
 
 Now, we will go through all the steps of the resampling procedure so that every user of the CzechVeg data can prepare an alternative resampled and stratified dataset according to their own criteria. We will start with the CzechVeg-Open dataset. After removing plots without geographical coordinates and those containing only genera or non-vascular plants, the dataset contains 116,148 vegetation plots as shown below. Yellow areas are those with the highest plot density, which was calculated as the number of plots within the radius of 20 km from each plot.
 
@@ -33,7 +33,7 @@ To run stratified resampling of the CzechVeg-Open, we need two files:
 
 **1) Header data with relevé ID, geographical coordinates and other optional variables**
 
-The first object required by the `resample` function (`coord`) must be a `data.table` containing at least three columns including plot IDs and the longitude and latitude (or X and Y) coordinates of vegetation plots. Optionally, this `data.table` may include additional columns with environmental strata and a variable used to decide which vegetation plot will be removed from each pair of plots that are closer and more compositionally similar than specified thresholds. In our case, we will use 282 environmental strata defined based on principal component analysis (PCA) of 18 environmental factors (details can be found here). However, in the full CzechVeg-Open dataset we provide also alternative environmental stratifications of the country that are based on published literature and can be used as an alternative to our PCA-based strata. Finally, we will use also the year of sampling to prefer younger plots in the resampling procedure. This variable may contain `NA` values and the corresponding plots are removed first. So, let’s read the the header data and create `data.table`:
+The first object required by the `resample` function (`coord`) must be a `data.table` containing at least three columns including plot IDs and the longitude and latitude (or X and Y) coordinates of vegetation plots. Optionally, this `data.table` may include additional columns with environmental strata and a variable used to decide which vegetation plot will be removed from each pair of plots that are closer and more compositionally similar than specified thresholds. In our case, we will use 282 environmental strata defined based on principal component analysis (PCA) of 18 environmental factors (details can be found [here](https://czechvegetationdatabase.github.io/DataProcessingTutorial/data_stratification.html)). However, in the full CzechVeg-Open dataset we provide also alternative environmental stratifications of the country that are based on published literature and can be used as an alternative to our PCA-based strata. Finally, we will use also the year of sampling to prefer younger plots in the resampling procedure. This variable may contain `NA` values and the corresponding plots are removed first. So, let’s read the the header data and create `data.table`:
 
 ```{r}
 #| label: Load data
@@ -162,6 +162,6 @@ res
 
 ![](images/result.png){width="379"}
 
-As shown below, the density of plots in intensively sampled areas decreased considerably. This dataset is provided as **CzechVeg-Open-Strat**.
+As shown below, the density of plots in intensively sampled areas decreased considerably. This dataset is provided as [**CzechVeg-Open-Strat**](https://czechvegetationdatabase.github.io/Data/czech_veg_openstrat.html).
 
 ![](images/CzechVeg_allPlots_vs_strat.png)
