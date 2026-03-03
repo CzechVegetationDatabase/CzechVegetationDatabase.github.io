@@ -304,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We followed the procedure below to create an environmental stratification scheme for <a href="https://czechvegetationdatabase.github.io/Data/czech_veg_openstrat.html">CzechVeg-OpenStrat</a>, the environmentally stratified version of the Czech Vegetation Database.</p>
 <p>As spatial units for the environmental strata, we used the <a href="https://sdi.eea.europa.eu/catalogue/srv/api/records/9e80fdac-a518-462b-942b-82701035c079f">1 km EEA reference grid for the Czech Republic</a>. Each 1 km grid cell was assigned to a stratum based on a combination of environmental variables using principal component analysis (PCA). We then assigned each vegetation plot (N = 116,148) to a stratum based on the grid cell in which it was located. This assignment was subsequently used as one of the criteria in the resampling procedure (described <a href="https://czechvegetationdatabase.github.io/DataProcessingTutorial/data_resampling.html">here</a>) to prepare a spatially and environmentally balanced, publicly available subset of the Czech Vegetation Database.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># required packages</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## required packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)         <span class="co"># handling vector GIS layers  </span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)      <span class="co"># spatial data analysis</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)      <span class="co"># data manipulation</span></span>
@@ -313,10 +313,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)    <span class="co"># avoiding overlaps of labels in ordination plots</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomcoloR)<span class="co"># random colours generator </span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># read 1 km grid</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">## read 1 km grid</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>cz.grid <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"input_env_data/cz_1km_sstricto.shp"</span>) <span class="co"># coordinate system: ETRS89-extended / LAEA Europe</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># reproject coordinate system # check https://epsg.io/</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">## reproject coordinate system, check https://epsg.io/</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>cz.grid.wgs <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(cz.grid, <span class="dv">4326</span>)  <span class="co"># WGS 84, for calculation</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>cz.grid.utm <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(cz.grid, <span class="dv">32633</span>) <span class="co"># WGS 84 / UTM zone 33N, for visualization</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -327,26 +327,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="images/tab_1.png" class="img-fluid"></p>
 <p>These variables were selected based on a preliminary PCA of climate variables, correlation analysis (omitting highly correlated variables), and expert knowledge. Soil rasters from LUCAS contained NoData pixels in some areas across the Czech Republic (typically urban agglomerations or regions with a high density of water bodies); these missing values were interpolated from surrounding cells using a nearest‑neighbour algorithm in ArcGIS Pro.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read vector and raster layers</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## read vector and raster layers</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>geology <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"input_env_data/GeoCR500agg_vapence50_laea.shp"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>rasters <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">paste0</span>(<span class="fu">getwd</span>(),<span class="st">"/input_env_data/"</span>), <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.tif$"</span>, <span class="at">full.names =</span> T)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>rasters <span class="ot">&lt;-</span> <span class="fu">lapply</span>(rasters, rast) <span class="co"># list of SpatRaster objects</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>For each 1 km grid cell, we calculated the area of geological substrates from vector layers and mean values of other variables from raster layers.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># intersect geology layer and grid</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## intersect geology layer and grid</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>geology.intersect <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(geology, cz.grid)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>geology.intersect <span class="ot">&lt;-</span> geology.intersect <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">area =</span> <span class="fu">st_area</span>(.))</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate area of bedrock types within grid cells</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="do">## calculate area of bedrock types within grid cells</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>geology.grid.area <span class="ot">&lt;-</span> geology.intersect <span class="sc">%&gt;%</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CELLCODE, bedrock_type) <span class="sc">%&gt;%</span>   </span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_area =</span> <span class="fu">sum</span>(area, <span class="at">na.rm =</span> T), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># from long to wide format (grid cells ~ rows, bedrock types ~ columns)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="do">## from long to wide format (grid cells ~ rows, bedrock types ~ columns)</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>geology.grid.area.wide <span class="ot">&lt;-</span> <span class="fu">spread</span> (geology.grid.area, bedrock_type, total_area, <span class="at">fill =</span> <span class="dv">0</span>)</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate mean raster values within grid cells</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="do">## calculate mean raster values within grid cells</span></span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>raster_values <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">CELLCODE =</span> cz.grid.wgs<span class="sc">$</span>CELLCODE)</span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(rasters)) </span>
@@ -356,15 +356,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  raster_values[[raster_name]] <span class="ot">&lt;-</span> values[,<span class="dv">2</span>]</span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># calculated values into a single object</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="do">## calculated values into a single object</span></span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>env.cz <span class="ot">&lt;-</span> <span class="fu">left_join</span>(geology.grid.area.wide, raster_values, <span class="at">by =</span> <span class="st">"CELLCODE"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Visual inspection of maps of the calculated variables:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># join environmental variables to shapefile</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## join environmental variables to the shapefile of Czech Rep.</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cz.grid.utm <span class="ot">&lt;-</span> <span class="fu">left_join</span>(cz.grid.utm, env.cz, <span class="at">by =</span> <span class="st">"CELLCODE"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># produce maps of the 18 variables</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="do">## produce maps of the 18 variables</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (v <span class="cf">in</span> <span class="fu">colnames</span>(cz.grid.utm) [<span class="dv">4</span><span class="sc">:</span><span class="dv">21</span>]) </span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(cz.grid.utm) <span class="sc">+</span></span>
@@ -401,11 +401,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pc_summary)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><img src="images/PCA_summary.png" class="img-fluid"></p>
-<p>Visual inspection of the ordination space - first, including all variables, PC1 and PC2.</p>
+<p>Visual inspection of the ordination space – first, including all variables, PC1 and PC2.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>load_df <span class="ot">&lt;-</span> loadings <span class="co"># all variables included</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># plot space parameters</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="do">## plot space parameters</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>max_axis <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">range</span>(pca_scores[,<span class="st">"PC1"</span>]), <span class="fu">range</span>(pca_scores[,<span class="st">"PC2"</span>])) <span class="sc">%&gt;%</span> <span class="fu">abs</span>() <span class="sc">%&gt;%</span> <span class="fu">max</span>()</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>vec_len <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(load_df[,<span class="st">"PC1"</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> load_df[,<span class="st">"PC2"</span>]<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>scale_factor <span class="ot">&lt;-</span> <span class="fl">0.9</span> <span class="sc">*</span> max_axis <span class="sc">/</span> <span class="fu">max</span>(vec_len) <span class="co"># 0.9 = fraction of plot radius</span></span>
@@ -413,7 +413,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>load_df<span class="sc">$</span>xend <span class="ot">&lt;-</span> load_df<span class="sc">$</span>PC1 <span class="sc">*</span> scale_factor</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>load_df<span class="sc">$</span>yend <span class="ot">&lt;-</span> load_df<span class="sc">$</span>PC2 <span class="sc">*</span> scale_factor</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># PC axes labels</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="do">## PC axes labels</span></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>PC1.explained <span class="ot">&lt;-</span> <span class="fu">round</span>(pc_summary<span class="sc">$</span>Proportion[<span class="dv">1</span>]<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">paste0</span>(<span class="st">"PC1 ("</span>,.,<span class="st">"%)"</span>)</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>PC2.explained <span class="ot">&lt;-</span> <span class="fu">round</span>(pc_summary<span class="sc">$</span>Proportion[<span class="dv">2</span>]<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">paste0</span>(<span class="st">"PC2 ("</span>,.,<span class="st">"%)"</span>)</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
@@ -448,7 +448,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>load_df <span class="ot">&lt;-</span> loadings[top_variables.uniq,] <span class="co"># selected variables to be displayed </span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>pc_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"PC1"</span>,<span class="st">"PC2"</span>,<span class="st">"PC3"</span>,<span class="st">"PC4"</span>)</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ordination plots of three combinations of the selected PC axes</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="do">## ordination plots of three combinations of the selected PC axes</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  PC_a <span class="ot">&lt;-</span> pc_cols[i]</span>
@@ -501,29 +501,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>breaks <span class="ot">&lt;-</span> <span class="fu">seq</span>(min_break, max_break <span class="sc">+</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="dv">2</span>) <span class="co"># selected interval ~ 2 SD    </span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>alpha_labels <span class="ot">&lt;-</span> LETTERS[<span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(breaks)<span class="sc">-</span><span class="dv">1</span>)]</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Classify each PC separately and add axis number to the label</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="do">## classify each PC separately and add axis number to the label</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(pc_cols)) </span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  pc_name <span class="ot">&lt;-</span> pc_cols[i]          </span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  axis_no <span class="ot">&lt;-</span> i                   </span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  bin_letters <span class="ot">&lt;-</span> <span class="fu">cut</span>(pca_scores[[pc_name]],</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> breaks,</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> alpha_labels,</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                     <span class="at">right =</span> F,</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>                     <span class="at">include.lowest =</span> T)</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  pca_scores[[<span class="fu">paste0</span>(pc_name, <span class="st">"_class"</span>)]] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">is.na</span>(bin_letters),</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA_character_</span>,</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(axis_no, <span class="fu">as.character</span>(bin_letters))</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>pc_class_cols <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"PC"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="st">"_class"</span>)</span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>pca_scores<span class="sc">$</span>STRAT <span class="ot">&lt;-</span> <span class="fu">apply</span>(pca_scores[pc_class_cols], <span class="dv">1</span>, <span class="cf">function</span>(x) {</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(x, <span class="at">collapse =</span> <span class="st">"_"</span>)</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  bin_letters <span class="ot">&lt;-</span> <span class="fu">cut</span>(pca_scores[[pc_name]],</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> breaks,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> alpha_labels,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                     <span class="at">right =</span> F,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                     <span class="at">include.lowest =</span> T)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  pca_scores[[<span class="fu">paste0</span>(pc_name, <span class="st">"_class"</span>)]] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">is.na</span>(bin_letters),</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA_character_</span>,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(axis_no, <span class="fu">as.character</span>(bin_letters))</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>pc_class_cols <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"PC"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="st">"_class"</span>)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>pca_scores<span class="sc">$</span>STRAT <span class="ot">&lt;-</span> <span class="fu">apply</span>(pca_scores[pc_class_cols], <span class="dv">1</span>, <span class="cf">function</span>(x) {</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(x, <span class="at">collapse =</span> <span class="st">"_"</span>)</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><img src="images/number_of_strata.png" class="img-fluid" width="356"></p>
 <p>This way we obtained 314 unique strata. Visual inspection of resulting strata on the map:</p>
@@ -539,7 +538,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> strat_vals <span class="sc">%&gt;%</span> <span class="fu">length</span>() <span class="sc">%&gt;%</span> <span class="fu">distinctColorPalette</span>()</span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">sample</span>(cols)</span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># named vector: name = stratum, value = colour</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="do">## named vector: name = stratum, value = colour</span></span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>col_map <span class="ot">&lt;-</span> <span class="fu">setNames</span>(cols, strat_vals)</span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(cz.grid.utm) <span class="sc">+</span></span>
@@ -556,13 +555,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Assignment of vegetation plots to strata</h1>
 <p>The final step was to assign vegetation plots to strata based on their location within 1 km grid cells.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read vegetation plot data</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## read vegetation plot data</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>header <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"CzechVeg_forResampling.txt"</span>, <span class="at">sep =</span> <span class="st">'</span><span class="sc">\t</span><span class="st">'</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(header)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><img src="images/header_vegplots_priorSTRATjoin.png" class="img-fluid"></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># assign vegetation plots to strata</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## assign vegetation plots to strata</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>coord <span class="ot">&lt;-</span> header <span class="sc">%&gt;%</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"Lon"</span>, <span class="st">"Lat"</span>), <span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">st_crs</span>(cz.grid.utm)) <span class="sc">%&gt;%</span></span>

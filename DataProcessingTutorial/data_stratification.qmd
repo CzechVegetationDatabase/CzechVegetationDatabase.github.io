@@ -13,7 +13,7 @@ As spatial units for the environmental strata, we used the [1 km EEA reference g
 ```{r}
 #| label: Load packages
 #| eval: false
-# required packages
+## required packages
 library(sf)         # handling vector GIS layers  
 library(terra)      # spatial data analysis
 library(dplyr)      # data manipulation
@@ -22,10 +22,10 @@ library(ggplot2)    # plots
 library(ggrepel)    # avoiding overlaps of labels in ordination plots
 library(randomcoloR)# random colours generator 
 
-# read 1 km grid
+## read 1 km grid
 cz.grid <- st_read("input_env_data/cz_1km_sstricto.shp") # coordinate system: ETRS89-extended / LAEA Europe
 
-# reproject coordinate system # check https://epsg.io/
+## reproject coordinate system, check https://epsg.io/
 cz.grid.wgs <- st_transform(cz.grid, 4326)  # WGS 84, for calculation
 cz.grid.utm <- st_transform(cz.grid, 32633) # WGS 84 / UTM zone 33N, for visualization
 ```
@@ -41,7 +41,7 @@ These variables were selected based on a preliminary PCA of climate variables, c
 ```{r}
 #| label: Load environmental data
 #| eval: false
-# read vector and raster layers
+## read vector and raster layers
 geology <- st_read("input_env_data/GeoCR500agg_vapence50_laea.shp")
 rasters <- list.files(paste0(getwd(),"/input_env_data/"), pattern = "\\.tif$", full.names = T)
 rasters <- lapply(rasters, rast) # list of SpatRaster objects
@@ -52,19 +52,19 @@ For each 1 km grid cell, we calculated the area of geological substrates from ve
 ```{r}
 #| label: Calculate grid cell data
 #| eval: false
-# intersect geology layer and grid
+## intersect geology layer and grid
 geology.intersect <- st_intersection(geology, cz.grid)
 geology.intersect <- geology.intersect %>% mutate(area = st_area(.))
 
-# calculate area of bedrock types within grid cells
+## calculate area of bedrock types within grid cells
 geology.grid.area <- geology.intersect %>%
   group_by(CELLCODE, bedrock_type) %>%   
   summarize(total_area = sum(area, na.rm = T), .groups = 'drop')
 
-# from long to wide format (grid cells ~ rows, bedrock types ~ columns)
+## from long to wide format (grid cells ~ rows, bedrock types ~ columns)
 geology.grid.area.wide <- spread (geology.grid.area, bedrock_type, total_area, fill = 0)
 
-# calculate mean raster values within grid cells
+## calculate mean raster values within grid cells
 raster_values <- data.frame(CELLCODE = cz.grid.wgs$CELLCODE)
 
 for (i in seq_along(rasters)) 
@@ -74,7 +74,7 @@ for (i in seq_along(rasters))
   raster_values[[raster_name]] <- values[,2]
 }
 
-# calculated values into a single object
+## calculated values into a single object
 env.cz <- left_join(geology.grid.area.wide, raster_values, by = "CELLCODE")
 ```
 
@@ -83,10 +83,10 @@ Visual inspection of maps of the calculated variables:
 ```{r}
 #| label: Export maps of variables
 #| eval: false
-# join environmental variables to shapefile
+## join environmental variables to the shapefile of Czech Rep.
 cz.grid.utm <- left_join(cz.grid.utm, env.cz, by = "CELLCODE")
 
-# produce maps of the 18 variables
+## produce maps of the 18 variables
 for (v in colnames(cz.grid.utm) [4:21]) 
 {
   p <- ggplot(cz.grid.utm) +
@@ -129,14 +129,14 @@ head(pc_summary)
 
 ![](images/PCA_summary.png)
 
-Visual inspection of the ordination space - first, including all variables, PC1 and PC2.
+Visual inspection of the ordination space – first, including all variables, PC1 and PC2.
 
 ```{r}
 #| label: Ordination plot - all variables
 #| eval: false
 load_df <- loadings # all variables included
 
-# plot space parameters
+## plot space parameters
 max_axis <- c(range(pca_scores[,"PC1"]), range(pca_scores[,"PC2"])) %>% abs() %>% max()
 vec_len <- sqrt(load_df[,"PC1"]^2 + load_df[,"PC2"]^2)
 scale_factor <- 0.9 * max_axis / max(vec_len) # 0.9 = fraction of plot radius
@@ -144,7 +144,7 @@ scale_factor <- 0.9 * max_axis / max(vec_len) # 0.9 = fraction of plot radius
 load_df$xend <- load_df$PC1 * scale_factor
 load_df$yend <- load_df$PC2 * scale_factor
 
-# PC axes labels
+## PC axes labels
 PC1.explained <- round(pc_summary$Proportion[1]*100,1) %>% paste0("PC1 (",.,"%)")
 PC2.explained <- round(pc_summary$Proportion[2]*100,1) %>% paste0("PC2 (",.,"%)")
 
@@ -184,7 +184,7 @@ top_variables.uniq <- top_variables.axes %>% c() %>% unique() %>% sort()
 load_df <- loadings[top_variables.uniq,] # selected variables to be displayed 
 pc_cols <- c("PC1","PC2","PC3","PC4")
 
-# ordination plots of three combinations of the selected PC axes
+## ordination plots of three combinations of the selected PC axes
 for(i in 1:3)
 {
   PC_a <- pc_cols[i]
@@ -241,12 +241,11 @@ max_break <- max(all_vals) %>% ceiling()
 breaks <- seq(min_break, max_break + 1, by = 2) # selected interval ~ 2 SD    
 alpha_labels <- LETTERS[1:(length(breaks)-1)]
 
-# Classify each PC separately and add axis number to the label
+## classify each PC separately and add axis number to the label
 for (i in seq_along(pc_cols)) 
 {
   pc_name <- pc_cols[i]          
   axis_no <- i                   
-  
   bin_letters <- cut(pca_scores[[pc_name]],
                      breaks = breaks,
                      labels = alpha_labels,
@@ -284,7 +283,7 @@ set.seed(29879)  # remove or change for different random orders
 cols <- strat_vals %>% length() %>% distinctColorPalette()
 cols <- sample(cols)
 
-# named vector: name = stratum, value = colour
+## named vector: name = stratum, value = colour
 col_map <- setNames(cols, strat_vals)
 
 p <- ggplot(cz.grid.utm) +
@@ -305,7 +304,7 @@ The final step was to assign vegetation plots to strata based on their location 
 ```{r}
 #| label: Read plots
 #| eval: false
-# read vegetation plot data
+## read vegetation plot data
 header <- read.delim("CzechVeg_forResampling.txt", sep = '\t')
 head(header)
 ```
@@ -315,7 +314,7 @@ head(header)
 ```{r}
 #| label: Assignment of plots to strata
 #| eval: false
-# assign vegetation plots to strata
+## assign vegetation plots to strata
 coord <- header %>%
   st_as_sf(coords = c("Lon", "Lat"), crs = 4326) %>%
   st_transform(st_crs(cz.grid.utm)) %>%
