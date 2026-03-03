@@ -160,11 +160,9 @@ The dataset in the Turboveg 2 format (DBF) contains the syntaxon code. The CSV f
 
 **Project code (PROJECT).** Project codes were entered by some data contributors and served their internal purposes. Within the entire Czech Vegetation Database, project codes are not unified. Consequently, the same project code used by different data contributors can refer to different projects.
 
-## 3 Remarks
+### 2.5 Environmental & biogeographical strata for data resampling
 
-The **REMARKS** field contains non-standardized textual comments, such as details of taxonomic interpretation for some taxa reported in the plot, the identification uncertainty for specific taxa, and sampling methods. There is one REMARKS field for each vegetation plot.
-
-## 4 Environmental & biogeographical strata
+The following variables contain environmental or biogeographical strata (landscape types or regions) that can be used for stratified resampling of vegetation plots.
 
 **Env_strata (ENV_STRATA).** Environmental strata used in the resampling procedure to create [CzechVeg-OpenStrat](https://czechvegetationdatabase.github.io/Data/czech_veg_openstrat.html). For details, see [Data stratification](https://czechvegetationdatabase.github.io/DataProcessingTutorial/data_stratification.html).
 
@@ -191,3 +189,7 @@ The **REMARKS** field contains non-standardized textual comments, such as detail
 **Divisek2014_const (DIVISEK2014_CONST).** Regions delineated by Divíšek et al. (2014) using spatially constrained hierarchical clustering of data on the distribution of natural habitats in grid cells spanning 5' longitude × 3' latitude.
 
 -   Divíšek, J., Chytrý, M., Grulich, V., & Poláková, L. (2014) Landscape classification of the Czech Republic based on the distribution of natural habitats. *Preslia*, 86(3), 209–231.
+
+## 3 Remarks
+
+The **REMARKS** field contains non-standardized textual comments, such as details of taxonomic interpretation for some taxa reported in the plot, the identification uncertainty for specific taxa, and sampling methods. There is one REMARKS field for each vegetation plot.
