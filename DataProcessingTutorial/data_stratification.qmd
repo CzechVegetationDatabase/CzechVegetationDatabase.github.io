@@ -14,13 +14,13 @@ As spatial units for the environmental strata, we used the [1 km EEA reference g
 #| label: Load packages
 #| eval: false
 # required packages
-library(sf)       #
-library(terra)
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-library(ggrepel)
-library(randomcoloR)
+library(sf)         # handling vector GIS layers  
+library(terra)      # spatial data analysis
+library(dplyr)      # data manipulation
+library(tidyr)      # data reshaping
+library(ggplot2)    # plots
+library(ggrepel)    # avoiding overlaps of labels in ordination plots
+library(randomcoloR)# random colours generator 
 
 # read 1 km grid
 cz.grid <- st_read("input_env_data/cz_1km_sstricto.shp") # coordinate system: ETRS89-extended / LAEA Europe
@@ -77,6 +77,28 @@ for (i in seq_along(rasters))
 # calculated values into a single object
 env.cz <- left_join(geology.grid.area.wide, raster_values, by = "CELLCODE")
 ```
+
+Visual inspection of maps of the calculated variables:
+
+```{r}
+#| label: Export maps of variables
+#| eval: false
+# join environmental variables to shapefile
+cz.grid.utm <- left_join(cz.grid.utm, env.cz, by = "CELLCODE")
+
+# produce maps of the 18 variables
+for (v in colnames(cz.grid.utm) [4:21]) 
+{
+  p <- ggplot(cz.grid.utm) +
+    geom_sf(aes(fill = .data[[v]]), color = NA) +
+    scale_fill_viridis_c(option = "viridis", na.value = "grey80") +
+    theme_minimal() +
+    labs(title = v, fill = NULL)
+  ggsave(paste0(v, ".png"), plot = p, width = 8, height = 4, dpi = 300)
+}
+```
+
+![](images/maps_variables.png)
 
 # PCA
 
@@ -146,7 +168,7 @@ labs(x = PC1.explained, y = PC2.explained) +
   )
 ```
 
-![](images/PC12_all_plot.png)
+![](images/PC12_all_plot.png){width="528"}
 
 Then combinations of the selected PC axes can be inspected, displaying only selected variables to make the plots better readable; this time exporting the plots to the R working directory.
 
@@ -203,7 +225,7 @@ for(i in 1:3)
 }
 ```
 
-![](images/PC1234_plot.png)
+![](images/PC1234_plotB.png)
 
 # Classification into strata
 
@@ -243,11 +265,11 @@ pc_class_cols <- paste0("PC", 1:4, "_class")
 pca_scores$STRAT <- apply(pca_scores[pc_class_cols], 1, function(x) {
   paste(x, collapse = "_")
 })
-
-
 ```
 
-Visual inspection of the resulting strata on the map.
+![](images/number_of_strata.png){width="356"}
+
+This way we obtained 314 unique strata. Visual inspection of resulting strata on the map:
 
 ```{r}
 #| label: Map of strata
@@ -276,3 +298,33 @@ ggsave("STRAT.png", plot = p, width = 8, height = 5, dpi = 300)
 ```
 
 ![](images/STRAT.png)
+
+# Assignment of vegetation plots to strata
+
+The final step was to assign vegetation plots to strata based on their location within 1 km grid cells.
+
+```{r}
+#| label: Read plots
+#| eval: false
+# read vegetation plot data
+header <- read.delim("CzechVeg_forResampling.txt", sep = '\t')
+head(header)
+```
+
+![](images/header_vegplots_priorSTRATjoin.png)
+
+```{r}
+#| label: Assignment of plots to strata
+#| eval: false
+# assign vegetation plots to strata
+coord <- header %>%
+  st_as_sf(coords = c("Lon", "Lat"), crs = 4326) %>%
+  st_transform(st_crs(cz.grid.utm)) %>%
+  st_join(x = ., y = cz.grid.utm, left = T) %>%
+  st_drop_geometry() %>%
+  select(all_of(c("RELEVE_NR", "STRAT"))) %>%
+  left_join(x = header, y = ., by = "RELEVE_NR")
+head(coord)
+```
+
+![](images/head_coord.png){width="474"}
