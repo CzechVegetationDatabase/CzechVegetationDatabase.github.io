@@ -168,7 +168,7 @@ labs(x = PC1.explained, y = PC2.explained) +
   )
 ```
 
-![](images/PC12_all_plot.png){width="528"}
+![](images/PC12_all_plot.png){width="570"}
 
 Then combinations of the selected PC axes can be inspected, displaying only selected variables to make the plots better readable; this time exporting the plots to the R working directory.
 
@@ -238,11 +238,10 @@ all_vals <- unlist(pca_scores[,pc_cols]) %>% as.vector()
 min_break <- min(all_vals) %>% floor()
 max_break <- max(all_vals) %>% ceiling()
 
-##
 breaks <- seq(min_break, max_break + 1, by = 2) # selected interval ~ 2 SD    
 alpha_labels <- LETTERS[1:(length(breaks)-1)]
 
-## Classify each PC separately and add axis number to label
+# Classify each PC separately and add axis number to the label
 for (i in seq_along(pc_cols)) 
 {
   pc_name <- pc_cols[i]          
@@ -274,7 +273,7 @@ This way we obtained 314 unique strata. Visual inspection of resulting strata on
 ```{r}
 #| label: Map of strata
 #| eval: false
-# join strata to the grid layer
+## join strata to the grid layer
 pca_scores$CELLCODE <- row.names(pca_scores)
 cz.grid.utm <- left_join(cz.grid.utm,pca_scores[,c("CELLCODE","STRAT")], by = "CELLCODE")
 pca_scores$CELLCODE <- NULL

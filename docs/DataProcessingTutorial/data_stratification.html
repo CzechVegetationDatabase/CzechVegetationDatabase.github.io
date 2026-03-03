@@ -436,7 +436,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text  =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)</span>
 <span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><img src="images/PC12_all_plot.png" class="img-fluid" width="528"></p>
+<p><img src="images/PC12_all_plot.png" class="img-fluid" width="570"></p>
 <p>Then combinations of the selected PC axes can be inspected, displaying only selected variables to make the plots better readable; this time exporting the plots to the R working directory.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>top_n <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># number of selected variables most correlated with PC axes</span></span>
@@ -498,38 +498,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>min_break <span class="ot">&lt;-</span> <span class="fu">min</span>(all_vals) <span class="sc">%&gt;%</span> <span class="fu">floor</span>()</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>max_break <span class="ot">&lt;-</span> <span class="fu">max</span>(all_vals) <span class="sc">%&gt;%</span> <span class="fu">ceiling</span>()</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">##</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>breaks <span class="ot">&lt;-</span> <span class="fu">seq</span>(min_break, max_break <span class="sc">+</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="dv">2</span>) <span class="co"># selected interval ~ 2 SD    </span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>alpha_labels <span class="ot">&lt;-</span> LETTERS[<span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(breaks)<span class="sc">-</span><span class="dv">1</span>)]</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Classify each PC separately and add axis number to label</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(pc_cols)) </span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  pc_name <span class="ot">&lt;-</span> pc_cols[i]          </span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  axis_no <span class="ot">&lt;-</span> i                   </span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  bin_letters <span class="ot">&lt;-</span> <span class="fu">cut</span>(pca_scores[[pc_name]],</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> breaks,</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> alpha_labels,</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>                     <span class="at">right =</span> F,</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>                     <span class="at">include.lowest =</span> T)</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  pca_scores[[<span class="fu">paste0</span>(pc_name, <span class="st">"_class"</span>)]] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">is.na</span>(bin_letters),</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA_character_</span>,</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(axis_no, <span class="fu">as.character</span>(bin_letters))</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>pc_class_cols <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"PC"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="st">"_class"</span>)</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>pca_scores<span class="sc">$</span>STRAT <span class="ot">&lt;-</span> <span class="fu">apply</span>(pca_scores[pc_class_cols], <span class="dv">1</span>, <span class="cf">function</span>(x) {</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(x, <span class="at">collapse =</span> <span class="st">"_"</span>)</span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>breaks <span class="ot">&lt;-</span> <span class="fu">seq</span>(min_break, max_break <span class="sc">+</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="dv">2</span>) <span class="co"># selected interval ~ 2 SD    </span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>alpha_labels <span class="ot">&lt;-</span> LETTERS[<span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(breaks)<span class="sc">-</span><span class="dv">1</span>)]</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Classify each PC separately and add axis number to the label</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(pc_cols)) </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  pc_name <span class="ot">&lt;-</span> pc_cols[i]          </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  axis_no <span class="ot">&lt;-</span> i                   </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  bin_letters <span class="ot">&lt;-</span> <span class="fu">cut</span>(pca_scores[[pc_name]],</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> breaks,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> alpha_labels,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                     <span class="at">right =</span> F,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>                     <span class="at">include.lowest =</span> T)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  pca_scores[[<span class="fu">paste0</span>(pc_name, <span class="st">"_class"</span>)]] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">is.na</span>(bin_letters),</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA_character_</span>,</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(axis_no, <span class="fu">as.character</span>(bin_letters))</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>pc_class_cols <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"PC"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="st">"_class"</span>)</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>pca_scores<span class="sc">$</span>STRAT <span class="ot">&lt;-</span> <span class="fu">apply</span>(pca_scores[pc_class_cols], <span class="dv">1</span>, <span class="cf">function</span>(x) {</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(x, <span class="at">collapse =</span> <span class="st">"_"</span>)</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><img src="images/number_of_strata.png" class="img-fluid" width="356"></p>
 <p>This way we obtained 314 unique strata. Visual inspection of resulting strata on the map:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># join strata to the grid layer</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## join strata to the grid layer</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>pca_scores<span class="sc">$</span>CELLCODE <span class="ot">&lt;-</span> <span class="fu">row.names</span>(pca_scores)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>cz.grid.utm <span class="ot">&lt;-</span> <span class="fu">left_join</span>(cz.grid.utm,pca_scores[,<span class="fu">c</span>(<span class="st">"CELLCODE"</span>,<span class="st">"STRAT"</span>)], <span class="at">by =</span> <span class="st">"CELLCODE"</span>)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>pca_scores<span class="sc">$</span>CELLCODE <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
