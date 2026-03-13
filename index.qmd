@@ -2,6 +2,14 @@
 title: "Czech Vegetation Database"
 ---
 
+### On 10th March 2026, we changed the website address, so please go to the new one available at
+
+### <https://czechveg.github.io/>
+
+### This webpage is no longer updated.
+
+### Sorry for any inconvenience. 
+
 ## 1 Introduction
 
 The Czech Vegetation Database (formerly the *Czech National Phytosociological Database*) is an open digital archive of vegetation-plot records from the territory of the Czech Republic. It includes phytosociological relevés, i.e., records of plant species composition and cover-abundances in delimited plots within relatively homogeneous vegetation patches, as well as similar vegetation-plot data from vegetation surveys, monitoring programs, and ecological studies.
